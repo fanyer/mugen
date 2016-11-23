@@ -1,0 +1,180 @@
+[Output]
+ ;Filename of the SFF file to create (required).
+filename = font/num48.sff
+
+[Option]
+ ;Directory containing source files.
+;input.dir =
+ ;Use compression for medium and large fonts.
+sprite.compress.5 = lz5
+sprite.compress.8 = rle8
+sprite.compress.24 = none
+ ;Decompressed when loaded from disk.
+sprite.decompressonload = 0
+ ;0 - Detect identical files only through filename.
+sprite.detectduplicates = 0
+ ;0 - Do not auto-crop sprites (default).
+sprite.autocrop = 0
+ ;0 - Detect identical files only through filename.
+pal.detectduplicates = 0
+ ;0 - Do not discard duplicate palettes (default).
+pal.discardduplicates = 0
+
+;Palettes
+;Accepts .act as well as .pcx files (the palette is extracted from the pcx)
+;Format:
+;  group,itemno, fname, startcol,endcol
+;For font palettes, group,itemno should be 0,bankno, where bankno is the
+;color bank number.  Accepts an arbitrary number of color banks.
+;startcol,endcol should be 0,255 for 256-color palettes.
+[Pal]
+0,0, num48.pcx, 0,255
+0,1, red.act, 0, 255
+0,2, green.act, 0, 255
+0,3, blue.act, 0, 255
+0,4, brown.act, 0, 255
+0,5, cyan.act, 0, 255
+0,6, purple.act, 0, 255
+0,7, yellow.act, 0, 255
+
+[Option]
+;Use this pal for all sprites
+sprite.usepal = 0,0
+
+;Sprites
+;Accepts 8-bit .pcx files
+;group,itemno, fname, axisx, axisy
+[Sprite]
+;For font sprites, group,itemno should be 0,ASCII-code (See reference at bottom).
+;Sorry, no UTF-8 support!
+;0, 33, num48.pcx,  0, 0
+;0, 34, num48.pcx,  0, 0
+;0, 35, num48.pcx,  0, 0
+;0, 36, num48.pcx,  0, 0
+;0, 37, num48.pcx,  0, 0
+;0, 38, num48.pcx,  0, 0
+;0, 39, num48.pcx,  0, 0
+;0, 40, num48.pcx,  0, 0
+;0, 41, num48.pcx,  0, 0
+;0, 42, num48.pcx,  0, 0
+;0, 43, num48.pcx,  0, 0
+;0, 44, num48.pcx,  0, 0
+;0, 45, num48.pcx,  0, 0
+;0, 46, num48.pcx,  0, 0
+;0, 47, num48.pcx,  0, 0
+0, 48, num48.pcx,  0, 0           ? crop=0,0,39,47
+0, 49, num48.pcx, 40, 0           ? crop=40,0,79,47
+0, 50, num48.pcx, 80, 0           ? crop=80,0,119,47
+0, 51, num48.pcx,120, 0           ? crop=120,0,159,47
+0, 52, num48.pcx,160, 0           ? crop=160,0,199,47
+0, 53, num48.pcx,200, 0           ? crop=200,0,239,47
+0, 54, num48.pcx,240, 0           ? crop=240,0,279,47
+0, 55, num48.pcx,280, 0           ? crop=280,0,319,47
+0, 56, num48.pcx,320, 0           ? crop=320,0,359,47
+0, 57, num48.pcx,360, 0           ? crop=360,0,399,47
+;0, 58, num48.pcx,  0, 0
+;0, 59, num48.pcx,  0, 0
+;0, 60, num48.pcx,  0, 0
+;0, 61, num48.pcx,  0, 0
+;0, 62, num48.pcx,  0, 0
+;0, 63, num48.pcx,  0, 0
+;0, 64, num48.pcx,  0, 0
+;0, 65, num48.pcx,  0, 0
+;0, 66, num48.pcx,  0, 0
+;0, 67, num48.pcx,  0, 0
+;0, 68, num48.pcx,  0, 0
+;0, 69, num48.pcx,  0, 0
+;0, 70, num48.pcx,  0, 0
+;0, 71, num48.pcx,  0, 0
+;0, 72, num48.pcx,  0, 0
+;0, 73, num48.pcx,  0, 0
+;0, 74, num48.pcx,  0, 0
+;0, 75, num48.pcx,  0, 0
+;0, 76, num48.pcx,  0, 0
+;0, 77, num48.pcx,  0, 0
+;0, 78, num48.pcx,  0, 0
+;0, 79, num48.pcx,  0, 0
+;0, 80, num48.pcx,  0, 0
+;0, 81, num48.pcx,  0, 0
+;0, 82, num48.pcx,  0, 0
+;0, 83, num48.pcx,  0, 0
+;0, 84, num48.pcx,  0, 0
+;0, 85, num48.pcx,  0, 0
+;0, 86, num48.pcx,  0, 0
+;0, 87, num48.pcx,  0, 0
+;0, 88, num48.pcx,  0, 0
+;0, 89, num48.pcx,  0, 0
+;0, 90, num48.pcx,  0, 0
+;0, 91, num48.pcx,  0, 0
+;0, 92, num48.pcx,  0, 0
+;0, 93, num48.pcx,  0, 0
+;0, 94, num48.pcx,  0, 0
+;0, 95, num48.pcx,  0, 0
+;0, 96, num48.pcx,  0, 0
+;0, 97, num48.pcx,  0, 0
+;0, 98, num48.pcx,  0, 0
+;0, 99, num48.pcx,  0, 0
+;0, 100, num48.pcx,  0, 0
+;0, 101, num48.pcx,  0, 0
+;0, 102, num48.pcx,  0, 0
+;0, 103, num48.pcx,  0, 0
+;0, 104, num48.pcx,  0, 0
+;0, 105, num48.pcx,  0, 0
+;0, 106, num48.pcx,  0, 0
+;0, 107, num48.pcx,  0, 0
+;0, 108, num48.pcx,  0, 0
+;0, 109, num48.pcx,  0, 0
+;0, 110, num48.pcx,  0, 0
+0, 111, num48.pcx,400, 0           ? crop=400,0,455,47
+;0, 112, num48.pcx,  0, 0
+;0, 113, num48.pcx,  0, 0
+;0, 114, num48.pcx,  0, 0
+;0, 115, num48.pcx,  0, 0
+;0, 116, num48.pcx,  0, 0
+;0, 117, num48.pcx,  0, 0
+;0, 118, num48.pcx,  0, 0
+;0, 119, num48.pcx,  0, 0
+;0, 120, num48.pcx,  0, 0
+;0, 121, num48.pcx,  0, 0
+;0, 122, num48.pcx,  0, 0
+;0, 123, num48.pcx,  0, 0
+;0, 124, num48.pcx,  0, 0
+;0, 125, num48.pcx,  0, 0
+;0, 126, num48.pcx,  0, 0
+
+;ASCII code table
+;Printable characters are in the range 32-126
+;Char  Dec | Char  Dec | Char  Dec | Char  Dec  
+;---------------------------------------------
+;(nul)   0 | (sp)   32 | @      64 | `      96
+;(soh)   1 | !      33 | A      65 | a      97
+;(stx)   2 | "      34 | B      66 | b      98
+;(etx)   3 | #      35 | C      67 | c      99
+;(eot)   4 | $      36 | D      68 | d     100
+;(enq)   5 | %      37 | E      69 | e     101
+;(ack)   6 | &      38 | F      70 | f     102
+;(bel)   7 | '      39 | G      71 | g     103
+;(bs)    8 | (      40 | H      72 | h     104
+;(ht)    9 | )      41 | I      73 | i     105
+;(nl)   10 | *      42 | J      74 | j     106
+;(vt)   11 | +      43 | K      75 | k     107
+;(np)   12 | ,      44 | L      76 | l     108
+;(cr)   13 | -      45 | M      77 | m     109
+;(so)   14 | .      46 | N      78 | n     110
+;(si)   15 | /      47 | O      79 | o     111
+;(dle)  16 | 0      48 | P      80 | p     112
+;(dc1)  17 | 1      49 | Q      81 | q     113
+;(dc2)  18 | 2      50 | R      82 | r     114
+;(dc3)  19 | 3      51 | S      83 | s     115
+;(dc4)  20 | 4      52 | T      84 | t     116
+;(nak)  21 | 5      53 | U      85 | u     117
+;(syn)  22 | 6      54 | V      86 | v     118
+;(etb)  23 | 7      55 | W      87 | w     119
+;(can)  24 | 8      56 | X      88 | x     120
+;(em)   25 | 9      57 | Y      89 | y     121
+;(sub)  26 | :      58 | Z      90 | z     122
+;(esc)  27 | ;      59 | [      91 | {     123
+;(fs)   28 | <      60 | \      92 | |     124
+;(gs)   29 | =      61 | ]      93 | }     125
+;(rs)   30 | >      62 | ^      94 | ~     126
+;(us)   31 | ?      63 | _      95 | (del) 127

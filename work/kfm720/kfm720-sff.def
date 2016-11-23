@@ -1,0 +1,390 @@
+[Output]
+ ;Filename of the SFF file to create (required).
+filename = chars/kfm720/kfm720.sff
+
+[Option]
+ ;Input directory where files are to be read from. Defaults to the same
+ ;directory as this def file if omitted.
+;input.dir =
+ ;Sprite compression method for 5-bit sprites (32 color). Choose from:
+ ;none - No compression. This generates very big files (default).
+ ;lz5  - Lossless encoding for 5-bit (32 color) sprites. Compression is slow;
+ ;       decompression is fast. Compression ratio is good.
+ ;rle5 - Lossless encoding for 5-bit (32 color) sprites. Compression is fast;
+ ;       decompression is fast. Compression ratio is average.
+sprite.compress.5 = lz5
+ ;Sprite compression method for 8-bit sprites (256 color). Choose from:
+ ;none - No compression. This generates very big files (default).
+ ;rle8 - Lossless encoding for sprites with color depth up to 8-bits (256
+ ;       colors). Compression and decompression are fast. Compression ratio is
+ ;       low. Suitable for images with 33 to 256 colors.
+ ;       Advanced: best compression ratio is achieved on images where most of
+ ;       the color indices are in the range 0-127 and 192-255.
+sprite.compress.8 = rle8
+ ;Sprite compression method for 24-bit sprites (true color). Choose from:
+ ;none - No compression. This generates very big files (default).
+ ;rle16- Lossless encoding for 16-bit (high color) sprites. Input files in 24-
+ ;       bit format will be downsampled to 16-bits before being encoded.
+ ;       (NOT YET AVAILABLE)
+ ;rle24- Lossless encoding for 24-bit (true color) sprites.
+ ;       (NOT YET AVAILABLE)
+sprite.compress.24 = none
+ ;This option affects the program that uses the sprites.
+ ;0 - sprites are to be decompressed when needed (default).
+ ;1 - sprites are to be decompressed when loaded from disk. This uses more
+ ;    memory when the program runs, but the sprite can be drawn faster. This
+ ;    setting is suitable for images that are drawn very frequently, especially
+ ;    large ones (eg. in backgrounds).
+sprite.decompressonload = 0
+ ;0 - Detect identical files only through filename. Duplicate files references
+ ;    are linked to the original in order to reduce SFF file size as well as
+ ;    memory usage (default).
+ ;1 - More thorough comparison of sprite files; actual bytes are compared. Use
+ ;    this setting to reduce file size.
+ ;    Note: Comparisons are done before cropping.
+sprite.detectduplicates = 0
+ ;0 - Do not auto-crop sprites (default).
+ ;1 - Automatically crop sprites before adding to them the SFF file. Use this
+ ;    setting to reduce file size.
+sprite.autocrop = 1
+ ;0 - Detect identical files only through filename. Duplicate files references
+ ;    are linked to the original in order to reduce SFF file size as well as
+ ;    memory usage (default).
+ ;1 - More thorough comparison of palette files; actual bytes are compared. Use
+ ;    this setting to reduce file size.
+pal.detectduplicates = 1
+ ;0 - Do not discard duplicate palettes (default).
+ ;1 - Discard any duplicate palettes that are detected, instead of linking
+ ;    them. Any sprite using a palette that is removed will be set to use the
+ ;    non-duplicate palette instead, eg. if palette (1,2) is a duplicate of
+ ;    (1,1),  palette (1,2) will be discarded, and any sprites using palette
+ ;    (1,2) will be set to use palette (1,1) instead.
+ ;    Use this setting to reduce the number of palettes in use, especially
+ ;    when adding many palettes through the auto-add palette option
+ ;    (sprite.usepal = -1).
+pal.discardduplicates = 1
+ ;0 - Do not reverse ACT file color order.
+ ;1 - Reverse the order of colors in the palette when loading from an ACT file.
+ ;    Can be used to correct the color order if your image editor saves ACT
+ ;    files with the color order reversed.  Photoshop is known to do this.
+pal.reverseact = 0
+ ;0 - Do not reverse PNG file color order.
+ ;1 - Reverse the order of colors when loading from a PNG file.
+ ;    Can be used to correct the color order if your image editor saves it in
+ ;    reverse.  This affects both sprites and palettes read from PNG files.
+pal.reversepng = 0
+
+;Palettes
+;Accepts .act as well as .pcx/.png files (the palette is extracted from the
+;pcx or png).
+;Character palettes should be numbered from 1,1 to 1,6. Extra palettes for
+;projectiles, etc. may use any other number.
+;Format:
+;  group,itemno, fname, startcol,endcol
+[Pal]
+1,1, color1.png, 224,255
+1,2, color2.png, 224,255
+1,3, color3.png, 224,255
+1,4, color4.png, 224,255
+1,5, color5.png, 224,255
+1,6, color6.png, 224,255
+
+[Option] ;You can set option states at any time
+sprite.usepal = -1   ;Use -1 to add and use self's pal (autopal)
+
+;Sprites
+;Accepts 8-bit .png files
+;group,itemno, fname, axisx, axisy
+[Sprite]
+9000, 0, f-face.png,   0,  0     ? usepal = -1  ;Use own palette (adds as 9000,0)
+9000, 1, f-faceb.png,  0,  0     ? usepal = -1  ;Use own palette (adds as 9000,1)
+
+[Option] ;You can set option states at any time
+sprite.usepal = 1,1    ;Use kfm.act for all these sprites
+                       ;Sprite's own pal data will be discarded
+                       ;Use -1 to add and use self's pal (autopal)
+ ;Removes colors from sprites in order to reduce color depth.
+ ;Specify the range of colors to remove, or use -1 to disable this feature
+ ;(default).
+sprite.removecolors = 1,224 ;Convert 8-bit to 5-bit (32 color) sprites
+
+[Sprite]
+   0, 0, stand00.png,  72,420
+   0, 1, stand01.png,  72,416
+   0, 2, stand02.png,  72,416
+   0, 3, stand03.png,  72,416
+   0, 4, stand04.png,  72,416
+   0, 5, stand05.png,  72,416
+   5, 0, sturn00.png,  64,420
+   6, 0, cturn00.png,  76, 292
+  11, 0, crouch00.png,  68, 364
+  11, 1, crouch01.png,  68, 316
+  11, 2, crouch02.png,  72, 292
+  20, 0, walkf00.png,  88,440
+  20, 1, walkf01.png,  68,444
+  20, 2, walkf02.png,  68,444
+  20, 3, walkf03.png,  68,440
+  20, 4, walkf04.png,  68,436
+  20, 5, walkf05.png,  80,428
+  20, 6, walkf06.png,  88,424
+  20, 7, walkf07.png,  88,432
+  20, 8, walkf08.png,  88,440
+  20, 9, walkf09.png,  68,444
+  20,10, walkf10.png,  68,444
+  20,11, walkf11.png,  68,440
+  20,12, walkf12.png,  68,436
+  20,13, walkf13.png,  80,428
+  20,14, walkf14.png,  88,424
+  20,15, walkf15.png,  88,432
+  21, 0, walkb00.png,  88,440
+  21, 1, walkb01.png,  68,444
+  21, 2, walkb02.png,  68,444
+  21, 3, walkb03.png,  68,440
+  21, 4, walkb04.png,  68,436
+  21, 5, walkb05.png,  80,428
+  21, 6, walkb06.png,  88,424
+  21, 7, walkb07.png,  88,432
+  21, 8, walkb08.png,  88,440
+  21, 9, walkb09.png,  68,444
+  21,10, walkb10.png,  68,444
+  21,11, walkb11.png,  68,440
+  21,12, walkb12.png,  68,436
+  21,13, walkb13.png,  80,428
+  21,14, walkb14.png,  88,424
+  21,15, walkb15.png,  88,432
+  41, 0, jumpup00.png,  72,468
+  41, 1, jumpup01.png,  68,440
+  41, 2, jumpup02.png,  68,408
+  41, 3, jumpup03.png,  68, 380
+  41, 4, jumpup04.png,  64, 372
+  41, 5, jumpup05.png,  68,408
+  41, 6, jumpup06.png,  68,440
+  41, 7, jumpup07.png,  68,464
+  41, 8, jumpup08.png,  68,464
+  42, 0, jumpf00.png,  84,464
+  42, 1, jumpf01.png,  80,436
+  42, 2, jumpf02.png,  72, 360
+  42, 3, jumpf03.png,  108, 308
+  42, 4, jumpf04.png,  76, 340
+  42, 5, jumpf05.png,  124, 316
+  43, 0, jumpb00.png,  72,464
+  43, 1, jumpb01.png,  68,440
+ 100, 0, runf00.png,  152, 396
+ 100, 1, runf01.png,  220,404
+ 100, 2, runf02.png,  144,424
+ 100, 3, runf03.png,  148, 396
+ 100, 4, runf04.png,  220,404
+ 100, 5, runf05.png,  132,424
+ 181, 0, win_a00.png,  64,432
+ 181, 1, win_a01.png,  48,452
+ 181, 2, win_a02.png,  52,452
+ 181, 3, win_a03.png,  48,448
+ 181, 4, win_a04.png,  52,416
+ 181, 5, win_a05.png,  52, 356
+ 181, 6, win_a06.png,  52, 340
+ 191, 0, wood00.png,  56, 52
+ 191, 1, wood01.png,  72,  32
+ 191, 2, wood02.png,  56, 48
+ 191, 3, wood03.png,   32, 72
+ 192, 0, woodb00.png,  68, 56
+ 192, 1, woodb01.png,  60, 64
+ 120, 0, guards00.png,  88,416
+ 120, 1, guards01.png,  104,416
+ 120, 2, guards02.png,  120,416
+ 121, 0, guardc00.png,  76, 288
+ 122, 0, guarda00.png,  64,400
+5000, 0, hithi00.png,  92,420
+5001, 0, hithi00.png,  80, 200
+5002, 0, hithi00.png,  64, 80
+5000,10, hithi10.png,  124,416
+5001,10, hithi10.png,  108, 200
+5002,10, hithi10.png,  60, 80
+5000,11, hithi11.png,  152, 376
+5000,20, hithi20.png,  212, 352
+5001,20, hithi20.png,  160, 136
+5002,20, hithi20.png,  72, 68
+5000,21, hithi21.png,  212, 356
+5010, 0, hitlo00.png,  124, 384
+5011, 0, hitlo00.png,  60, 172
+5012, 0, hitlo00.png,  96, 72
+5010,10, hitlo10.png,  136, 348
+5011,10, hitlo10.png,  68, 156
+5012,10, hitlo10.png,  112, 64
+5010,20, hitlo20.png,  140, 320
+5011,20, hitlo20.png,  60, 124
+5012,20, hitlo20.png,  120, 56
+5010,21, hitlo21.png,  140, 324
+5020, 0, hitc00.png,  80, 296
+5020,10, hitc10.png,  112, 288
+5020,20, hitc20.png,  156, 240
+5030, 0, hita00.png,  152,428
+5031, 0, hita00.png,  152, 176
+5032, 0, hita00.png,  68, 64
+5030,10, hita10.png,  196, 392
+5031,10, hita10.png,  192, 148
+5032,10, hita10.png,  76, 80
+5030,20, hitf20.png,  196, 320
+5031,20, hitf20.png,  176, 148
+5032,20, hitf20.png,  72, 116
+5030,30, hitf30.png,  232, 360
+5031,30, hitf30.png,  208, 136
+5032,30, hitf30.png,  80, 160
+5030,31, hitf31.png,  232, 360
+5030,40, hitf40.png,  188,412
+5031,40, hitf40.png,  172, 168
+5032,40, hitf40.png,  72, 248
+5030,50, hitf50.png,  140,480
+5031,50, hitf50.png,  132, 232
+5032,50, hitf50.png,  60, 352
+5040, 0, hitf20.png,  196, 180
+5041, 0, hitf20.png,  176, 148
+5042, 0, hitf20.png,  72, 116
+5040, 1, hitupf01.png,  196, 252
+5040,10, hitlie10.png,  200, 132
+5041,10, hitlie10.png,  204, 88
+5042,10, hitlie10.png,  76, 120
+5040,11, hitlie11.png,  72, 268
+5040,20, hitd00.png,  196, 220
+5041,20, hitd00.png,  176, 180
+5042,20, hitd00.png,  68, 156
+5060, 0, hitup00.png,  92,428
+5061, 0, hitup00.png,  100, 160
+5062, 0, hitup00.png,  80,  28
+5060, 1, hitup01.png,  92,428
+5060,10, hitup10.png,  76,452
+5061,10, hitup10.png,  52, 252
+5062,10, hitup10.png,  44, 380
+5070, 0, hitth00.png,  164,460
+5071, 0, hitth00.png,  168, 188
+5072, 0, hitth00.png,  228, 80
+5070,10, hitth10.png,  232,420
+5071,10, hitth10.png,  224, 156
+5072,10, hitth10.png,  312, 76
+5070,20, hitth20.png,  240, 368
+5071,20, hitth20.png,  240, 72
+5072,20, hitth20.png,  364, 48
+5300, 0, dizzy00.png,  124, 328
+5300, 1, dizzy01.png,  124, 324
+5300, 2, dizzy02.png,  124, 316
+5300, 3, dizzy03.png,  124, 312
+ 200, 0, s_x00.png,  64,420
+ 200, 1, s_x01.png,  56,420
+ 200, 2, s_x02.png,  56,420
+ 210, 0, s_y00.png,  44,400
+ 210, 1, s_y01.png,   28, 388
+ 210, 2, s_y02.png,   24,404
+ 210, 3, s_y03.png,  52,412
+ 210, 4, s_y04.png,  52,412
+ 210, 5, s_y05.png,  56,416
+ 230, 0, s_a00.png,  72,432
+ 230, 1, s_a01.png,  44,424
+ 230, 2, s_a02.png,  44,428
+ 240, 0, s_b00.png,  84,424
+ 240, 1, s_b01.png,  76,424
+ 240, 2, s_b02.png,  104,416
+ 240, 3, s_b03.png,  88,416
+ 240, 4, s_b04.png,  56,416
+ 240, 5, s_b05.png,   24,416
+ 400, 0, c_x00.png,  76, 292
+ 400, 1, c_x01.png,  72, 292
+ 410, 0, c_y00.png,  48, 332
+ 410, 1, c_y01.png,  48, 332
+ 410, 2, c_y02.png,  48, 336
+ 410, 3, c_y03.png,  44, 376
+ 410, 4, c_y04.png,  48, 352
+ 430, 0, c_a00.png,  80, 288
+ 430, 1, c_a01.png,  112, 256
+ 430, 2, c_a02.png,  128, 240
+ 430, 3, c_a03.png,  124, 240
+ 440, 0, c_b00.png,  56, 284
+ 440, 1, c_b01.png,  76, 248
+ 440, 2, c_b02.png,  44, 248
+ 440, 3, c_b03.png,  88, 260
+ 440, 4, c_b04.png,  72, 260
+ 440, 5, c_b05.png,  56, 256
+ 440, 6, c_b06.png,  76, 252
+ 600, 0, a_x00.png,  76, 388
+ 600, 1, a_x01.png,  68, 388
+ 610, 0, a_y00.png,  120,408
+ 610, 1, a_y01.png,  48, 392
+ 610, 2, a_y02.png,  68, 376
+ 610, 3, a_y03.png,  52, 388
+ 630, 1, a_a01.png,  108, 388
+ 630, 2, a_a02.png,  100, 388
+ 640, 0, a_b00.png,  76, 396
+ 640, 1, a_b01.png,  120, 388
+ 640, 2, a_b02.png,  112, 388
+ 800, 0, s_th_a00.png,  56,412
+ 800, 1, s_th_a01.png,  56, 388
+ 800, 2, s_th_a02.png,  52, 368
+ 800, 3, s_th_a03.png,  52, 352
+ 800, 4, s_th_a04.png,  60, 360
+ 800, 5, s_th_a05.png,  48,416
+ 800, 6, s_th_a06.png,  48,400
+ 800, 7, s_th_a07.png,  60,400
+ 800, 8, s_th_a08.png,  96, 380
+ 800, 9, s_th_a09.png,  116,444
+ 800,10, s_th_a10.png,  196, 352
+ 800,11, s_th_a11.png,  156, 344
+ 800,12, s_th_a12.png,  148, 344
+1000, 0, palm00.png,  156, 376
+1000, 1, palm01.png,  196, 356
+1000, 2, palm02.png,  196, 356
+1000, 3, palm03.png,  216, 332
+1000, 4, palm04.png,  216, 332
+1000, 5, palm05.png,  216, 332
+1000, 6, palm06.png,  216, 332
+1000, 7, palm07.png,  212, 344
+1050, 0, knee00.png,  76, 396
+1050, 1, knee01.png,  72,408
+1050, 2, knee02.png,  96,456
+1050, 3, knee03.png,  108,460
+1050, 4, knee04.png,  108,460
+1050, 5, knee05.png,  92,452
+1050, 6, knee06.png,  72,452
+1050, 7, knee07.png,  64,460
+1052, 0, kneeld00.png,  76, 396
+1052, 1, kneeld01.png,  60, 340
+1052, 2, kneeld02.png,  60, 364
+1052, 3, kneeld03.png,  72,424
+1055, 0, kneek00.png,  144,428
+1055, 1, kneek01.png,  116,432
+1055, 2, kneek02.png,  104,436
+1055, 3, kneek03.png,  80,472
+1055, 4, kneek04.png,  72,440
+1055, 5, kneek05.png,  72,452
+1055, 6, kneek06.png,  76,452
+1055, 7, kneek07.png,  76,448
+1100, 0, upper00.png,  56,412
+1100, 1, upper01.png,  56,412
+1100, 2, upper02.png,  48,408
+1100, 3, upper03.png,  44,408
+1100, 4, upper04.png,  40,416
+1100, 5, upper05.png,   28,556
+1100, 6, upper06.png,   28,528
+1100, 7, upper07.png,   28,528
+1100, 8, upper08.png,   28,512
+1100, 9, upper09.png,   32,452
+1210, 0, stun00.png,  80,424
+1210, 1, stun01.png,  84,428
+1210, 2, stun02.png,  72,420
+1210, 3, stun03.png,  60,416
+1210, 4, stun04.png,  52, 372
+1210, 5, stun05.png,  60, 372
+1210, 6, stun06.png,  72, 380
+1300, 0, block00.png,  68,420
+1300, 1, block01.png,  68,420
+1300, 2, block02.png,  68,420
+1320, 0, cblock00.png,  64, 284
+1320, 1, cblock01.png,  64, 284
+1320, 2, cblock02.png,  76, 284
+1340, 0, ablock00.png,  64,404
+1340, 1, ablock01.png,  64,404
+1400, 0, tzanko00.png,  64,312
+1400, 1, tzanko01.png,  60,312
+1400, 2, tzanko02.png,  140,304
+1400, 3, tzanko03.png,  104,424
+1400, 4, tzanko04.png,  104,424
+1400, 5, tzanko05.png,  104,424
+1400, 6, tzanko06.png,  92,416
+1400, 7, tzanko07.png,  116,404

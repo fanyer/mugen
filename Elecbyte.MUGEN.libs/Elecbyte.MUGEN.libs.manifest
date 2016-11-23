@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+<assemblyIdentity name="Elecbyte.MUGEN.libs" processorArchitecture="x86" type="win32" version="1.0.0.0">
+</assemblyIdentity>
+<dependency>
+  <dependentAssembly>
+    <assemblyIdentity name="Microsoft.VC90.CRT" processorArchitecture="x86" publicKeyToken="1fc8b3b9a1e18e3b" type="win32" version="9.0.21022.8"></assemblyIdentity>
+  </dependentAssembly>
+</dependency>
+<file hash="dfb87addfe431c99169677a3e9f534bf1e07f531" hashalg="SHA1" name="glew32.dll"></file>
+<file hash="36c5b21a3ac0b60fd6d451255771d11929be37fc" hashalg="SHA1" name="libfreetype-6.dll"></file>
+<file hash="b445bf3f1e11edaabef4ed6778aa2443190c26fb" hashalg="SHA1" name="libmpg123-0.dll"></file>
+<file hash="d7ed97ae6634c38ba47fe17722bd308e068475a0" hashalg="SHA1" name="libpng12-0.dll"></file>
+<file hash="fc57ce7fd94940e54a6e97fb38ea6841618c68ec" hashalg="SHA1" name="libresample.dll"></file>
+<file hash="f53cfbc75db905148e86fc964a5d6adecaa25039" hashalg="SHA1" name="mikmod.dll"></file>
+<file hash="064c049390dd43c8a8e3d5a1593106ccf78cde01" hashalg="SHA1" name="pthreadVC2.dll"></file>
+<file hash="7f1255c32071e82b387f23ed4ca95aa795add37c" hashalg="SHA1" name="SDL.dll"></file>
+<file hash="e9f4aeacba4e1cc4d34808ef5fc4468c9eef5097" hashalg="SHA1" name="SDL_gfx.dll"></file>
+<file hash="99b4a7b5610580a7b9337ee7dc28a3e99ece398d" hashalg="SHA1" name="SDL_image.dll"></file>
+<file hash="6427494b0eef512bde68d023b5f7d8d1fbdd9246" hashalg="SHA1" name="SDL_mixer.dll"></file>
+<file hash="1ac1133920acc1338dbdb1bf2cc951086cd4c2bd" hashalg="SHA1" name="SDL_ttf.dll"></file>
+<file hash="887b97b064424b30b59fa49deda0db1a03881799" hashalg="SHA1" name="zlib1.dll"></file>
+</assembly>

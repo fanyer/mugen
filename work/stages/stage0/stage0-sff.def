@@ -1,0 +1,85 @@
+[Output]
+ ;Filename of the SFF file to create (required).
+filename = stages/stage0.sff
+
+[Option]
+ ;Input directory where files are to be read from. Defaults to current
+ ;directory if omitted.
+;input.dir =
+ ;Sprite compression method for 5-bit sprites (32 color). Choose from:
+ ;none - No compression. This generates very big files (default).
+ ;lz5  - Lossless encoding for 5-bit (32 color) sprites. Compression is slow;
+ ;       decompression is fast. Compression ratio is good.
+ ;rle5 - Lossless encoding for 5-bit (32 color) sprites. Compression is fast;
+ ;       decompression is fast. Compression ratio is average.
+sprite.compress.5 = lz5
+ ;Sprite compression method for 8-bit sprites (256 color). Choose from:
+ ;none - No compression. This generates very big files (default).
+ ;rle8 - Lossless encoding for sprites with color depth up to 8-bits (256
+ ;       colors). Compression and decompression are fast. Compression ratio is
+ ;       low. Suitable for images with 33 to 256 colors.
+ ;       Advanced: best compression ratio is achieved on images where most of
+ ;       the color indices are in the range 0-127 and 192-255.
+sprite.compress.8 = rle8
+ ;Sprite compression method for 24-bit sprites (true color). Choose from:
+ ;none - No compression. This generates very big files (default).
+ ;rle16- Lossless encoding for 16-bit (high color) sprites. Input files in 24-
+ ;       bit format will be downsampled to 16-bits before being encoded.
+ ;       (NOT YET AVAILABLE)
+ ;rle24- Lossless encoding for 24-bit (true color) sprites.
+ ;       (NOT YET AVAILABLE)
+sprite.compress.24 = none
+ ;This option affects the program that uses the sprites.
+ ;0 - sprites are to be decompressed when needed (default).
+ ;1 - sprites are to be decompressed when loaded from disk. This uses more
+ ;    memory when the program runs, but the sprite can be drawn faster. This
+ ;    setting is suitable for images that are drawn very frequently, especially
+ ;    large ones (eg. in backgrounds).
+sprite.decompressonload = 1
+ ;0 - Detect identical files only through filename. Duplicate files references
+ ;    are linked to the original in order to reduce SFF file size as well as
+ ;    memory usage (default).
+ ;1 - More thorough comparison of sprite files; actual bytes are compared. Use
+ ;    this setting to reduce file size.
+ ;    Note: Comparisons are done before cropping.
+sprite.detectduplicates = 0
+ ;0 - Do not auto-crop sprites (default).
+ ;1 - Automatically crop sprites before adding to them the SFF file. Use this
+ ;    setting to reduce file size.
+sprite.autocrop = 1
+ ;0 - Detect identical files only through filename. Duplicate files references
+ ;    are linked to the original in order to reduce SFF file size as well as
+ ;    memory usage (default).
+ ;1 - More thorough comparison of palette files; actual bytes are compared. Use
+ ;    this setting to reduce file size.
+pal.detectduplicates = 1
+ ;0 - Do not discard duplicate palettes (default).
+ ;1 - Discard any duplicate palettes that are detected, instead of linking
+ ;    them. Any sprite using a palette that is removed will be set to use the
+ ;    non-duplicate palette instead, eg. if palette (1,2) is a duplicate of
+ ;    (1,1),  palette (1,2) will be discarded, and any sprites using palette
+ ;    (1,2) will be set to use palette (1,1) instead.
+ ;    Use this setting to reduce the number of palettes in use, especially
+ ;    when adding many palettes through the auto-add palette option
+ ;    (sprite.usepal = -1).
+pal.discardduplicates = 1
+
+
+;Palettes
+;Accepts .act as well as .pcx files (the palette is extracted from the pcx)
+;Character palettes should be numbered from 1,1 to 1,6. Extra palettes for
+;projectiles, etc. may use any other number.
+;Format:
+;  group,itemno, fname, startcol,endcol
+[Pal]
+;No manual palettes for this stage
+
+[Option] ;You can set option states at any time
+sprite.usepal = -1   ;Use -1 to add and use self's pal (autopal)
+
+;Sprites
+;Accepts 8-bit .pcx files
+;group,itemno, fname, axisx, axisy
+[Sprite]
+   0, 0, bg0.pcx,   0, 25
+   0, 1, bg1.pcx,   0,  0

@@ -1,0 +1,905 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+M.U.G.E.N documentation stylesheet.
+
+
+Modified from voidspace.css.
+
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+em, i {
+  font-family: Times New Roman, Times, serif;
+}
+
+a {
+  color: #5577EE;
+  text-decoration: none;
+}
+
+a.reference.internal {
+  font-size: 80%;
+}
+
+a.toc-backref {
+  color: black;
+  text-decoration: none;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #445BAA;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #667788;
+  color: #ffffff;
+  border: thin solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #445BAA;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+  font-size: 120%;
+}
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<div class="section" id="background-stage-documentation">
+<h1><a class="toc-backref" href="#id1">Background / Stage Documentation</a></h1>
+<p>M.U.G.E.N, (c) Elecbyte 1999-2010</p>
+<p>Documentation for version 1.0 (2009)</p>
+<p>Updated 19 April 2010</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#background-stage-documentation" id="id1">Background / Stage Documentation</a></li>
+<li><a class="reference internal" href="#overview" id="id2">Overview</a></li>
+<li><a class="reference internal" href="#description-of-stage-settings" id="id3">Description of stage settings</a><ul>
+<li><a class="reference internal" href="#info-group" id="id4"><tt class="docutils literal">Info</tt> Group</a></li>
+<li><a class="reference internal" href="#camera-group" id="id5"><tt class="docutils literal">Camera</tt> Group</a></li>
+<li><a class="reference internal" href="#playerinfo-group" id="id6"><tt class="docutils literal">PlayerInfo</tt> Group</a></li>
+<li><a class="reference internal" href="#bound-group" id="id7"><tt class="docutils literal">Bound</tt> Group</a></li>
+<li><a class="reference internal" href="#stageinfo-group" id="id8"><tt class="docutils literal">StageInfo</tt> Group</a></li>
+<li><a class="reference internal" href="#shadow-group" id="id9"><tt class="docutils literal">Shadow</tt> Group</a></li>
+<li><a class="reference internal" href="#reflection-group" id="id10"><tt class="docutils literal">Reflection</tt> Group</a></li>
+<li><a class="reference internal" href="#music-group" id="id11"><tt class="docutils literal">Music</tt> Group</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#description-of-background-elements" id="id12">Description of background elements</a><ul>
+<li><a class="reference internal" href="#static-background-elements" id="id13">Static background elements</a></li>
+<li><a class="reference internal" href="#animated-background-elements" id="id14">Animated background elements</a></li>
+<li><a class="reference internal" href="#parallaxing-background-elements" id="id15">Parallaxing background elements</a></li>
+<li><a class="reference internal" href="#advanced-parameters" id="id16">Advanced Parameters</a></li>
+<li><a class="reference internal" href="#other-background-element-types" id="id17">Other background element types</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#background-controllers" id="id18">Background controllers</a></li>
+<li><a class="reference internal" href="#simple-example" id="id19">Simple Example</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="overview">
+<h1><a class="toc-backref" href="#id2">Overview</a></h1>
+<p>A background in M.U.G.E.N consists of one or more background elements, and zero
+or more background controllers. These are combined with stage settings to
+produce the appearance and functionality of a stage for use in M.U.G.E.N.</p>
+<p>The stage settings control general parameters such as the size of the stage,
+movement of the camera, starting position of characters and camera in relation
+to the stage, shadow color, floor reflections, etc. Most fighting games
+maintain consistent values of these background parameters across their
+constituent stages, especially in regards to stage size and camera movement.</p>
+<p>A background element is an individual unit of graphical data that is displayed
+on screen. All the visible parts of the stage are formed out of background
+elements. Each background element has individual settings for its sprite data,
+transparency, location, tiling, scroll speed with respect to the camera, and
+animation (if applicable). &quot;Parallaxing&quot; elements add a raster effect when
+scrolling the camera. Background elements may be of any size, although in
+practice, backgrounds are usually pieced together from several moderately-sized
+elements.</p>
+<p>A background controller will perform additional manipulations on a background
+element, such as change its position or velocity, make it invisible or
+invisible, etc. Applications of background controllers include making
+characters stroll back and forth in the background, having debris fly across
+the screen, or creating changes in the background at set times (such entering a
+cave when the characters are fighting on a ship). In general, background
+controllers may allow you to create more advanced effects for a stage or
+optimize certain animations to reduce memory consumption, although many stages
+will do quite well without any controllers at all.</p>
+<p>When creating a stage, you must assure that the visible area on the screen is
+&quot;covered&quot; by background elements at all times. Leaving holes in the
+background will cause a hall-of-mirrors effect in that location. Enabling the
+<tt class="docutils literal">debugbg</tt> parameter will fill all holes with a bright shade of magenta, which
+should assist you in locating and fixing them.</p>
+<p>Besides the obvious use in stages, backgrounds objects are used in M.U.G.E.N
+for the backgrounds of all system screens such as the title screen and the
+character select screen, as well as for use in storyboards. These types of
+backgrounds are referred to as &quot;system backgrounds&quot; and &quot;storyboard
+backgrounds&quot; respectively. Background objects used for stages are called
+&quot;stage backgrounds&quot;. Besides their intended use, there is essentially no
+difference between the different types of backgrounds. This document covers
+stage settings as well as the background object format.</p>
+</div>
+<div class="section" id="description-of-stage-settings">
+<h1><a class="toc-backref" href="#id3">Description of stage settings</a></h1>
+<p>Stage settings define the background's relationship with the stage. The stage
+settings must be in the same stage file as the background. There are several
+groups that make up the settings. They are:</p>
+<p>(all parameters are required unless specifically marked as &quot;optional&quot;)</p>
+<div class="section" id="info-group">
+<h2><a class="toc-backref" href="#id4"><tt class="docutils literal">Info</tt> Group</a></h2>
+<dl class="docutils">
+<dt><tt class="docutils literal">name</tt> = <em>stage_name</em></dt>
+<dd>This parameter sets the name of the stage.  The parameter must be enclosed
+in double-quotes.</dd>
+<dt><tt class="docutils literal">displayname</tt> = <em>display_name</em></dt>
+<dd>This parameter sets the name to display in the stage select list.
+The parameter must be enclosed in double-quotes.
+If omitted, defaults to <em>stage_name</em>.</dd>
+<dt><tt class="docutils literal">versiondate</tt> = <em>version</em></dt>
+<dd>This parameter sets the version of the stage.
+The formats accepted are either a date (MM,DD,YYYY) or a x.xx version number,
+e.g. 1.23.
+This parameter is for informational purposes and is currently not used by the engine.</dd>
+<dt><tt class="docutils literal">mugenversion</tt> = <em>mugen_version</em></dt>
+<dd><p class="first">This parameter sets the target version number of M.U.G.E.N that the stage
+is designed for.  Valid values are 2002,02,14 or 1.0.  Defaults to 2002,02,14.</p>
+<p class="last">A version number of 2002,02,14 restricts camera movement to whole units
+of the stage coordinate space, whereas 1.0 allows the camera position to assume
+fractional values.</p>
+</dd>
+<dt><tt class="docutils literal">author</tt> = <em>author_name</em></dt>
+<dd>This parameter sets the name of the author of the stage.
+The parameter must be enclosed in double-quotes.
+This parameter is for informational purposes and is currently not used by the engine.</dd>
+</dl>
+</div>
+<div class="section" id="camera-group">
+<h2><a class="toc-backref" href="#id5"><tt class="docutils literal">Camera</tt> Group</a></h2>
+<dl class="docutils">
+<dt><tt class="docutils literal">startx</tt> = <em>pos_x</em></dt>
+<dd>Sets the camera's starting <tt class="docutils literal">x</tt>-position. Should be set to 0.</dd>
+<dt><tt class="docutils literal">starty</tt> = <em>pos_y</em></dt>
+<dd>Sets the camera's starting <tt class="docutils literal">y</tt>-position. Should be set to 0.</dd>
+<dt><tt class="docutils literal">boundleft</tt> = <em>min_x</em></dt>
+<dd>This is the minimum <tt class="docutils literal">x</tt>-value that the camera can move to.
+It must be negative. Adjust this value to limit how far left the camera can
+scroll.</dd>
+<dt><tt class="docutils literal">boundright</tt> = <em>max_x</em></dt>
+<dd>This is the maximum <tt class="docutils literal">x</tt>-value that the camera can move to.
+It must be positive. Adjust this value to limit how far right the camera
+can scroll.</dd>
+<dt><tt class="docutils literal">boundhigh</tt> = <em>min_y</em></dt>
+<dd>Controls the minimum <tt class="docutils literal">y</tt>-value that the camera can move to. It must be
+negative. Adjust this value to limit how far up the camera can scroll.</dd>
+<dt><tt class="docutils literal">boundlow</tt> = <em>max_y</em></dt>
+<dd>Controls the maximum <tt class="docutils literal">y</tt>-value that the camera can move to.
+It must always be set to 0.</dd>
+<dt><tt class="docutils literal">verticalfollow</tt> = <em>closeness</em></dt>
+<dd>This value affects the vertical movement of the camera to follow the
+highest player. It should be set between 0 and 1. A value
+of 0 means the camera does not move up at all. A higher value makes the
+camera track the higher player closer. A value of 1 makes the camera
+track the player as close as possible.</dd>
+<dt><tt class="docutils literal">floortension</tt> = <em>v_dist</em></dt>
+<dd>This is the minimum vertical distance the highest player has to be from
+the floor (given as a positive value), before the camera starts to move
+up to follow him.</dd>
+<dt><tt class="docutils literal">tension</tt> = <em>h_dist</em></dt>
+<dd>This is the horizontal distance a player can get to the edges before
+the camera starts to follow. Valid values are from 0 to 160.</dd>
+</dl>
+</div>
+<div class="section" id="playerinfo-group">
+<h2><a class="toc-backref" href="#id6"><tt class="docutils literal">PlayerInfo</tt> Group</a></h2>
+<dl class="docutils">
+<dt><tt class="docutils literal">p1startx</tt> = <em>x_start</em></dt>
+<dd>Sets the starting <tt class="docutils literal">x</tt>-position for Player 1.</dd>
+<dt><tt class="docutils literal">p1starty</tt> = <em>y_start</em></dt>
+<dd>Sets the starting <tt class="docutils literal">y</tt>-position for Player 1.</dd>
+<dt><tt class="docutils literal">p2startx</tt> = <em>x_start</em></dt>
+<dd>Sets the starting <tt class="docutils literal">x</tt>-position for Player 2.</dd>
+<dt><tt class="docutils literal">p2starty</tt> = <em>y_start</em></dt>
+<dd>Sets the starting <tt class="docutils literal">y</tt>-position for Player 2.</dd>
+<dt><tt class="docutils literal">p1facing</tt> = <em>facing_flag</em></dt>
+<dd>Controls which way Player 1 faces at the start. Set to 1 to face right,
+or -1 to face left.</dd>
+<dt><tt class="docutils literal">p2facing</tt> = <em>facing_flag</em></dt>
+<dd>Controls which way Player 2 faces at the start. Set to 1 to face right,
+or -1 to face left.</dd>
+<dt><tt class="docutils literal">leftbound</tt> = <em>x_min</em></dt>
+<dd>Sets the minimum allowable <tt class="docutils literal">x</tt>-position for all players.</dd>
+<dt><tt class="docutils literal">rightbound</tt> = <em>x_max</em></dt>
+<dd>Sets the maximum allowable <tt class="docutils literal">x</tt>-position for all players.</dd>
+</dl>
+</div>
+<div class="section" id="bound-group">
+<h2><a class="toc-backref" href="#id7"><tt class="docutils literal">Bound</tt> Group</a></h2>
+<dl class="docutils">
+<dt><tt class="docutils literal">screenleft</tt> = <em>min_dist_left</em></dt>
+<dd>Minimum allowable distance between players and the left edge of the screen.
+Must be positive.</dd>
+<dt><tt class="docutils literal">screenright</tt> = <em>min_dist_right</em></dt>
+<dd>Minimum allowable distance between players and the right edge of the screen.
+Must be positive.</dd>
+</dl>
+</div>
+<div class="section" id="stageinfo-group">
+<h2><a class="toc-backref" href="#id8"><tt class="docutils literal">StageInfo</tt> Group</a></h2>
+<dl class="docutils">
+<dt><tt class="docutils literal">zoffset</tt> = <em>v_dist</em></dt>
+<dd><em>v_dist</em> is the vertical distance of the ground level from the top
+of the screen, given in pixels. The <tt class="docutils literal">zoffset</tt> parameter is
+inappropriately named, but has been left unchanged for compatibility purposes.</dd>
+<dt><tt class="docutils literal">zoffsetlink</tt> = <em>elem_ID</em></dt>
+<dd>If this parameter is specified, it links the <tt class="docutils literal">zoffset</tt> value to the
+<tt class="docutils literal">y</tt>-position of a background element with the specified ID number. For
+example, you can link the value to a dummy element (see <a class="reference internal" href="#other-background-element-types">Other
+background element types</a>)  with a <tt class="docutils literal">sin.y</tt> parameter to make the
+characters bob up and down in a sinusoidal fashion.</dd>
+<dt><tt class="docutils literal">autoturn</tt> = <em>turn_flag</em></dt>
+<dd>Leave this parameter to 1 to make characters automatically turn to face
+each other. Setting this to another value will cause undesirable behavior.</dd>
+<dt><tt class="docutils literal">resetBG</tt> = <em>reset_flag</em></dt>
+<dd>If set to 1, backgrounds will be reset between rounds. If set to 0,
+backgrounds will continue playing.</dd>
+<dt><tt class="docutils literal">localcoord</tt> = <em>width</em>, <em>height</em></dt>
+<dd>Dimensions of the coordinate space of the stage.
+Defaults to 320, 240 if omitted.</dd>
+<dt><tt class="docutils literal">xscale</tt> = <em>xscale</em></dt>
+<dd>Horizontal scaling factor of offsets, velocities, sprites and animations.</dd>
+<dt><tt class="docutils literal">yscale</tt> = <em>yscale</em></dt>
+<dd>Vertical scaling factor of offsets, velocities, sprites and animations.</dd>
+</dl>
+</div>
+<div class="section" id="shadow-group">
+<h2><a class="toc-backref" href="#id9"><tt class="docutils literal">Shadow</tt> Group</a></h2>
+<dl class="docutils">
+<dt><tt class="docutils literal">intensity</tt> = <em>darkness_val</em> ;(optional)</dt>
+<dd>This controls how dark the shadow is. Valid values range from 0 (lightest)
+to 256 (darkest). Defaults to 128 if omitted.</dd>
+<dt><tt class="docutils literal">color</tt> = <em>r,g,b</em> ;(optional)</dt>
+<dd>This parameter affects the color of the shadow. <em>r,g,b</em> are the color
+components (ranging between 0 and 255) of the players' shadows. The higher
+the number, the less of the corresponding color there is in the shadow. The
+smaller the numbers, the lighter the shadows will appear. Defaults to 0,0,0
+if omitted.</dd>
+<dt><tt class="docutils literal">yscale</tt> = <em>scale_y</em> ;(optional)</dt>
+<dd>This is the vertical scale factor of the shadow. Use a larger <em>scale_y</em> to
+make the shadow longer. You can use a negative <em>scale_y</em> to make the shadow
+fall on the other side of the players. Defaults to 0.4 if omitted.</dd>
+<dt><tt class="docutils literal">fade.range</tt> = <em>top_y, bot_y</em> ;(optional)</dt>
+<dd>This parameter lets you set the range over which the shadow is visible. It
+is used to create an effect of the shadow fading as the player gets farther
+away from the ground. The first value is the high level, and the second is
+the middle level. Both represent y-coordinates of the player. A shadow is
+invisible if the player is above the high level, and fully visible if below
+the middle level. The shadow is faded in between the two levels. If
+omitted, defaults to no effect (shadow is always fully visible). Take note
+that y-coordinate values are negative, and TOP_Y should be less than BOT_Y.</dd>
+</dl>
+</div>
+<div class="section" id="reflection-group">
+<h2><a class="toc-backref" href="#id10"><tt class="docutils literal">Reflection</tt> Group</a></h2>
+<dl class="docutils">
+<dt><tt class="docutils literal">reflect</tt> = <em>reflect_flag</em> ;(optional)</dt>
+<dd>Set <tt class="docutils literal">reflect</tt> to 1 to enable reflection shadows, 0 to disable them.
+Reflection shadows create a &quot;shiny floor&quot; effect. Defaults to 0 if omitted.</dd>
+</dl>
+</div>
+<div class="section" id="music-group">
+<h2><a class="toc-backref" href="#id11"><tt class="docutils literal">Music</tt> Group</a></h2>
+<dl class="docutils">
+<dt><tt class="docutils literal">bgmusic</tt> = <em>bgm_filename</em> ;(optional)</dt>
+<dd><em>bgm_filename</em> is the name of the music file to play in the stage. Music
+files are usually put in the <tt class="docutils literal">sound/</tt> directory. Leaving <em>bgm_filename</em>
+blank will result in no music being played. If the music file does not
+exist, no music will be played. To play CD audio, put the track number
+followed by &quot;.da&quot;. Using a track number of 0 will play a random audio
+track. For example, to play track 3 from a music CD, use <tt class="docutils literal">bgmusic = 3.da</tt>.
+If omitted, defaults to no music.</dd>
+<dt><tt class="docutils literal">bgvolume</tt> = <em>volume_offset</em> ;(optional)</dt>
+<dd>This parameter adjusts the volume of the BGM being played. 0 is normal,
+negative for softer, and positive for louder (only for mp3, mods and CDA).
+Valid values are from -255 to 255. If omitted, defaults to 0.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="description-of-background-elements">
+<h1><a class="toc-backref" href="#id12">Description of background elements</a></h1>
+<p>To define your stage's background elements, you must first create a <tt class="docutils literal">BGDef</tt>
+group at the end of your <tt class="docutils literal">DEF</tt> file. The format is as follows:</p>
+<pre class="literal-block">
+[BGDef]
+spr = stages/my_stage.sff
+debugbg = 1
+</pre>
+<p>You should replace <tt class="docutils literal">stages/my_stage.sff</tt> with the path of the <tt class="docutils literal">SFF</tt> file
+containing your stage's sprite data. To ensure good runtime speed, remember
+to set <tt class="docutils literal">debugbg = 0</tt> when your stage is finalized.</p>
+<p>Once the <tt class="docutils literal">BGDef</tt> definition is created, everything below it in the <tt class="docutils literal">DEF</tt>
+file is considered to belong in the <tt class="docutils literal">BGDef</tt> section. In the <tt class="docutils literal">BGDef</tt>
+section, you should specify one or more background elements. Background
+elements are drawn in the order they appear in the <tt class="docutils literal">DEF</tt> file (with later
+elements overdrawing previous ones), so the rearmost elements should be
+defined first.</p>
+<div class="section" id="static-background-elements">
+<h2><a class="toc-backref" href="#id13">Static background elements</a></h2>
+<p>The format for specifying a static background element is as follows.</p>
+<pre class="literal-block">
+[BG my_element_name]
+type = normal
+spriteno = 0,0
+id = 0
+layerno = 0
+start = 0,0
+delta = .5, .5
+trans = none
+mask = 0
+tile = 0,0
+tilespacing = 0,0
+window = 0,0,319,239
+windowdelta = 0,0
+</pre>
+<p>Many of the parameters can be omitted. We will examine this example line by
+line.</p>
+<dl class="docutils">
+<dt><tt class="docutils literal">[BG my_element_name]</tt>  ; (required)</dt>
+<dd>Only [BG] is actually required. <tt class="docutils literal">my_element_name</tt> can be anything you
+want. Generally, it helps to give each element a distinct and descriptive
+name, since &quot;my_element_name&quot; is what will be used in error messages.</dd>
+<dt><tt class="docutils literal">type = normal</tt>  ; (required)</dt>
+<dd>This specifies that this background element is a static sprite, neither
+animated nor parallaxing.</dd>
+<dt><tt class="docutils literal">spriteno = 0,0</tt>  ; (required)</dt>
+<dd>This specifies which sprite in the SFF to display for this background element.</dd>
+<dt><tt class="docutils literal">id = 0</tt>   ; (optional)</dt>
+<dd>Specifies an ID number to refer to this background element by. This is used
+to allow background controllers to specify which elements they control.
+Different background elements can share the same ID number if necessary.</dd>
+<dt><tt class="docutils literal">layerno = 0</tt>  ; (optional)</dt>
+<dd>If <tt class="docutils literal">layerno = 0</tt>, then this background element is drawn behind the
+characters. If <tt class="docutils literal">layerno = 1</tt>, then this element is drawn in front of the
+characters. Within each layer, background elements are drawn back-to-front
+in the order they appear in the <tt class="docutils literal">DEF</tt> file. layerno defaults to 0 if
+omitted.</dd>
+<dt><tt class="docutils literal">start = 0,0</tt>  ; (optional)</dt>
+<dd>Specifies the background element's starting position with respect to the
+top center of the screen (positive <tt class="docutils literal">y</tt> values go downward). The
+background elementfs axis (the one specified for the designated sprite in
+the <tt class="docutils literal">SFF</tt>) is placed at this starting position. If omitted, start
+defaults to 0,0.</dd>
+<dt><tt class="docutils literal">delta = <span class="pre">.5,.5</span></tt> ; (optional)</dt>
+<dd>Specifies how many pixels the background element should scroll for each
+pixel of camera movement in the horizontal and vertical directions,
+respectively. Setting <tt class="docutils literal">delta=1,1</tt> will cause the background element to
+move at the same speed as the camera. This is good for things like the
+ground under the characters' feet. For elements off in the distance, use
+smaller values of <tt class="docutils literal">delta</tt> to create the illusion of depth. Similarly,
+elements in the foreground (<tt class="docutils literal">layerno = 1</tt>) should usually be given
+<tt class="docutils literal">delta</tt>s larger than 1. Setting <tt class="docutils literal">delta</tt> to a negative value is
+possible, but may have an unintended effect. <tt class="docutils literal">delta</tt> defaults to 1,1 if
+omitted.</dd>
+<dt><tt class="docutils literal">trans = none</tt> ; (optional)</dt>
+<dd>Specifies whether this background element should be transparent or not.
+Transparency modes are <tt class="docutils literal">none</tt>, <tt class="docutils literal">add</tt>, <tt class="docutils literal">add1</tt>, <tt class="docutils literal">sub</tt>. These specify
+no transparency (the default), color addition (spotlight effect), 50% color
+addition, and color subtraction (shadow effect).</dd>
+<dt><tt class="docutils literal">mask = 0</tt>  ; (optional)</dt>
+<dd>If <tt class="docutils literal">mask</tt> is set to 1, color 0 of the sprite will not be drawn. This is
+used in drawing objects which are not rectangular in shape. For reasons of
+speed, <tt class="docutils literal">mask</tt> should be set to 0 when not needed. <tt class="docutils literal">mask</tt> defaults to 0.</dd>
+<dt><tt class="docutils literal">tile = 0,0</tt> ; (optional)</dt>
+<dd>This line specifies if the background element should be repeated (tiled) in
+the horizontal and/or vertical directions, respectively. A value of 0
+specifies no tiling, a value of 1 specifies infinite tiling, and any value
+greater than 1 will cause the element to tile that number of times. If this
+line is omitted, no tiling will be performed.</dd>
+<dt><tt class="docutils literal">tilespacing = 0,0</tt> ; (optional)</dt>
+<dd>If tiling is enabled, this line specifies the space to put between separate
+instances of the tile in the horizontal and vertical directions,
+respectively. There is no effect if tiling is not enabled. <tt class="docutils literal">tilespacing</tt>
+defaults to 0,0.</dd>
+<dt><tt class="docutils literal">window = 0,0,319,239</tt>  ; (optional)</dt>
+<dd>Specify window with four coordinates x1, y1, x2, and y2 respectively.
+Considering the upper left corner of the screen as (0,0), these coordinates
+are taken to form a rectangular box with (x1,y1) and (x2,y2) at opposite
+corners. At any given time, only the part of the background element that
+comes within this box (the &quot;window&quot;) will be drawn. In this example, the
+window specified is (0,0) - (319,239), which is the entire screen. If you
+do not need the windowing effect, omit this line entirely.</dd>
+<dt><tt class="docutils literal">windowdelta = 0,0</tt>  ; (optional)</dt>
+<dd>Specifies the delta of the background element's window. It works similarly
+to the <tt class="docutils literal">delta</tt> parameter for the background element itself. In limited
+situations, some interesting effects may be accomplished by using different
+values for <tt class="docutils literal">delta</tt> and <tt class="docutils literal">windowdelta</tt> (in conjunction with <tt class="docutils literal">window</tt>).
+<tt class="docutils literal">windowdelta</tt> defaults to 0,0 (no movement) if omitted.</dd>
+</dl>
+</div>
+<div class="section" id="animated-background-elements">
+<h2><a class="toc-backref" href="#id14">Animated background elements</a></h2>
+<p>The format for specifying an animated background element is almost exactly
+the same as for a normal background element. There are only three notable
+differences, which will be explained below.</p>
+<pre class="literal-block">
+[BG my_animated_element]
+type = anim
+actionno = 55
+</pre>
+<p>(all other parameters other than <tt class="docutils literal">spriteno</tt> are the same as for static
+background elements.)</p>
+<p>First, for the element to animate, a type of <tt class="docutils literal">anim</tt> must be specified.
+Second, an &quot;action number&quot; (<tt class="docutils literal">actionno</tt>) must be specified. This replaces
+the <tt class="docutils literal">spriteno</tt> parameter that would be used for a normal background
+element. The value of <tt class="docutils literal">actionno</tt> must be for an animation that is defined
+in the <tt class="docutils literal">DEF</tt> file. In this example, since <tt class="docutils literal">actionno</tt> is 55, Action 55
+must be defined in a manner similar to the following:</p>
+<pre class="literal-block">
+[Begin Action 55]
+0,0,0,0,5
+0,1,0,0,5
+</pre>
+<p>The format is the same as specifying animations in the <tt class="docutils literal">AIR</tt> file, so
+details will be omitted here. The <tt class="docutils literal">Action</tt> definition can be placed anywhere
+below the original <tt class="docutils literal">[BGDef]</tt> group. Typical strategies are either to define
+the action immediately after the element it belongs to, or else to collect
+all the stage's actions together at the beginning or end of the <tt class="docutils literal">[BGDef]</tt>
+group.</p>
+<p>Note that each sprite you specify in the animation has its own axis
+(specified in the <tt class="docutils literal">SFF</tt> file). During animation playback, the axis of each
+sprite will be lined up to correspond with the axis of the background element
+itself.</p>
+<p>The effect of the <tt class="docutils literal">tilespacing</tt> parameter is different for <tt class="docutils literal">anim</tt>-type
+elements compared to <tt class="docutils literal">normal</tt>-type elements. For a <tt class="docutils literal">normal</tt> element, the
+x-value of this parameter specifies the horizontal distance between the right
+edge of the first tile and the left edge of the second tile. In the case of
+an <tt class="docutils literal">anim</tt> element, the x-value specifies the horizontal distance between
+the <em>left</em> edge of the first tile and the left edge of the second tile.
+This applies similarly for the y-value. The reason for the difference is
+because the size of an anim is not necessarily constant. <tt class="docutils literal">tilespacing</tt>
+is required for <tt class="docutils literal">anim</tt>-type elements that use the <tt class="docutils literal">tile</tt> parameter.</p>
+<p>The final difference between animated and normal elements is that animated
+elements always have <tt class="docutils literal">mask = 1</tt>.</p>
+</div>
+<div class="section" id="parallaxing-background-elements">
+<h2><a class="toc-backref" href="#id15">Parallaxing background elements</a></h2>
+<p>To see an example of a parallaxing background element, look at the floor in
+KFM's stage. Parallaxing background elements, as their name implies, give the
+illusion of parallax (the phenomenon that close objects appear to move faster
+than distant objects when the camera moves). Parallaxing background elements
+must consist of a single sprite (they cannot be animated). They also cannot be
+transparent.</p>
+<p>An example of the format is as follows:</p>
+<pre class="literal-block">
+[BG my_parallax_element]
+type = parallax
+spriteno = 10, 0
+xscale = 1,1.75
+yscalestart = 100
+yscaledelta = 1.2
+</pre>
+<p>All other parameters are the same as static elements, except that <tt class="docutils literal">trans</tt>
+is disabled.</p>
+<p>The first and second <tt class="docutils literal">xscale</tt> parameters scale the horizontal delta of the
+background element's top and bottom edge, respectively. (The deltas for the
+rest of the element are linearly interpolated between these two values.) For
+instance, if we specified <tt class="docutils literal">delta = .78, .75</tt>, then the top of the sprite
+would move at .78 * 1 = .78 pixels per camera unit, and the bottom would move
+at .75 * 1.75 = 1.3125 pixels per camera unit. <tt class="docutils literal">xscale</tt> is responsible for
+creating the parallaxing effect in the horizontal direction.</p>
+<p><tt class="docutils literal">yscalestart</tt> is the inverse of the vertical scale of the sprite when the
+camera is at ground level, represented in percentage. For example, a value of
+100 corresponds to a scale factor of 1, and 50 corresponds to a scale factor
+of 2. The value defaults to 100.</p>
+<p><tt class="docutils literal">yscaledelta</tt> is the amount to add from the inverted scale factor for every camera
+unit the camera moves down, represented in percentage. The final scale factor is calculated
+by the following formula:</p>
+<blockquote>
+scale = 1 / (yscalestart/100 + yscaledelta/100 * camera_y)</blockquote>
+<p>In the example above, if the camera moves up by
+one unit, the scale factor will be 1 / (1.00 + .012 * -1) = 1.012, and if it moves up another unit,
+the scale will be 1 / (1.00 + .012 * -2) = 1.025 and so on.</p>
+<p>The unintuitive behavior for the <tt class="docutils literal">yscalestart</tt> and <tt class="docutils literal">yscaledelta</tt>
+parameters is due to historical reasons.</p>
+</div>
+<div class="section" id="advanced-parameters">
+<h2><a class="toc-backref" href="#id16">Advanced Parameters</a></h2>
+<p>These parameters can be added to any background element as necessary.</p>
+<dl class="docutils">
+<dt><tt class="docutils literal">id</tt> = <em>id_number</em></dt>
+<dd>This specifies an ID number for the background element. Multiple elements
+can share the same ID number. The purpose of the ID number is to allow
+background controllers to specify which elements they are operating on.
+Defaults to 0 if omitted.</dd>
+<dt><tt class="docutils literal">positionlink</tt> = <em>link_flag</em></dt>
+<dd>Set <tt class="docutils literal">positionlink</tt> to 1 to lock this element's position to the position of
+the element immediately preceding it in the <tt class="docutils literal">DEF</tt> file. If set to 1, the
+values of the <tt class="docutils literal">start</tt> parameter for the current element are treated as an
+offset from the previous element's position. The <tt class="docutils literal">delta</tt> parameter will
+have no effect in this case. This is useful for getting large groups of
+elements to move in unison; if you edit the <tt class="docutils literal">start</tt> and <tt class="docutils literal">delta</tt> values
+of the first element in the positionlink chain, the effects will be seen
+throughout all elements the chain. <tt class="docutils literal">positionlink</tt> defaults to 0 if omitted.</dd>
+<dt><tt class="docutils literal">velocity</tt> = <em>vel_x, vel_y</em></dt>
+<dd>Specifies initial <tt class="docutils literal">x</tt>- and <tt class="docutils literal">y</tt>-velocities for the background element
+(these default to 0). This functionality is also subsumed by the
+<tt class="docutils literal">VelSet</tt> background controller.</dd>
+<dt><tt class="docutils literal">sin.x</tt> = <em>amplitude, period, phase</em></dt>
+<dd>Specifies sinusoidal movement for the element in the <tt class="docutils literal">x</tt>-direction. The
+first parameter is the amplitude, the second parameter is the period of the
+motion in game ticks, and the third parameter specifies the initial phase
+shift of the sinusoidal motion (defaults to 0, i.e., the element will start
+in the exact middle of its sinusoidal range). This parameter is basically
+superseded by the <tt class="docutils literal">SinX</tt> background controller.</dd>
+<dt><tt class="docutils literal">sin.y</tt> = <em>amplitude, period, phase</em></dt>
+<dd>Works the same as the <tt class="docutils literal">sin.x</tt> parameter, but in the <tt class="docutils literal">y</tt>-direction.</dd>
+</dl>
+</div>
+<div class="section" id="other-background-element-types">
+<h2><a class="toc-backref" href="#id17">Other background element types</a></h2>
+<p>Besides <tt class="docutils literal">normal</tt>, <tt class="docutils literal">anim</tt> and <tt class="docutils literal">parallax</tt> background types, there is also
+a <tt class="docutils literal">dummy</tt> type. As its name implies, a <tt class="docutils literal">dummy</tt>-type background has no
+associated graphics. A dummy element's position is affected just like any
+other element type. Currently, the only use for a dummy element is to serve
+as a placeholder for the effect of the <tt class="docutils literal">zoffsetlink</tt> parameter in
+the <tt class="docutils literal">StageInfo</tt> group.</p>
+</div>
+</div>
+<div class="section" id="background-controllers">
+<h1><a class="toc-backref" href="#id18">Background controllers</a></h1>
+<p>Background controllers operate on an internal timer that starts at 0 when the
+round starts, and increases by 1 for every game tick. When the timer reaches
+the controller's start time, then the controller becomes active. When the
+timer reaches the controller's end time, then the controller deactivates. If a
+positive looptime is specified for the controller, then the controller's
+internal timer will reset to 0 when the looptime is reached.</p>
+<p>Background controllers must be grouped under a parent <tt class="docutils literal">BGCtrlDef</tt>. You can
+use multiple <tt class="docutils literal">BGCtrlDef</tt>s to separate the controllers into several groups.
+Each block of <tt class="docutils literal">BGCtrlDef</tt> and background controllers may be placed anywhere
+within the <tt class="docutils literal">[BGDef]</tt> section of the <tt class="docutils literal">DEF</tt> file. The general format for
+these blocks is as follows.</p>
+<pre class="literal-block">
+[BGCtrlDef my_controller_name]
+looptime = GLOBAL_LOOPTIME
+ctrlID = DEFAULTID_1, DEFAULTID_2, ...
+
+[BGCtrl my_controller_1]
+type = CONTROLLER_TYPE
+time = START_TIME, END_TIME, LOOPTIME
+ctrlID = ID_1, ID_2, ...
+(controller-specific parameters here)
+
+[BGCtrl my_controller_2]
+(etc.)
+</pre>
+<p><tt class="docutils literal">GLOBAL_LOOPTIME</tt> specifies the number of ticks after which the
+<tt class="docutils literal">BGCtrlDef</tt> should reset its internal timer, as well as the internal
+timers of all <tt class="docutils literal">BGCtrls</tt> it contains. To disable the looptime, set it
+to -1 or omit the parameter.</p>
+<p><tt class="docutils literal">DEFAULTID_1</tt>, <tt class="docutils literal">DEFAULTID_2</tt>, etc., specify the IDs of background
+elements to be affected by any <tt class="docutils literal">BGCtrl</tt> that doesn't specify its own list
+of <tt class="docutils literal">ctrlID</tt>s. You can list up to 10 ID numbers for this parameter. If the
+line is omitted, then the default will be to affect all background elements.</p>
+<p><tt class="docutils literal">START_TIME</tt>, <tt class="docutils literal">END_TIME</tt>, and <tt class="docutils literal">LOOPTIME</tt> are the times at which the
+background controller should start acting, stop acting, and reset its
+internal timer, respectively. If <tt class="docutils literal">LOOPTIME</tt> is omitted or set to -1, then
+the background controller will not reset its own timer. (Its timer can still
+be reset by its parent <tt class="docutils literal">BGCtrlDef</tt> if a <tt class="docutils literal">GLOBAL_LOOPTIME</tt> is specified.)
+The background controller will be continuously active between <tt class="docutils literal">START_TIME</tt>
+and <tt class="docutils literal">END_TIME</tt>. <tt class="docutils literal">START_TIME</tt> is required, but if <tt class="docutils literal">END_TIME</tt> is omitted
+then it will default to the same value as <tt class="docutils literal">START_TIME</tt> (so the controller
+will be active for 1 tick only).</p>
+<p><tt class="docutils literal">ID_1</tt>, <tt class="docutils literal">ID_2</tt>, etc., specify the IDs of background elements for this
+controller to act on. This list, if specified, overrides the default list
+specified in the <tt class="docutils literal">BGCtrlDef</tt>. The maximum number of IDs specifiable is 10.</p>
+<p>Below is the list of <tt class="docutils literal">BGCtrl</tt> types and their associated parameters.</p>
+<ul>
+<li><p class="first"><tt class="docutils literal">null</tt></p>
+<p>As the name implies, this controller does nothing. It is useful mainly
+for debugging, when you want to quickly disable a controller without
+commenting the whole thing out. Simply change the type to <tt class="docutils literal">null</tt> and
+comment out the old type. This controller has no additional parameters.</p>
+</li>
+<li><p class="first"><tt class="docutils literal">Visible</tt></p>
+<dl class="docutils">
+<dt><tt class="docutils literal">value</tt> = <em>visible_flag</em></dt>
+<dd><p class="first last">Sets the visibility status of the elements.</p>
+</dd>
+</dl>
+<p>While active, this controller sets the affected background elements to
+be invisible (0) or visible (1). Time will still pass for invisible
+elements (meaning, in the case of animated elements, that the animation
+will continue to progress even though it can't be seen).</p>
+</li>
+<li><p class="first"><tt class="docutils literal">Enabled</tt></p>
+<dl class="docutils">
+<dt><tt class="docutils literal">value</tt> = <em>enabled_flag</em></dt>
+<dd><p class="first last">Sets the enabled status of the elements.</p>
+</dd>
+</dl>
+<p>This controller either disables (0) or enables (1) the affected background
+elements. When an element is disabled, it is invisible and time does not
+pass for it (so, in the case of animated elements, any animation is paused
+when it's disabled).</p>
+</li>
+<li><p class="first"><tt class="docutils literal">VelSet</tt></p>
+<dl class="docutils">
+<dt><tt class="docutils literal">x</tt> = <em>vel_x</em></dt>
+<dd><p class="first last">Sets the <tt class="docutils literal">x</tt>-velocity of the elements.</p>
+</dd>
+<dt><tt class="docutils literal">y</tt> = <em>vel_y</em></dt>
+<dd><p class="first last">Sets the <tt class="docutils literal">y</tt>-velocity of the elements.</p>
+</dd>
+</dl>
+<p>This controller will set the <tt class="docutils literal">x</tt>/<tt class="docutils literal">y</tt> velocity of the affected background
+elements to the specified values. Velocities are measured in pixels per
+game tick. You can specify either or both of the <tt class="docutils literal">x</tt> and <tt class="docutils literal">y</tt> parameters.
+If either is omitted, the element's velocity in that direction will not
+change.</p>
+</li>
+<li><p class="first"><tt class="docutils literal">VelAdd</tt></p>
+<dl class="docutils">
+<dt><tt class="docutils literal">x</tt> = <em>vel_incr_x</em></dt>
+<dd><p class="first last">Changes the <tt class="docutils literal">x</tt>-velocity of the elements by <em>vel_incr_x</em>.</p>
+</dd>
+<dt><tt class="docutils literal">y</tt> = <em>vel_incr_y</em></dt>
+<dd><p class="first last">Changes the <tt class="docutils literal">y</tt>-velocity of the elements by <em>vel_incr_y</em>.</p>
+</dd>
+</dl>
+<p>This controller will add the specified values to the <tt class="docutils literal">x</tt>/<tt class="docutils literal">y</tt> velocity
+of the affected background elements. You can specify either or both of the
+<tt class="docutils literal">x</tt> and <tt class="docutils literal">y</tt> parameters. If either is omitted, the element's velocity in
+that direction will not change.</p>
+</li>
+<li><p class="first"><tt class="docutils literal">PosSet</tt></p>
+<dl class="docutils">
+<dt><tt class="docutils literal">x</tt> = <em>pos_x</em></dt>
+<dd><p class="first last">Sets the <tt class="docutils literal">x</tt>-position of the elements.</p>
+</dd>
+<dt><tt class="docutils literal">y</tt> = <em>pos_y</em></dt>
+<dd><p class="first last">Sets the <tt class="docutils literal">y</tt>-position of the elements.</p>
+</dd>
+</dl>
+<p>This controller will set the <tt class="docutils literal">x</tt>/<tt class="docutils literal">y</tt> coordinate of the affected
+background elements to the specified values. You can specify either or
+both of the <tt class="docutils literal">x</tt> and <tt class="docutils literal">y</tt> parameters. If either is omitted, the
+element's coordinate on that axis will not change.</p>
+</li>
+<li><p class="first"><tt class="docutils literal">PosAdd</tt></p>
+<dl class="docutils">
+<dt><tt class="docutils literal">x</tt> = <em>x_displacement</em></dt>
+<dd><p class="first last">Displaces the <tt class="docutils literal">x</tt>-coordinate of the elements.</p>
+</dd>
+<dt><tt class="docutils literal">y</tt> = <em>y_displacement</em></dt>
+<dd><p class="first last">Displaces the <tt class="docutils literal">y</tt>-coordinate of the elements.</p>
+</dd>
+</dl>
+<p>This controller will displace the <tt class="docutils literal">x</tt>/<tt class="docutils literal">y</tt> coordinate of the affected
+background elements by the specified values. You can specify either or both
+of the <tt class="docutils literal">x</tt> and <tt class="docutils literal">y</tt> parameters. If either is omitted, the element's
+coordinate on that axis will not change.</p>
+</li>
+<li><p class="first"><tt class="docutils literal">Anim</tt></p>
+<dl class="docutils">
+<dt><tt class="docutils literal">value</tt> = <em>action_no</em></dt>
+<dd><p class="first last">Changes the animation displayed by the affected elements to the
+specified animation number.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first"><tt class="docutils literal">SinX</tt></p>
+<dl class="docutils">
+<dt><tt class="docutils literal">value</tt> = <em>amplitude, period, offset</em></dt>
+<dd><p class="first last">Changes the amplitude, period, and phase offset for the affected elements'
+sinusoidal motions in the <tt class="docutils literal">x</tt>-direction. These values have the same
+effect as they do for the <tt class="docutils literal">sin.x</tt> background element parameters.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first"><tt class="docutils literal">SinY</tt></p>
+<dl class="docutils">
+<dt><tt class="docutils literal">value</tt> = <em>amplitude, period, offset</em></dt>
+<dd><p class="first last">Changes the amplitude, period, and phase offset for the affected elements'
+sinusoidal motions in the <tt class="docutils literal">y</tt>-direction. These values have the same
+effect as they do for the <tt class="docutils literal">sin.y</tt> background element parameters.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="simple-example">
+<h1><a class="toc-backref" href="#id19">Simple Example</a></h1>
+<p>Suppose we want to make a person walk back and forth from (-300,0) to (300,0),
+right behind the main characters. We'll use background controllers to
+accomplish this task.</p>
+<p>First, define the walking animations. Say that the character's walking
+sprites are 10,0 through 10,3 and that they face to the right.</p>
+<pre class="literal-block">
+; Walk right
+[Begin Action 10]
+10,0,0,0,6
+10,1,0,0,6
+10,2,0,0,6
+10,3,0,0,6
+
+; Walk left
+[Begin Action 11]
+10,0,0,0,6,H
+10,1,0,0,6,H
+10,2,0,0,6,H
+10,3,0,0,6,H
+</pre>
+<p>Now start the character off at the far left edge of his range.</p>
+<pre class="literal-block">
+[BGDef]
+(...)
+
+[BG Peregrinator]
+type = anim
+actionno = 10
+id = 10
+start = -300, 0
+delta = 1,1
+</pre>
+<p>Let's give Peregrinator a comfortable ambling speed of 2 pixels per tick. The
+one-way distance for his walk is 600 pixels, which will take 300 ticks. In
+total, it'll take him 600 ticks to make the round trip. Using this knowledge,
+set up the background controllers appropriately: since the entire situation
+repeats every 600 ticks, we can set the global looptime to 600.</p>
+<pre class="literal-block">
+[BGCtrlDef Peregrinator]
+; reset the whole deal every 600 ticks.
+looptime = 600
+ctrlID = 10
+
+; Set velocity of 2 pixels/sec rightward at time 0.
+[BGCtrl Walk Right]
+type = VelSet
+time = 0
+x = 2
+
+; Set velocity of 2 pixels/sec leftward at time 300.
+[BGCtrl Walk Left]
+type = VelSet
+time = 300
+x = -2
+</pre>
+<p>And that's it! You can make the walk look better by having Peregrinator slow
+down and display a turning animation at each end of his walk. This would entail
+use of the <tt class="docutils literal">VelAdd</tt> and <tt class="docutils literal">Anim</tt> controllers. If you want Peregrinator to
+stop and start at regular intervals as he goes from one end to the other, you
+could create more <tt class="docutils literal">VelSet</tt> and <tt class="docutils literal">Anim</tt> controllers with their own individual
+looptimes (to get the behavior to repeat at regular intervals).</p>
+</div>
+</div>
+</body>
+</html>

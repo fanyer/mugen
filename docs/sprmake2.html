@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+M.U.G.E.N documentation stylesheet.
+
+
+Modified from voidspace.css.
+
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+em, i {
+  font-family: Times New Roman, Times, serif;
+}
+
+a {
+  color: #5577EE;
+  text-decoration: none;
+}
+
+a.reference.internal {
+  font-size: 80%;
+}
+
+a.toc-backref {
+  color: black;
+  text-decoration: none;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #445BAA;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #667788;
+  color: #ffffff;
+  border: thin solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #445BAA;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+  font-size: 120%;
+}
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<div class="section" id="spritemaker-tool-documentation">
+<h1><a class="toc-backref" href="#id1">SpriteMaker Tool Documentation</a></h1>
+<p>M.U.G.E.N, (c) Elecbyte 1999-2010</p>
+<p>Documentation for version 1.0</p>
+<p>Updated 29 June 2010</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#spritemaker-tool-documentation" id="id1">SpriteMaker Tool Documentation</a></li>
+<li><a class="reference internal" href="#overview" id="id2">Overview</a><ul>
+<li><a class="reference internal" href="#terminology" id="id3">Terminology</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#using-sprmake2" id="id4">Using Sprmake2</a><ul>
+<li><a class="reference internal" href="#using-lz5-compression" id="id5">Using lz5 compression</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="overview">
+<h1><a class="toc-backref" href="#id2">Overview</a></h1>
+<p>Sprites in M.U.G.E.N are contained in sprite files with a .sff extension.
+These sprite files are also referred to as SFFs.
+Aside from sprites, SFFs may contain palettes as well.</p>
+<p>In M.U.G.E.N 1.0, the version of SFF is 2.0, and it is referred to as SFF v2.
+Versions of M.U.G.E.N 2002.04.12 beta and older use SFF v1, which is now
+deprecated.
+M.U.G.E.N 1.0 is capable of loading both SFF v1 and SFF v2 files.</p>
+<p>The tool Sprmake2 is used to generate SFF v2 files from source images in PNG format.
+Sprmake2 is used in conjunction with a definition file to generate each SFF file.</p>
+<div class="section" id="terminology">
+<h2><a class="toc-backref" href="#id3">Terminology</a></h2>
+<dl class="docutils">
+<dt>Axis</dt>
+<dd>A point on a sprite that corresponds to the point on the screen, at the drawing coordinates of the sprite.
+Conceptually, this the axis corresponds to &quot;where the sprite is&quot;.
+The axis is numerically represented as the location of that point on the sprite's bitmap,
+with respect to the upper-left corner of the sprite.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="using-sprmake2">
+<h1><a class="toc-backref" href="#id4">Using Sprmake2</a></h1>
+<p>Sprmake2 is a command-line tool, and requires basic knowledge of navigating the Windows command prompt.</p>
+<p>Typing sprmake2.exe at the command prompt in the M.U.G.E.N directory will display help.</p>
+<pre class="literal-block">
+SprMaker ver 2.00beta  (2010-04-16)                               Elecbyte 2010
+
+Usage: sprmake2 [options] [-o &lt;out_file&gt;] &lt;in_file&gt;
+Options: c - automatically crop images and adjust axes
+         f - link duplicate files
+         o - override output filename
+         p - link duplicate successive palettes
+         q - quiet mode (except warnings &amp; errors)
+         Q - very quiet mode (no errors)
+         v - verbose mode (reports linked/cropped/etc sprites and palettes)
+         V - very verbose mode (reports everything)
+         txt2def - convert in_file (sff1 .txt) to out_file (sff2 .def)
+</pre>
+<p>in_file refers to the definition file that will be used as input.
+The SFF definition file is a set of instructions that instructs Sprmake2 on
+how to assemble the source images into an SFF file.</p>
+<p>For example:</p>
+<pre class="literal-block">
+sprmake2.exe -o chars\kfm\kfm.sff work\kfm\kfm-sff.def
+</pre>
+<p>The above example builds chars/kfm/kfm.sff.  The output filename may instead
+be specified in the definition file.</p>
+<p>A snippet of kfm-sff.def is shown below, with inline comments:</p>
+<pre class="literal-block">
+[Output]
+ ;Filename of the SFF file to create (required).
+filename = chars/kfm/kfm.sff
+
+[Option]
+ ;Input directory where files are to be read from. Defaults to the same
+ ;directory as this def file if omitted.
+;input.dir =
+ ;Sprite compression method for 5-bit sprites (32 color). Choose from:
+ ;none - No compression. This generates very big files (default).
+ ;lz5  - Lossless encoding for 5-bit (32 color) sprites. Compression is slow;
+ ;       decompression is fast. Compression ratio is good.
+ ;rle5 - Lossless encoding for 5-bit (32 color) sprites. Compression is fast;
+ ;       decompression is fast. Compression ratio is average.
+sprite.compress.5 = lz5
+ ;Sprite compression method for 8-bit sprites (256 color). Choose from:
+ ;none - No compression. This generates very big files (default).
+ ;rle8 - Lossless encoding for sprites with color depth up to 8-bits (256
+ ;       colors). Compression and decompression are fast. Compression ratio is
+ ;       low. Suitable for images with 33 to 256 colors.
+ ;       Advanced: best compression ratio is achieved on images where most of
+ ;       the color indices are in the range 0-127 and 192-255.
+sprite.compress.8 = rle8
+ ;Sprite compression method for 24-bit sprites (true color). Choose from:
+ ;none - No compression. This generates very big files (default).
+ ;rle16- Lossless encoding for 16-bit (high color) sprites. Input files in 24-
+ ;       bit format will be downsampled to 16-bits before being encoded.
+ ;       (NOT YET AVAILABLE)
+ ;rle24- Lossless encoding for 24-bit (true color) sprites.
+ ;       (NOT YET AVAILABLE)
+sprite.compress.24 = none
+ ;This option affects the program that uses the sprites.
+ ;0 - sprites are to be decompressed when needed (default).
+ ;1 - sprites are to be decompressed when loaded from disk. This uses more
+ ;    memory when the program runs, but the sprite can be drawn faster. This
+ ;    setting is suitable for images that are drawn very frequently, especially
+ ;    large ones (eg. in backgrounds).
+sprite.decompressonload = 0
+ ;0 - Detect identical files only through filename. Duplicate files references
+ ;    are linked to the original in order to reduce SFF file size as well as
+ ;    memory usage (default).
+ ;1 - More thorough comparison of sprite files; actual bytes are compared. Use
+ ;    this setting to reduce file size.
+ ;    Note: Comparisons are done before cropping.
+sprite.detectduplicates = 0
+ ;0 - Do not auto-crop sprites (default).
+ ;1 - Automatically crop sprites before adding to them the SFF file. Use this
+ ;    setting to reduce file size.
+sprite.autocrop = 1
+ ;0 - Detect identical files only through filename. Duplicate files references
+ ;    are linked to the original in order to reduce SFF file size as well as
+ ;    memory usage (default).
+ ;1 - More thorough comparison of palette files; actual bytes are compared. Use
+ ;    this setting to reduce file size.
+pal.detectduplicates = 1
+ ;0 - Do not discard duplicate palettes (default).
+ ;1 - Discard any duplicate palettes that are detected, instead of linking
+ ;    them. Any sprite using a palette that is removed will be set to use the
+ ;    non-duplicate palette instead, eg. if palette (1,2) is a duplicate of
+ ;    (1,1),  palette (1,2) will be discarded, and any sprites using palette
+ ;    (1,2) will be set to use palette (1,1) instead.
+ ;    Use this setting to reduce the number of palettes in use, especially
+ ;    when adding many palettes through the auto-add palette option
+ ;    (sprite.usepal = -1).
+pal.discardduplicates = 1
+ ;0 - Do not reverse ACT file color order.
+ ;1 - Reverse the order of colors in the palette when loading from an ACT file.
+ ;    Can be used to correct the color order if your image editor saves ACT
+ ;    files with the color order reversed.  Photoshop is known to do this.
+pal.reverseact = 0
+ ;0 - Do not reverse PNG file color order.
+ ;1 - Reverse the order of colors when loading from a PNG file.
+ ;    Can be used to correct the color order if your image editor saves it in
+ ;    reverse.  This affects both sprites and palettes read from PNG files.
+pal.reversepng = 0
+
+;Palettes
+;Accepts .act as well as .pcx/.png files (the palette is extracted from the
+;pcx or png).
+;Character palettes should be numbered from 1,1 to 1,6. Extra palettes for
+;projectiles, helpers, etc. may use any other number.
+;Format:
+;  group,itemno, fname, startcol,endcol
+[Pal]
+1,1, kfm.act, 0,255
+1,2, kfm2.act, 0,255
+1,3, kfm3.act, 0,255
+1,4, kfm4.act, 0,255
+1,5, kfm5.act, 0,255
+1,6, kfm6.act, 0,255
+
+[Option] ;You can set option states at any time
+sprite.usepal = -1   ;Use -1 to add and use self's pal (autopal)
+
+;Sprites
+;Accepts 8-bit .png files
+;group,itemno, fname, axisx, axisy
+[Sprite]
+9000, 1, f-faceb.png,  0,  0     ? usepal = -1  ;Use own palette (adds as 9000,1)
+
+[Option] ;You can set option states at any time
+sprite.usepal = 1,1    ;Use kfm.act for all these sprites
+                       ;Sprite's own pal data will be discarded
+                       ;Use -1 to add and use self's pal (autopal)
+ ;Removes colors from sprites in order to reduce color depth.
+ ;Specify the range of colors to remove, or use -1 to disable this feature
+ ;(default).
+sprite.removecolors = -1
+
+[Sprite]
+9000, 0, f-face.png,   0,  0
+   0, 0, stand00.png,  18,105
+   0, 1, stand01.png,  18,104
+   0, 2, stand02.png,  18,104
+   0, 3, stand03.png,  18,104
+   0, 4, stand04.png,  18,104
+   0, 5, stand05.png,  18,104
+; and so on
+</pre>
+<p>The definition file is parsed sequentially, where the [Option] groups set or change
+the behavior of Sprmake2, and the [Pal] and [Sprite] groups specify palettes and
+sprites to add.</p>
+<div class="section" id="using-lz5-compression">
+<h2><a class="toc-backref" href="#id5">Using lz5 compression</a></h2>
+<p>The default behavior of Sprmake2 assumes all input files are 8-bit (256 color)
+images.  This achieves a reasonable compression ratio with the rle8 algorithm.
+In order to reduce runtime memory consumption, sprites may be reduced to 32 colors
+and compressed using lz5.</p>
+<p>From kfm-sff-optimized.def:</p>
+<pre class="literal-block">
+[Pal]
+1,1, kfm.act, 224,255
+1,2, kfm2.act, 224,255
+1,3, kfm3.act, 224,255
+1,4, kfm4.act, 224,255
+1,5, kfm5.act, 224,255
+1,6, kfm6.act, 224,255
+
+...
+
+sprite.removecolors = 1,224 ;Convert 8-bit to 5-bit (32 color) sprites
+</pre>
+<p>The palettes added are first reduced to 32 colors by the last two parameters of each line
+(224,255).  Those specify the start and ending index of the colors to keep.  The remaining
+colors will be discarded.</p>
+<p>The line &quot;sprite.removecolors = 1,224&quot; specifies that color indices 1 through 224 will
+be discarded from any sprites added after.  Colors 0 and 225-255 will be kept, for a total
+of 32 colors.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

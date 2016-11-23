@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+M.U.G.E.N documentation stylesheet.
+
+
+Modified from voidspace.css.
+
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+em, i {
+  font-family: Times New Roman, Times, serif;
+}
+
+a {
+  color: #5577EE;
+  text-decoration: none;
+}
+
+a.reference.internal {
+  font-size: 80%;
+}
+
+a.toc-backref {
+  color: black;
+  text-decoration: none;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #445BAA;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #667788;
+  color: #ffffff;
+  border: thin solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #445BAA;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+  font-size: 120%;
+}
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<div class="section" id="font-documentation">
+<h1><a class="toc-backref" href="#id1">Font Documentation</a></h1>
+<p>M.U.G.E.N, (c) Elecbyte 1999-2009</p>
+<p>Documentation for version 1.0 (2009)</p>
+<p>Updated 18 September 2009</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#font-documentation" id="id1">Font Documentation</a></li>
+<li><a class="reference internal" href="#overview" id="id2">Overview</a></li>
+<li><a class="reference internal" href="#terminology" id="id3">Terminology</a></li>
+<li><a class="reference internal" href="#fnt-v2-def-file" id="id4">FNT v2 def file</a><ul>
+<li><a class="reference internal" href="#bitmap-fonts" id="id5">Bitmap fonts</a></li>
+<li><a class="reference internal" href="#ascii-character-reference" id="id6">ASCII character reference</a></li>
+<li><a class="reference internal" href="#truetype-fonts" id="id7">TrueType Fonts</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="overview">
+<h1><a class="toc-backref" href="#id2">Overview</a></h1>
+<p>Fonts in M.U.G.E.N 1.0 are composed of a definition file with a &quot;def&quot; extension, and an accompanying
+sff or True Type font file.  This format of font is referred to as FNT v2.</p>
+<p>In versions prior to M.U.G.E.N 1.0, a font is represented as single binary file with a &quot;fnt&quot; extension.  This format is referred to as FNT v1.  M.U.G.E.N 1.0 is compatible with both formats of fonts.</p>
+<p>This document describes the structure and format of FNT v2 font.</p>
+</div>
+<div class="section" id="terminology">
+<h1><a class="toc-backref" href="#id3">Terminology</a></h1>
+<dl class="docutils">
+<dt>Character</dt>
+<dd>A single letter, number or symbol.</dd>
+<dt>Glyph</dt>
+<dd>The visualization of a single character.</dd>
+<dt>Bitmap font</dt>
+<dd>A font whose glyphs are represented entirely by sprites.
+Each character in the bitmap font's supported set maps to a sprite that is the glyph of that character.</dd>
+<dt>TrueType font</dt>
+<dd>A font whose glyphs are represented by vectors that describe how to render each glyph.
+TrueType fonts are commonly used in Microsoft Windows and other operating systems to
+render anti-aliased (smooth-looking) fonts for the user interface.</dd>
+<dt>Color bank</dt>
+<dd>A palette for a bitmap font that applies a color scheme to the glyphs.
+Fonts may contain one or more color banks.</dd>
+<dt>Color bank number</dt>
+<dd>A positive number that identifies a particular color bank.</dd>
+</dl>
+</div>
+<div class="section" id="fnt-v2-def-file">
+<h1><a class="toc-backref" href="#id4">FNT v2 def file</a></h1>
+<p>A required component of a font in FNT v2 format is the font definition file, which is a text file
+with a &quot;def&quot; extension.  The font may be accompanied by a second file located in the same
+directory as the def file.  What this file is depends on the type of font.</p>
+<p>A FNT v2 font can either be a bitmap font or a TrueType font.</p>
+<div class="section" id="bitmap-fonts">
+<h2><a class="toc-backref" href="#id5">Bitmap fonts</a></h2>
+<p>An example bitmap font definition file, with inline comments, is shown below.</p>
+<pre class="literal-block">
+[FNT v2]
+; FNT v2 version number.  Don't change this.
+fntversion = 2,00
+; Name of this font.
+name = &quot;4x6 variable&quot;
+; This font contains the full ASCII character set.
+; All letters are uppercase.
+
+[Def]
+; This is a bitmap font
+Type = bitmap
+; Size of font: width, height.  Width is used for spaces.
+Size = 3,6
+; Spacing between font glyphs: width, height.
+Spacing = 1,0
+; Drawing offset: x, y.
+Offset = 0,1
+; Filename of the sff containing the glyphs.  Use sff v2 only.
+File = f-4x6.sff
+
+; Note: All units are in pixels.
+; Text rendered with bitmap fonts may be in ASCII only.
+; See work/font/f-4x6/f-4x6.def for information on creating the sff.
+</pre>
+<p>Only characters from the ASCII character set are supported by bitmap fonts.
+The extended ASCII set is not supported.
+For a table of the ASCII character set, see &quot;ASCII character reference&quot; below.</p>
+<p>Bitmap fonts must be accompanied by an SFF file that contains the sprites for the glyphs.
+Each character in the font maps to a sprite indexed by 0,&lt;ASCII code&gt; where &lt;ASCII code&gt; is the
+corresponding ASCII code for the character.
+For example, the character 'A' (ASCII code 65) maps to sprite 0,65.</p>
+<p>Any character which does not have a corresponding sprite will not be rendered.</p>
+<p>Bitmap fonts may contain one or more color banks.  Each color bank maps to a palette
+stored in the SFF, and indexed by 0,&lt;color bank number&gt; where &lt;color bank number&gt; is a positive number.
+If during font rendering, an invalid color bank is specified, the palette of the first sprite
+in the SFF will be used.</p>
+</div>
+<div class="section" id="ascii-character-reference">
+<h2><a class="toc-backref" href="#id6">ASCII character reference</a></h2>
+<p>Printable characters are in the range 32-126.  Only printable characters need to be
+represented as sprites.</p>
+<pre class="literal-block">
+=========  =========  =========  =========
+Char  Dec  Char  Dec  Char  Dec  Char  Dec
+---------  ---------  ---------  ---------
+(nul)   0  (sp)   32  &#64;      64  `      96
+(soh)   1  !      33  A      65  a      97
+(stx)   2  &quot;      34  B      66  b      98
+(etx)   3  #      35  C      67  c      99
+(eot)   4  $      36  D      68  d     100
+(enq)   5  %      37  E      69  e     101
+(ack)   6  &amp;      38  F      70  f     102
+(bel)   7  '      39  G      71  g     103
+(bs)    8  (      40  H      72  h     104
+(ht)    9  )      41  I      73  i     105
+(nl)   10  *      42  J      74  j     106
+(vt)   11  +      43  K      75  k     107
+(np)   12  ,      44  L      76  l     108
+(cr)   13  -      45  M      77  m     109
+(so)   14  .      46  N      78  n     110
+(si)   15  /      47  O      79  o     111
+(dle)  16  0      48  P      80  p     112
+(dc1)  17  1      49  Q      81  q     113
+(dc2)  18  2      50  R      82  r     114
+(dc3)  19  3      51  S      83  s     115
+(dc4)  20  4      52  T      84  t     116
+(nak)  21  5      53  U      85  u     117
+(syn)  22  6      54  V      86  v     118
+(etb)  23  7      55  W      87  w     119
+(can)  24  8      56  X      88  x     120
+(em)   25  9      57  Y      89  y     121
+(sub)  26  :      58  Z      90  z     122
+(esc)  27  ;      59  [      91  {     123
+(fs)   28  &lt;      60  \      92  |     124
+(gs)   29  =      61  ]      93  }     125
+(rs)   30  &gt;      62  ^      94  ~     126
+(us)   31  ?      63  _      95  (del) 127
+=========  =========  =========  =========
+</pre>
+</div>
+<div class="section" id="truetype-fonts">
+<h2><a class="toc-backref" href="#id7">TrueType Fonts</a></h2>
+<p>An example TrueType font definition file, with inline comments, is shown below:</p>
+<pre class="literal-block">
+[FNT v2]
+; FNT v2 version number.  Don't change this.
+fntversion = 2,00
+; Name of this font.
+name = &quot;Arial&quot;
+; Font author
+author = &quot;Microsoft&quot;
+
+[Def]
+; This is a truetype font.
+Type = truetype
+; Size of font: width, height.  Only height is used for truetype fonts.
+Size = 18,36
+; Spacing between font glyphs.  Only height is used for truetype fonts.
+Spacing = 1,1
+; Drawing offset: x, y.
+Offset = 0,0
+; Filename of the font to load.  Will search Windows font directory if not in current directory.
+File = arial.ttf
+; Preferred blending mode: 0 - none, 1 - blended.
+Blend = 1
+
+; Note: All units are in pixels.
+; Text rendered with truetype fonts may be ASCII or UTF-8
+</pre>
+<p>TrueType font definitions must be accompanied by a TrueType font file, which
+typically has an extension of .ttf or .ttc.  If the TrueType font file is
+located in the same directory as the definition file, it will be loaded.
+Otherwise, M.U.G.E.N will attempt to load the font file from the Windows
+font directory.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

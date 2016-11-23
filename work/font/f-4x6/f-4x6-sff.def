@@ -1,0 +1,173 @@
+[Output]
+ ;Filename of the SFF file to create (required).
+filename = font/f-4x6.sff
+
+[Option]
+ ;Directory containing source files.
+;input.dir =
+ ;Don't compress small fonts.
+sprite.compress.5 = none
+sprite.compress.8 = none
+sprite.compress.24 = none
+ ;Decompressed when loaded from disk.
+sprite.decompressonload = 1
+ ;0 - Detect identical files only through filename.
+sprite.detectduplicates = 0
+ ;0 - Do not auto-crop sprites (default).
+sprite.autocrop = 0
+ ;0 - Detect identical files only through filename.
+pal.detectduplicates = 0
+ ;0 - Do not discard duplicate palettes (default).
+pal.discardduplicates = 0
+
+;Palettes
+;Accepts .act as well as .pcx files (the palette is extracted from the pcx)
+;Format:
+;  group,itemno, fname, startcol,endcol
+;For font palettes, group,itemno should be 0,bankno, where bankno is the
+;color bank number.  Accepts an arbitrary number of color banks.
+;startcol,endcol should be 0,255 for 256-color palettes.
+[Pal]
+0,0, f-4x6.act, 0,255
+
+[Option]
+;Use this pal for all sprites
+sprite.usepal = 0,0
+
+;Sprites
+;Accepts 8-bit .pcx files
+;group,itemno, fname, axisx, axisy
+[Sprite]
+;For font sprites, group,itemno should be 0,ASCII-code (See reference at bottom).
+;Sorry, no UTF-8 support!
+0, 33, exclamation.pcx,  0, 0
+0, 34, doublequote.pcx,  0, 0
+0, 35, number.pcx,  0, 0
+0, 36, dollar.pcx,  0, 0
+0, 37, percent.pcx,  0, 0
+0, 38, ampersand.pcx,  0, 0
+0, 39, singlequote.pcx,  0, 0
+0, 40, paranopen.pcx,  0, 0
+0, 41, paranclose.pcx,  0, 0
+0, 42, asterisk.pcx,  0, 0
+0, 43, plus.pcx,  0, 0
+0, 44, comma.pcx,  0, 0
+0, 45, minus.pcx,  0, 0
+0, 46, period.pcx,  0, 0
+0, 47, forwardslash.pcx,  0, 0
+0, 48, 0.pcx,  0, 0
+0, 49, 1.pcx,  0, 0
+0, 50, 2.pcx,  0, 0
+0, 51, 3.pcx,  0, 0
+0, 52, 4.pcx,  0, 0
+0, 53, 5.pcx,  0, 0
+0, 54, 6.pcx,  0, 0
+0, 55, 7.pcx,  0, 0
+0, 56, 8.pcx,  0, 0
+0, 57, 9.pcx,  0, 0
+0, 58, colon.pcx,  0, 0
+0, 59, semicolon.pcx,  0, 0
+0, 60, less.pcx,  0, 0
+0, 61, equals.pcx,  0, 0
+0, 62, greater.pcx,  0, 0
+0, 63, question.pcx,  0, 0
+0, 64, at.pcx,  0, 0
+0, 65, A.pcx,  0, 0
+0, 66, B.pcx,  0, 0
+0, 67, C.pcx,  0, 0
+0, 68, D.pcx,  0, 0
+0, 69, E.pcx,  0, 0
+0, 70, F.pcx,  0, 0
+0, 71, G.pcx,  0, 0
+0, 72, H.pcx,  0, 0
+0, 73, I.pcx,  0, 0
+0, 74, J.pcx,  0, 0
+0, 75, K.pcx,  0, 0
+0, 76, L.pcx,  0, 0
+0, 77, M.pcx,  0, 0
+0, 78, N.pcx,  0, 0
+0, 79, O.pcx,  0, 0
+0, 80, P.pcx,  0, 0
+0, 81, Q.pcx,  0, 0
+0, 82, R.pcx,  0, 0
+0, 83, S.pcx,  0, 0
+0, 84, T.pcx,  0, 0
+0, 85, U.pcx,  0, 0
+0, 86, V.pcx,  0, 0
+0, 87, W.pcx,  0, 0
+0, 88, X.pcx,  0, 0
+0, 89, Y.pcx,  0, 0
+0, 90, Z.pcx,  0, 0
+0, 91, squareopen.pcx,  0, 0
+0, 92, backslash.pcx,  0, 0
+0, 93, squareclose.pcx,  0, 0
+0, 94, caret.pcx,  0, 0
+0, 95, underscore.pcx,  0, 0
+0, 96, backquote.pcx,  0, 0
+0, 97, a.pcx,  0, 0
+0, 98, b.pcx,  0, 0
+0, 99, c.pcx,  0, 0
+0, 100, d.pcx,  0, 0
+0, 101, e.pcx,  0, 0
+0, 102, f.pcx,  0, 0
+0, 103, g.pcx,  0, 0
+0, 104, h.pcx,  0, 0
+0, 105, i.pcx,  0, 0
+0, 106, j.pcx,  0, 0
+0, 107, k.pcx,  0, 0
+0, 108, l.pcx,  0, 0
+0, 109, m.pcx,  0, 0
+0, 110, n.pcx,  0, 0
+0, 111, o.pcx,  0, 0
+0, 112, p.pcx,  0, 0
+0, 113, q.pcx,  0, 0
+0, 114, r.pcx,  0, 0
+0, 115, s.pcx,  0, 0
+0, 116, t.pcx,  0, 0
+0, 117, u.pcx,  0, 0
+0, 118, v.pcx,  0, 0
+0, 119, w.pcx,  0, 0
+0, 120, x.pcx,  0, 0
+0, 121, y.pcx,  0, 0
+0, 122, z.pcx,  0, 0
+0, 123, curlyopen.pcx,  0, 0
+0, 124, pipe.pcx,  0, 0
+0, 125, curlyclose.pcx,  0, 0
+0, 126, tilde.pcx,  0, 0
+
+;ASCII code table
+;Printable characters are in the range 32-126
+;Char  Dec | Char  Dec | Char  Dec | Char  Dec  
+;---------------------------------------------
+;(nul)   0 | (sp)   32 | @      64 | `      96
+;(soh)   1 | !      33 | A      65 | a      97
+;(stx)   2 | "      34 | B      66 | b      98
+;(etx)   3 | #      35 | C      67 | c      99
+;(eot)   4 | $      36 | D      68 | d     100
+;(enq)   5 | %      37 | E      69 | e     101
+;(ack)   6 | &      38 | F      70 | f     102
+;(bel)   7 | '      39 | G      71 | g     103
+;(bs)    8 | (      40 | H      72 | h     104
+;(ht)    9 | )      41 | I      73 | i     105
+;(nl)   10 | *      42 | J      74 | j     106
+;(vt)   11 | +      43 | K      75 | k     107
+;(np)   12 | ,      44 | L      76 | l     108
+;(cr)   13 | -      45 | M      77 | m     109
+;(so)   14 | .      46 | N      78 | n     110
+;(si)   15 | /      47 | O      79 | o     111
+;(dle)  16 | 0      48 | P      80 | p     112
+;(dc1)  17 | 1      49 | Q      81 | q     113
+;(dc2)  18 | 2      50 | R      82 | r     114
+;(dc3)  19 | 3      51 | S      83 | s     115
+;(dc4)  20 | 4      52 | T      84 | t     116
+;(nak)  21 | 5      53 | U      85 | u     117
+;(syn)  22 | 6      54 | V      86 | v     118
+;(etb)  23 | 7      55 | W      87 | w     119
+;(can)  24 | 8      56 | X      88 | x     120
+;(em)   25 | 9      57 | Y      89 | y     121
+;(sub)  26 | :      58 | Z      90 | z     122
+;(esc)  27 | ;      59 | [      91 | {     123
+;(fs)   28 | <      60 | \      92 | |     124
+;(gs)   29 | =      61 | ]      93 | }     125
+;(rs)   30 | >      62 | ^      94 | ~     126
+;(us)   31 | ?      63 | _      95 | (del) 127

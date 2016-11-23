@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<title>BGM loop points</title>
+<style type="text/css">
+
+/*
+M.U.G.E.N documentation stylesheet.
+
+
+Modified from voidspace.css.
+
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+em, i {
+  font-family: Times New Roman, Times, serif;
+}
+
+a {
+  color: #5577EE;
+  text-decoration: none;
+}
+
+a.reference.internal {
+  font-size: 80%;
+}
+
+a.toc-backref {
+  color: black;
+  text-decoration: none;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #445BAA;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #667788;
+  color: #ffffff;
+  border: thin solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #445BAA;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+  font-size: 120%;
+}
+
+</style>
+</head>
+<body>
+<div class="document" id="bgm-loop-points">
+<h1 class="title">BGM loop points</h1>
+
+<p>BGM loop points allow music to repeat forever without breaks or seams, like
+real arcade games. The concept is simple: if your song schematically looks like</p>
+<pre class="literal-block">
+A B B B B ...
+</pre>
+<p>where <tt class="docutils literal">A</tt> is an intro section (possibly not present), and <tt class="docutils literal">B</tt> is a
+repeating section, then setting loop points at the beginning and end
+of <tt class="docutils literal">B</tt> will allow <tt class="docutils literal">B</tt> to repeat indefinitely.</p>
+<p>Because there are many very different kinds of music file formats, there
+is no one way to specify loop points that is most natural for all of them.
+Therefore, exactly how the loop point parameters are interpreted depends on
+the specific plugin. For streamed audio formats like WAV, OGG, and MP3,
+loop points are most naturally specified in terms of samples of the
+audio stream. For tracker-type files like MOD or MIDI, a more natural way
+to specify looppoints might be in terms of measures, beats, or pattern numbers.</p>
+<p>For streamed audio files, loop points can be identified by opening the file in
+an audio editor and looking for the precise point where the music repeats
+itself.  Use your ear to get a rough location for the loop points, and
+fine-tune them visually by looking at the shape of the waveform at the loop
+start and end. If possible, you should put the loop points at a zero crossing
+in a quiet part of the music. If the loop end occurs exactly at the end of the
+file, then you can specify loopend = -1 as a shortcut. However, for lossily
+compressed streaming audio, it is not good practice to loop exactly at the
+end of the file, because audible artifacts may be produced. The best practice
+is to pick an internal loop, as indicated schematically in the diagram below:</p>
+<pre class="literal-block">
+A---- B---- B---- B--
+           ^     ^
+           |_____|
+</pre>
+<p>Another alternative is to straddle the beginning of B:</p>
+<pre class="literal-block">
+A---- B---- B----
+         ^    ^
+         |____|
+</pre>
+<p>Although the preceding basic description holds for all streamed audio files,
+the details are a bit more complicated for MP3s in particular.</p>
+<div class="section" id="finding-loop-points-for-mp3-files">
+<h1>Finding loop points for MP3 files</h1>
+<p>MP3 files can be tricky to work with because of encoder padding. Every
+MP3 encoder inserts some silence at the beginning and end of your audio when
+you encode it. This has two deleterious effects on BGM looping: sample numbers
+are different from the original audio (because of the start padding), and
+there will be a silent gap if you try to loop at the end of the file (because
+of the end padding).</p>
+<p>Encoders based on <a class="reference external" href="http://lame.sourceforge.net">LAME</a> support gapless encoding, meaning that they
+write extra metadata to the file that gives the precise start and end of the
+true audio data. This allows compatible decoders to trim the silent padding
+when playing back the file. If you don't know if your file was encoded with
+LAME, you can use a <a class="reference external" href="http://phwip.wordpress.com">LAME tag reader</a> to see if the LAME tag is present.
+The mpg123 decoder supports gapless playback for files with gapless info
+stored in the LAME tag.</p>
+<p>Audio editors may or may not recognize the LAME tag when you open an MP3
+in them. You will need to consult the documentation for your editor, or do
+some experimentation, to find out what it does. If your file was encoded with
+LAME, but your editor does not support the LAME tag, then you must manually
+correct sample positions by subtracting the encoder delay. (Use a LAME tag
+reader to find the encoder delay.)</p>
+<p>WARNING: some editors may attempt to remove encoder padding by detecting
+silence, rather than by reading the LAME tag. The results of this procedure are
+unpredictable, so you should not use such editors to find loop points.</p>
+<p>The following scenarios are all possible with a gapless decoder like mpg123:</p>
+<ol class="arabic simple">
+<li>LAME-encoded, using original audio in editor: looppoints derived from
+original audio are reliable, loopend = -1 works without a gap.</li>
+<li>LAME-encoded, using MP3 in editor, LAME-aware editor: looppoints
+derived from editor are reliable, loopend = -1 works without a gap.</li>
+<li>LAME-encoded, using MP3 in editor, LAME-unaware editor: looppoints
+derived from editor must be corrected by subtracting encoder delay.
+loopend = -1 works without a gap.</li>
+<li>Non-LAME encoded, using original audio in editor: looppoints derived from
+original audio are not reliable. The encoder delay must be added, if you
+have some way of finding out what it is. Using loopend = -1 will leave a
+gap. To eliminate the gap, you must find a loopend that cuts out the end
+padding.</li>
+<li>Non-LAME encoded, using MP3 in editor: looppoints derived from the editor
+are reliable. Using loopend = -1 will leave a gap. To eliminate the gap, you
+must find a loopend that cuts out the end padding.</li>
+<li>Using any MP3 in an editor that tries to detect silence instead of reading
+the LAME tag: never reliable!</li>
+</ol>
+<p>With a non-gapless-capable mp3 plugin, only scenarios 4-6 are possible.</p>
+</div>
+</div>
+</body>
+</html>

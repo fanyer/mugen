@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<title>The AIR format and standard</title>
+<style type="text/css">
+
+/*
+M.U.G.E.N documentation stylesheet.
+
+
+Modified from voidspace.css.
+
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+em, i {
+  font-family: Times New Roman, Times, serif;
+}
+
+a {
+  color: #5577EE;
+  text-decoration: none;
+}
+
+a.reference.internal {
+  font-size: 80%;
+}
+
+a.toc-backref {
+  color: black;
+  text-decoration: none;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #445BAA;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #667788;
+  color: #ffffff;
+  border: thin solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #445BAA;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+  font-size: 120%;
+}
+
+</style>
+</head>
+<body>
+<div class="document" id="the-air-format-and-standard">
+<h1 class="title">The AIR format and standard</h1>
+
+<p>M.U.G.E.N, (c) Elecbyte 1999-2009</p>
+<p>Documentation for version 1.0 (2009)</p>
+<p>Updated 17 September 2009</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#introduction" id="id1">Introduction</a></li>
+<li><a class="reference internal" href="#the-format" id="id2">The format</a><ul>
+<li><a class="reference internal" href="#optional-paramters" id="id3">Optional paramters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#character-reserved-action-numbers" id="id4">Character Reserved Action Numbers</a></li>
+<li><a class="reference internal" href="#recommended-action-numbers" id="id5">Recommended Action Numbers</a></li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h1><a class="toc-backref" href="#id1">Introduction</a></h1>
+<p>AIR is a format that describes a set of animations. You will see the
+AIR format used for animating characters, backgrounds, life bars
+and more.</p>
+<p>An animation (specifically called an animation action in M.U.G.E.N)
+describes a single sequence of sprites to display. A character's
+animation file (.air) can contain as many animation actions as
+necessary.</p>
+</div>
+<div class="section" id="the-format">
+<h1><a class="toc-backref" href="#id2">The format</a></h1>
+<p>Here's a typical entry from an .air file.  We will explain the
+format next.</p>
+<pre class="literal-block">
+; Standing Animation
+[Begin Action 000]
+Clsn2Default: 2
+ Clsn2[0] = -10,  0, 10,-79
+ Clsn2[1] =  -4,-92,  6,-79
+0,1, 0,0, 7
+0,2, 0,0, 7
+0,3, 0,0, 7
+0,4, 0,0, 50
+0,5, 0,0, 7
+0,6, 0,0, 7
+0,7, 0,0, 7
+0,8, 0,0, 60
+</pre>
+<p>Semicolon (;) is used for comments.  They can be used anywhere and
+everything after the semicolon on the same line is ignored.</p>
+<p>[Begin Action n]
+This defines an action.  The number n is called the action number.
+Each action must have a unique action number in order to be
+distinguishable from other actions.  You can have many actions,
+but keep in mind that there are reserved actions numbers.  These
+numbers and their associated actions are listed below.</p>
+<p>Clsn2Default: 2
+This says that there are two collision boxes being defined and they
+will be defined for all the entries below the Clsn definition.  In
+this case for every sprite in this action.  If you don't want to
+have a default collision box, then change Clsn2Default to Clsn2.
+You must put the Clsn definition before a sprite entry.  Each
+sprite entry can have its own collision boxes.  Clsn2 refers to a
+plain collision box and Clsn1 refers to an &quot;attacking&quot; box.  You
+use attacking boxes when making attacking actions such as punching
+and kicking or special moves.  To define collision boxes, use
+AirEdit, a program included in the M.U.G.E.N development toolset.</p>
+<p>0,3, 0,0, 7
+An entry looking like this is called an &quot;animation element&quot;, or
+just &quot;element&quot; for short.
+1st number is the sprite's group number.
+2nd number is the sprite's image number.
+You assign these numbers to your sprites when you make an .sff file.</p>
+<p>So group #0 and image #3 were defined with sprmaker with an entry
+such as:
+work/mypic.pcx
+0   (group number)
+3   (image number)
+40  X axis
+40  Y axis</p>
+<p>The 3rd and 4th numbers of the element are the X and Y offsets from
+this sprite's axis.  If you want the sprite to appear 5 pixels
+forwards, put &quot;5&quot; for the 3rd number.  To make the sprite 15 pixels
+up, put &quot;-15&quot; for the 4th number, and so on.  In most cases, it is
+fine to keep the offset as 0,0.</p>
+<p>5th number is the length of time to display the element before moving
+onto the next, measured in game-ticks.  There are 60 game-ticks in
+one second at normal game speed.
+For the 5th number, you can specify &quot;-1&quot; if you want that element
+to be displayed indefinitely (or until you switch to a different
+action).  If you choose to do this, do it only on the last element
+of the action.</p>
+<p>The &quot;looptime&quot; of an action is the sum of all the times of each
+element.  Basically, it is the total length of the action in
+game-ticks.  If the last element has a time of &quot;-1&quot;, the looptime
+will be considered infinite.  We call that &quot;no loop&quot;.  Actions
+with a finite loop time will go back to the first element
+after it has finished displaying the last element, and keep
+looping until the you switch to another action.</p>
+<p>In the example action above, the looptime would be:
+7 + 7 + 7 + 50 + 7 + 7 + 7 + 60 = 152 ticks</p>
+<pre class="literal-block">
+; Standing Animation
+[Begin Action 000]
+Clsn2Default: 2
+ Clsn2[0] = -10,  0, 10,-79
+ Clsn2[1] =  -4,-92,  6,-79
+0,1, 0,0, 7
+0,2, 0,0, 7
+Loopstart
+0,3, 0,0, 7
+0,4, 0,0, 50
+0,5, 0,0, 7
+0,6, 0,0, 7
+0,7, 0,0, 7
+0,8, 0,0, 60
+</pre>
+<p>Adding a line with the word &quot;Loopstart&quot; will make the animation
+begin looping from the element on the following line.  In the
+example above, when the element with sprite 0,8 is displayed,
+the next element to be shown will be the one with sprite 0,3.</p>
+<p>When testing out your animations, you may find the pause and
+frame-advance functions useful.  To pause, hit the &quot;Pause&quot; button.
+To advance the game by one game-tick, press Scroll Lock.  Frame-
+advance only works when the game is paused.</p>
+<div class="section" id="optional-paramters">
+<h2><a class="toc-backref" href="#id3">Optional paramters</a></h2>
+<p>Here's an entry:
+15,1, 0,0, 5</p>
+<p>If you want to flip the sprite horizontally and/or vertically, you
+will need to use the &quot;flip&quot; parameters: V for vertical flip, and
+H for horizontal flip.  These parameters will be 6th on the line.
+For example:</p>
+<pre class="literal-block">
+15,1, 0,0, 5, H   ;&lt;-- This flips it horizonally
+15,2, 0,0, 5, V   ;&lt;-- This flips it vertically
+15,3, 0,0, 5, VH  ;&lt;-- This flips it both ways, ie. rotates 180 deg
+</pre>
+<p>Flipping the sprite around is especially useful for making throws.
+The opponent who is being thrown will temporarily get the player's
+animation data, and enter the &quot;being thrown&quot; animation action.
+You'll might have to flip the sprites around to make the &quot;thrown&quot;
+action look correct.</p>
+<p>For certain things such as hit sparks, you might like to use
+color addition to draw the sprite, making it look &quot;transparent&quot;.
+You won't need to use this to make a character, so you don't have
+to worry about this if you choose not to.  The parameters for
+color addition and subtraction are &quot;A&quot; and &quot;S&quot; respectively, and
+should go as the 7th on the line.
+For example:</p>
+<pre class="literal-block">
+15,4, 0,0, 5, ,A   ;&lt;-- Color addition (flip parameter omitted)
+15,4, 0,0, 5, H, S ;&lt;-- Flips horizontally and does color subtraction
+</pre>
+<p>If you wish to specify alpha values for color addition, use the
+parameter format &quot;AS???D???&quot;, where ??? represents the values of the
+source and destination alpha respectively. Values range from 0 (low)
+to 256 (high). For example, &quot;AS64D192&quot; stands for &quot;Add Source_64 to
+Dest_192&quot;. Also, &quot;AS256D256&quot; is equivalent to just &quot;A&quot;. A shorthand
+for &quot;AS256D128&quot; is &quot;A1&quot;.</p>
+<pre class="literal-block">
+15,4, 0,0, 5, ,A1  ;&lt;-- Color addition to 50% darkened dest
+15,4, 0,0, 5, ,AS128D128 ;&lt;-- Mix 50% source with 50% dest
+</pre>
+</div>
+</div>
+<div class="section" id="character-reserved-action-numbers">
+<h1><a class="toc-backref" href="#id4">Character Reserved Action Numbers</a></h1>
+<p>M.U.G.E.N's common state engine (data/common1.cns) requires several
+animation actions to be present in your character (a warning will be
+logged if not all required animations are present). There are also
+some actions that are optional, which will be made use of if present
+in your character.</p>
+<p>If you are unsure of how any of these actions should look, take a
+look at chars/kfm/kfm.air.</p>
+<p>All action numbers in the 5000-5999 range not listed below are
+reserved for possible future use, so avoid using those numbers for
+custom actions.</p>
+<p>An &quot;opt&quot; besides the number means the animation is optional.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="32%" />
+<col width="59%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Number</td>
+<td>Description</td>
+<td>Comments</td>
+</tr>
+<tr><td>0</td>
+<td>Standing</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5</td>
+<td>Stand turning</td>
+<td>Must have finite looptime</td>
+</tr>
+<tr><td>6</td>
+<td>Crouch turning</td>
+<td>Must have finite looptime</td>
+</tr>
+<tr><td>10</td>
+<td>Stand to crouch</td>
+<td>Finite looptime</td>
+</tr>
+<tr><td>11</td>
+<td>Crouching</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>12</td>
+<td>Crouch to stand</td>
+<td>Finite looptime</td>
+</tr>
+<tr><td>20</td>
+<td>Walking forwards</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>21</td>
+<td>Walking backwards</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>40</td>
+<td>Jump start (on ground)</td>
+<td>Shown just before player leaves ground</td>
+</tr>
+<tr><td>41</td>
+<td>Jump neutral (upwards)</td>
+<td>Shown when player is going up</td>
+</tr>
+<tr><td>42</td>
+<td>Jump forwards (upwards)</td>
+<td>Shown when player is going up-towards</td>
+</tr>
+<tr><td>43</td>
+<td>Jump back (upwards)</td>
+<td>Shown when player is going up-back</td>
+</tr>
+<tr><td>44  opt</td>
+<td>Jump neutral (downwards)</td>
+<td>Activated when Y-velocity &gt; -2</td>
+</tr>
+<tr><td>45  opt</td>
+<td>Jump fwd (downwards)</td>
+<td>Same as above</td>
+</tr>
+<tr><td>46  opt</td>
+<td>Jump back (downwards)</td>
+<td>Same as above</td>
+</tr>
+<tr><td>47</td>
+<td>Jump landing</td>
+<td>Shown as player lands on ground</td>
+</tr>
+<tr><td>100</td>
+<td>Run fwd/hop forward</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>105</td>
+<td>Hop back</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>120</td>
+<td>Start guarding (stand)</td>
+<td>Finite looptime</td>
+</tr>
+<tr><td>121</td>
+<td>Start guarding (crouch)</td>
+<td>Finite looptime</td>
+</tr>
+<tr><td>122</td>
+<td>Start guarding (air)</td>
+<td>Finite looptime</td>
+</tr>
+<tr><td>130</td>
+<td>Guard (stand)</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>131</td>
+<td>Guard (crouch)</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>132</td>
+<td>Guard (air)</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>140</td>
+<td>Stop guarding (stand)</td>
+<td>Finite looptime</td>
+</tr>
+<tr><td>141</td>
+<td>Stop guarding (crouch)</td>
+<td>Finite looptime</td>
+</tr>
+<tr><td>142</td>
+<td>Stop guarding (air)</td>
+<td>Finite looptime</td>
+</tr>
+<tr><td>150</td>
+<td>Guarding a hit (stand)</td>
+<td>Finite looptime</td>
+</tr>
+<tr><td>151</td>
+<td>Guarding a hit (crouch)</td>
+<td>Finite looptime</td>
+</tr>
+<tr><td>152</td>
+<td>Guarding a hit (air)</td>
+<td>No loop</td>
+</tr>
+<tr><td>170 opt</td>
+<td>Lose</td>
+<td>(See Note 1)</td>
+</tr>
+<tr><td>175 opt</td>
+<td>Time Over drawgame</td>
+<td>(See Note 1)</td>
+</tr>
+<tr><td>180 opt</td>
+<td>Win</td>
+<td>No loop (181-189 for multiple) (See Note 1)</td>
+</tr>
+<tr><td>190 opt</td>
+<td>Intro</td>
+<td>No loop (See Note 1)</td>
+</tr>
+<tr><td>195 opt</td>
+<td>Taunt</td>
+<td>Finite looptime (See Note 1)</td>
+</tr>
+<tr><td>5000</td>
+<td>Stand/Air Hit high (light)</td>
+<td>Looptime around 10-20</td>
+</tr>
+<tr><td>5001</td>
+<td>Stand/Air Hit high (medium)</td>
+<td>&quot;     (See Note 2)</td>
+</tr>
+<tr><td>5002</td>
+<td>Stand/Air Hit high (hard)</td>
+<td>&quot;</td>
+</tr>
+<tr><td>5005</td>
+<td>Stand Recover high (light)</td>
+<td>No loop (See Note 3)</td>
+</tr>
+<tr><td>5006</td>
+<td>Stand Recover high (medium)</td>
+<td>&quot;</td>
+</tr>
+<tr><td>5007</td>
+<td>Stand Recover high (hard)</td>
+<td>&quot;</td>
+</tr>
+<tr><td>5010</td>
+<td>Stand/Air Hit low (light)</td>
+<td>Looptime around 10-20</td>
+</tr>
+<tr><td>5011</td>
+<td>Stand/Air Hit low (medium)</td>
+<td>&quot;</td>
+</tr>
+<tr><td>5012</td>
+<td>Stand/Air Hit low (hard)</td>
+<td>&quot;</td>
+</tr>
+<tr><td>5015</td>
+<td>Stand Recover low (light)</td>
+<td>No loop</td>
+</tr>
+<tr><td>5016</td>
+<td>Stand Recover low (medium)</td>
+<td>&quot;</td>
+</tr>
+<tr><td>5017</td>
+<td>Stand Recover low (hard)</td>
+<td>&quot;</td>
+</tr>
+<tr><td>5020</td>
+<td>Crouch Hit (light)</td>
+<td>Looptime around 10-20</td>
+</tr>
+<tr><td>5021</td>
+<td>Crouch Hit (medium)</td>
+<td>&quot;</td>
+</tr>
+<tr><td>5022</td>
+<td>Crouch Hit (hard)</td>
+<td>&quot;</td>
+</tr>
+<tr><td>5025</td>
+<td>Crouch Recover (light)</td>
+<td>No loop</td>
+</tr>
+<tr><td>5026</td>
+<td>Crouch Recover (medium)</td>
+<td>&quot;</td>
+</tr>
+<tr><td>5027</td>
+<td>Crouch Recover (hard)</td>
+<td>&quot;</td>
+</tr>
+<tr><td>5030</td>
+<td>Stand/Air Hit back</td>
+<td>Looptime around 10-20</td>
+</tr>
+<tr><td>5035 opt</td>
+<td>Stand/Air Hit transition</td>
+<td>Looptime around 5-15 (See Note 3)</td>
+</tr>
+<tr><td>5040</td>
+<td>Air Recover</td>
+<td>No loop</td>
+</tr>
+<tr><td>5050</td>
+<td>Air Fall</td>
+<td>No loop</td>
+</tr>
+<tr><td>5060 opt</td>
+<td>Air Fall (coming down)</td>
+<td>No loop</td>
+</tr>
+<tr><td>5070</td>
+<td>Tripped</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5080</td>
+<td>LieDown Hit (stay down)</td>
+<td>(See Note 4)</td>
+</tr>
+<tr><td>5090</td>
+<td>LieDown Hit (hit up into air)</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5100</td>
+<td>Hitting ground from fall</td>
+<td>Looptime around 3</td>
+</tr>
+<tr><td>5160</td>
+<td>Bounce into air</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5170</td>
+<td>Hit ground from bounce</td>
+<td>Looptime around 3 or 4</td>
+</tr>
+<tr><td>5110</td>
+<td>LieDown</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5120</td>
+<td>Get up from LieDown</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5140 opt</td>
+<td>LieDead (first rounds)</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5150 opt</td>
+<td>LieDead (final round)</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5200</td>
+<td>Fall-recovery near ground</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5210</td>
+<td>Fall-recovery in mid-air</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5300</td>
+<td>Dizzy</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5500 opt</td>
+<td>&quot;Continue?&quot; screen</td>
+<td>If omitted, plays dizzy anim</td>
+</tr>
+<tr><td>5510 opt</td>
+<td>&quot;Yes&quot; to &quot;Continue&quot;</td>
+<td>If omitted, plays first win anim (not yet implemented)</td>
+</tr>
+<tr><td>5520 opt</td>
+<td>&quot;No&quot; to &quot;Continue&quot;</td>
+<td>(not yet implemented)</td>
+</tr>
+</tbody>
+</table>
+<p>Optional Hit Up animations (see Note 5):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="34%" />
+<col width="55%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Number</td>
+<td>Description</td>
+<td>Comments</td>
+</tr>
+<tr><td>5051 opt</td>
+<td>Air fall -- hit up</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5061 opt</td>
+<td>Coming down from hit up</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5081 opt</td>
+<td>LieDown Hit (stay down)</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5101 opt</td>
+<td>Bounce from ground into air</td>
+<td>Looptime around 3</td>
+</tr>
+<tr><td>5161 opt</td>
+<td>Bounce into air</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5171 opt</td>
+<td>Hit ground from bounce</td>
+<td>Looptime around 3 or 4</td>
+</tr>
+<tr><td>5111 opt</td>
+<td>LieDown</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5121 opt</td>
+<td>Get up from LieDown</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5151 opt</td>
+<td>LieDead (first rounds)</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5156 opt</td>
+<td>LieDead (final round)</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>Optional Hit Up-Diagonal animations (see Note 6):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="34%" />
+<col width="55%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Number</td>
+<td>Description</td>
+<td>Comments</td>
+</tr>
+<tr><td>5052 opt</td>
+<td>Air fall -- hit up</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5062 opt</td>
+<td>Coming down from hit up</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5082 opt</td>
+<td>LieDown Hit (stay down)</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5102 opt</td>
+<td>Bounce from ground into air</td>
+<td>Looptime around 3</td>
+</tr>
+<tr><td>5162 opt</td>
+<td>Bounce into air</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5172 opt</td>
+<td>Hit ground from bounce</td>
+<td>Looptime around 3 or 4</td>
+</tr>
+<tr><td>5112 opt</td>
+<td>LieDown</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5122 opt</td>
+<td>Get up from LieDown</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5152 opt</td>
+<td>LieDead (first rounds)</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>5157 opt</td>
+<td>LieDead (final round)</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Note 1: These do not actually have to use only the stated numbers. If is</dt>
+<dd>more of a recommended number than a M.U.G.E.N one. If necessary,
+feel free to use any other action numbers.</dd>
+</dl>
+<p>Note 2: If medium and heavy hits are omitted, they default to the light hits</p>
+<dl class="docutils">
+<dt>Note 3: &quot;No loop&quot; means last frame has a time of -1.</dt>
+<dd>For recover animation, the first frame of each recovery should be the
+last frame of the corresponding hit. Eg. If action 5000 has frame
+5000,0 and 5000,1, then action 5005 should start with frame 5000,1.
+This is because the animation will be locked in the first frame of
+the recovery after the hit animation is over, but before the player
+has recovered from the hit.
+If you have a Stand/Air Hit transition animation, then the first
+frame of Air Recover and Air Fall should be the last frame of the
+transition animation.</dd>
+<dt>Note 4: The Stand/Air Hit transition animation is played back after each</dt>
+<dd>hit animation in (or into) the air, but before the Air Recover
+and Air Fall animations.</dd>
+<dt>Note 5: You can loop the LieDown Hit if you want the player to look like he</dt>
+<dd>is &quot;twitching&quot; while being hit</dd>
+<dt>Note 6: This set of animations is optional. It is an alternate set of</dt>
+<dd>falling animations, which is used if hit by a HitDef with &quot;Up&quot; as
+the animtype.</dd>
+<dt>Note 7: This set of animations is optional. It is an alternate set of</dt>
+<dd>falling animations, which is used if hit by a HitDef with &quot;DiagUp&quot;
+as the animtype.</dd>
+</dl>
+</div>
+<div class="section" id="recommended-action-numbers">
+<h1><a class="toc-backref" href="#id5">Recommended Action Numbers</a></h1>
+<p>You do not have to follow this exactly, but it should serve as a
+guideline. In general, the states in the CNS should have the same
+numbers as the animation they use, to reduce confusion.</p>
+<p>You might want space out your animation and state numbers. This
+gives room for you to add in more actions as necessary (some attacks
+can use multiple states and animations). For instance, Standing
+Light Kick and Standing Strong Kick could have action numbers 200
+and 210 respectively.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Number</td>
+<td>Description</td>
+</tr>
+<tr><td>0-199</td>
+<td><em>reserved</em></td>
+</tr>
+<tr><td>200-299</td>
+<td>Standing attacks</td>
+</tr>
+<tr><td>300-399</td>
+<td>More standing attacks, running attacks</td>
+</tr>
+<tr><td>400-499</td>
+<td>Crouch attacks</td>
+</tr>
+<tr><td>500-599</td>
+<td>More crouch attacks</td>
+</tr>
+<tr><td>600-699</td>
+<td>Air attacks</td>
+</tr>
+<tr><td>700-799</td>
+<td>More air attacks</td>
+</tr>
+<tr><td>800-999</td>
+<td>Unused - use if you need more states</td>
+</tr>
+<tr><td>1000-2999</td>
+<td>All special attacks</td>
+</tr>
+<tr><td>3000-4999</td>
+<td>All hyper attacks</td>
+</tr>
+<tr><td>5000-5999</td>
+<td><em>reserved</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</body>
+</html>

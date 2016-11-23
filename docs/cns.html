@@ -1,0 +1,1933 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<title>The CNS format</title>
+<style type="text/css">
+
+/*
+M.U.G.E.N documentation stylesheet.
+
+
+Modified from voidspace.css.
+
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+em, i {
+  font-family: Times New Roman, Times, serif;
+}
+
+a {
+  color: #5577EE;
+  text-decoration: none;
+}
+
+a.reference.internal {
+  font-size: 80%;
+}
+
+a.toc-backref {
+  color: black;
+  text-decoration: none;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #445BAA;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #667788;
+  color: #ffffff;
+  border: thin solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #445BAA;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+  font-size: 120%;
+}
+
+</style>
+</head>
+<body>
+<div class="document" id="the-cns-format">
+<h1 class="title">The CNS format</h1>
+
+<p>M.U.G.E.N, (c) Elecbyte 1999-2009</p>
+<p>Documentation for version 1.0 (2009)</p>
+<p>Updated 01 September 2009</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#introduction" id="id2">Introduction</a><ul>
+<li><a class="reference internal" href="#some-terminology" id="id3">Some terminology</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#player-variables" id="id4">Player Variables</a></li>
+<li><a class="reference internal" href="#states" id="id5">States</a><ul>
+<li><a class="reference internal" href="#introduction-to-states" id="id6">Introduction to States</a><ul>
+<li><a class="reference internal" href="#life-and-power" id="id7">Life and power</a></li>
+<li><a class="reference internal" href="#control" id="id8">Control</a></li>
+<li><a class="reference internal" href="#game-time-and-state-time" id="id9">Game-time and state-time</a></li>
+<li><a class="reference internal" href="#position-velocity-and-acceleration" id="id10">Position, velocity and acceleration</a></li>
+<li><a class="reference internal" href="#juggling" id="id11">Juggling</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#basic-parts-of-a-state" id="id12">Basic Parts of a State</a></li>
+<li><a class="reference internal" href="#details-on-statedef" id="id13">Details on StateDef</a><ul>
+<li><a class="reference internal" href="#type" id="id14"><tt class="docutils literal">type</tt></a></li>
+<li><a class="reference internal" href="#movetype" id="id15"><tt class="docutils literal">movetype</tt></a></li>
+<li><a class="reference internal" href="#physics" id="id16"><tt class="docutils literal">physics</tt></a></li>
+<li><a class="reference internal" href="#anim" id="id17"><tt class="docutils literal">anim</tt></a></li>
+<li><a class="reference internal" href="#velset" id="id18"><tt class="docutils literal">velset</tt></a></li>
+<li><a class="reference internal" href="#ctrl" id="id19"><tt class="docutils literal">ctrl</tt></a></li>
+<li><a class="reference internal" href="#poweradd" id="id20"><tt class="docutils literal">poweradd</tt></a></li>
+<li><a class="reference internal" href="#juggle" id="id21"><tt class="docutils literal">juggle</tt></a></li>
+<li><a class="reference internal" href="#facep2" id="id22"><tt class="docutils literal">facep2</tt></a></li>
+<li><a class="reference internal" href="#hitdefpersist" id="id23"><tt class="docutils literal">hitdefpersist</tt></a></li>
+<li><a class="reference internal" href="#movehitpersist" id="id24"><tt class="docutils literal">movehitpersist</tt></a></li>
+<li><a class="reference internal" href="#hitcountpersist" id="id25"><tt class="docutils literal">hitcountpersist</tt></a></li>
+<li><a class="reference internal" href="#sprpriority" id="id26"><tt class="docutils literal">sprpriority</tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#details-on-state-controllers" id="id27">Details on State Controllers</a><ul>
+<li><a class="reference internal" href="#controller-format" id="id28">Controller Format</a></li>
+<li><a class="reference internal" href="#triggers" id="id29">Triggers</a><ul>
+<li><a class="reference internal" href="#trigger-logic" id="id30">Trigger Logic</a></li>
+<li><a class="reference internal" href="#trigger-persistency" id="id31">Trigger Persistency</a></li>
+<li><a class="reference internal" href="#trigger-redirection" id="id32">Trigger redirection</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#commonly-used-controllers" id="id33">Commonly-used controllers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#common-states-common1-cns" id="id34">Common states (common1.cns)</a></li>
+<li><a class="reference internal" href="#special-state-numbers" id="id35">Special State Numbers</a></li>
+<li><a class="reference internal" href="#expressions" id="id36">Expressions</a><ul>
+<li><a class="reference internal" href="#data-types" id="id37">Data types</a></li>
+<li><a class="reference internal" href="#arithmetic-operators" id="id38">Arithmetic Operators</a></li>
+<li><a class="reference internal" href="#precedence-and-associativity-of-operators" id="id39">Precedence and associativity of operators</a></li>
+<li><a class="reference internal" href="#expression-syntax" id="id40">Expression syntax</a></li>
+<li><a class="reference internal" href="#condition-and-function-type-triggers" id="id41">Condition- and function-type triggers</a></li>
+<li><a class="reference internal" href="#id1" id="id42">Trigger redirection</a></li>
+<li><a class="reference internal" href="#bottom" id="id43">bottom</a><ul>
+<li><a class="reference internal" href="#special-forms" id="id44">Special Forms</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#avoiding-warnings" id="id45">Avoiding warnings</a></li>
+<li><a class="reference internal" href="#expressions-in-trigger-arguments" id="id46">Expressions in trigger arguments</a></li>
+<li><a class="reference internal" href="#expressions-in-state-and-state-controller-parameters" id="id47">Expressions in state and state controller parameters</a></li>
+<li><a class="reference internal" href="#organizing-for-efficiency" id="id48">Organizing for efficiency</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h1><a class="toc-backref" href="#id2">Introduction</a></h1>
+<p>The CNS file of a player serves two purposes:</p>
+<ol class="lowerroman simple">
+<li>It defines the variables of that player, such as walking speed, drawing
+scale factor, and so on.</li>
+<li>It contains the states of the player, which describe all the moves that
+the player can do. States are the building blocks that you can use to
+create simple as well as complicated moves.</li>
+</ol>
+<p>Like many other character files, the CNS is a text file that you can edit
+with any text editor.</p>
+<p>In the CNS file, a semicolon (;) is considered a &quot;comment&quot; character. Any text
+on the same line after the semicolon will be ignored by the program. The CNS is
+mostly case-insensitive, i.e. &quot;MyName&quot; is treated the same as &quot;myname&quot; and
+&quot;mYnAMe&quot;. The one exception is the <tt class="docutils literal">command</tt> trigger (covered in detail in
+the CMD documentation).</p>
+<div class="section" id="some-terminology">
+<h2><a class="toc-backref" href="#id3">Some terminology</a></h2>
+<p>When we say &quot;group&quot;, we mean any block of lines of text beginning with
+something that looks like <tt class="docutils literal">[groupname]</tt>, and ending before the next group.
+For example, the group <tt class="docutils literal">Foo</tt> consists of the first three lines in the
+following:</p>
+<pre class="literal-block">
+[Foo]
+line1
+line2
+
+[Group 2]
+more lines
+</pre>
+<p>Within a group, the parameters can appear in any order. So,</p>
+<pre class="literal-block">
+[SomeGroup]
+value1 = 1234
+value2 = &quot;A string&quot;
+</pre>
+<p>is equivalent to:</p>
+<pre class="literal-block">
+[SomeGroup]
+value2 = &quot;A string&quot;
+value1 = 1234
+</pre>
+</div>
+</div>
+<div class="section" id="player-variables">
+<h1><a class="toc-backref" href="#id4">Player Variables</a></h1>
+<p>No full documentation yet. <tt class="docutils literal">See chars/kfm/kfm.cns</tt> for comments on each
+variable.</p>
+<p>Some important ones to note:</p>
+<ul class="simple">
+<li>In <tt class="docutils literal">[Size]</tt>, you can use <tt class="docutils literal">xscale</tt> and <tt class="docutils literal">yscale</tt> to change the width
+and height of your character. This saves the trouble of scaling every
+single one of the sprites.</li>
+<li>Set up the speeds of the player in <tt class="docutils literal">[Velocity]</tt></li>
+<li>Set the player's downward acceleration -- <tt class="docutils literal">yaccel</tt> in <tt class="docutils literal">[Movement]</tt></li>
+</ul>
+</div>
+<div class="section" id="states">
+<h1><a class="toc-backref" href="#id5">States</a></h1>
+<p>Animations and sounds are the most immediately noticeable manifestations of a
+MUGEN character, but the true &quot;heart&quot; of the character is its CNS file(s). The
+CNS file, also known as the character's &quot;states&quot; file, contains the code that
+actually gives the character its functionality -- allowing it to perform moves
+when commanded, to hit its opponent, or to obey the law of gravity.</p>
+<p>The structure of a CNS file is simple. Code is organized into logical groups
+called <tt class="docutils literal">[StateDef]</tt>s. <tt class="docutils literal">[StateDef]</tt> blocks are numbered, and a typical
+character may contain hundreds of them. Within each <tt class="docutils literal">[StateDef]</tt> is a
+number of <tt class="docutils literal">[State]</tt> blocks, also known as state controllers. Each
+state controller is a trigger-action pair:
+it specifies some action for the character to take, and the conditions
+under which that action should be performed.</p>
+<p>At each instant (&quot;tick&quot;) of game time, the character executes the code in some
+<tt class="docutils literal">[StateDef]</tt> block. For instance, if the character is standing idly, then
+it is typically executing in the <tt class="docutils literal">[StateDef 0]</tt> block. For brevity, we say
+that the character is &quot;in state 0&quot;. At each tick that the character is in
+state 0, it will evaluate the state controllers in the <tt class="docutils literal">[StateDef 0]</tt>
+block from top to bottom, checking the conditions and taking any actions
+that are specified. If the character needs to change to some other
+<tt class="docutils literal">[StateDef]</tt> block, let's say to state 417 because it is performing a move,
+it can execute a <tt class="docutils literal">ChangeState</tt> state controller to make the switch. The
+character will then start executing the code in <tt class="docutils literal">[StateDef 417]</tt>, in exactly
+the same fashion.</p>
+<p>Each MUGEN character additionally has three special states, numbered -1, -2,
+and -3. These are the only allowable states with negative numbers. State -1
+generally contains state controllers that determine state transition rules
+based on user input (commands). State -2 contains other state controllers that
+need to be checked every tick. State -3 contains state controllers which are
+checked every tick unless the player is temporarily using another player's
+state data (for instance, when the player is being thrown).</p>
+<p>To put it all together: for each tick of game-time, MUGEN makes a single pass
+through each of the special states, from top to bottom, in order of increasing
+state number (-3, -2, then -1). For each state controller encountered, its
+condition-type triggers are evaluated and, if they are satisfied, the
+controller is executed.  Then processing proceeds to the next state controller
+in the state. A state transition (<tt class="docutils literal">ChangeState</tt>) in any of the special states
+will update the player's current state number, and will abort processing the
+remainder of the state. After all the state controllers in the special states have
+been checked, the player's current state is processed, again from top to
+bottom. If a state transition is made out of the current state, the rest of the
+state controllers (if any) in the current state are skipped, and processing
+continues from the beginning of the new state. When the end of the current
+state is reached and no state transition is made, processing halts for this
+tick.</p>
+<p>There is one exception to the above scenario. If the character is a &quot;helper&quot;
+character, i.e., spawned by the <tt class="docutils literal">Helper</tt> state controller, that character will
+not have the special states -3 and -2. The helper character will not have the
+special state -1 either, unless it has keyboard input enabled. (This is
+controlled by the <tt class="docutils literal">Helper</tt> state controller when the character is created.)</p>
+<div class="section" id="introduction-to-states">
+<h2><a class="toc-backref" href="#id6">Introduction to States</a></h2>
+<p>Programming states is the hardest part of creating a character. It entails a
+lot of work, testing, and sometimes trial-and-error. In this section, we'll
+often refer the player being programmed, and to his opponent as well. Let us
+call the player whose states we are editing P1, and his opponent P2.</p>
+<p>Do not be discouraged if you do not understand a lot of this document on your
+first reading. The best way to learn about states is to first play around with
+values in the CNS of a completed character, and see what effects they have on
+him or her. There's nothing to fear from &quot;tweaking&quot; the CNS; M.U.G.E.N is
+designed to detect syntax errors and report them.</p>
+<p>Included with the M.U.G.E.N distribution package is a character named Kung Fu
+Man (KFM for short.) You can find him in the directory chars/kfm.</p>
+<p>The CMD file contains declarations of command names and the definition of State
+-1, a special state which is used to control how the character responds to user
+input. See the CMD document for more information.</p>
+<p>Below are some concepts that will be useful for you to know.</p>
+<div class="section" id="life-and-power">
+<h3><a class="toc-backref" href="#id7">Life and power</a></h3>
+<p>A player's life bar is the yellow bar at the top of the screen on his
+side of the screen. When the life bar reaches zero, the player is knocked
+out. His power bar is the blue bar, and that increases with each attack he
+gives or takes. When the power bar reaches certain values, he can do super
+moves.</p>
+</div>
+<div class="section" id="control">
+<h3><a class="toc-backref" href="#id8">Control</a></h3>
+<p>When we say a player &quot;has control&quot;, we mean that he is ready to walk or
+jump or attack. A player who does not have control will not respond to
+your input (from keyboard or joystick). For example, when P1 is in his
+stand state, he has control, and will walk forward if you press the
+forward button. A player will typically not have control when he is in
+an attack state, otherwise you could just walk away halfway through a
+punch.</p>
+<p>There is an exception to the rule, however. Sometimes you can let the
+player respond to certain moves even if he has no control. That is
+called a &quot;move interrupt&quot;, or a &quot;move cancel&quot;. See the CMD documentation
+for details.</p>
+<p>We will frequently refer to a player's &quot;control flag&quot;. A &quot;flag&quot; is a
+value that is either true, or false. If we say the player's control
+flag is true, then it means he has control.</p>
+</div>
+<div class="section" id="game-time-and-state-time">
+<h3><a class="toc-backref" href="#id9">Game-time and state-time</a></h3>
+<p>M.U.G.E.N keeps track of the time that has passed in the game. Every time
+the game is updated (this includes updating the players, checking
+collisions, and drawing to the screen), we say game-time has increased
+by one. The time a player has spent in a state is known as the
+&quot;state-time&quot;. The state-time starts at 0 at the beginning of a state, and
+increases by one tick for every tick of game-time.</p>
+</div>
+<div class="section" id="position-velocity-and-acceleration">
+<h3><a class="toc-backref" href="#id10">Position, velocity and acceleration</a></h3>
+<p>Those of you with basic knowledge of math should understand these concepts.
+M.U.G.E.N uses the following coordinate system. The greater the x-position,
+the farther right the player is. The less the x-position, the closer he is
+to the left. A y-position of zero is at ground level. As the player's
+y-position gets larger he moves downwards. For example, a negative
+y-position means he is in the air. Similarly, when we say a player has
+positive x-velocity, it means he is moving forward, and if he as negative
+x-velocity, he is moving backwards. A player with positive y-velocity is
+moving downward, and a negative y-velocity means he is moving up. A
+positive x-acceleration means the player's x-velocity is increasing, a
+negative x-acceleration means his x-velocity is decreasing. Likewise for
+y-acceleration.</p>
+</div>
+<div class="section" id="juggling">
+<h3><a class="toc-backref" href="#id11">Juggling</a></h3>
+<p>M.U.G.E.N allows for certain moves to &quot;juggle&quot;, that is, to hit opponents
+who have been knocked into the air, or are lying down on the ground. The
+juggling system works this way: each person starts with a set number of
+juggle &quot;points&quot; on the first hit that makes them fall, typically 15.</p>
+<p>Some quick terminology: when we say a player is &quot;falling&quot;, then we mean
+he does not recover control in the air, and will fall onto the ground.</p>
+<p>If a player is hit while he is in the falling in the air or lying down on
+the ground, then his juggle points will decrease by an amount depending on
+the attack. When an attack requires more juggle points than the opponent
+has left, then the attack will miss. Any move that causes the opponent to
+fall immediately subtracts its juggle points on the first hit.</p>
+<p>For example, an attack that requires 7 juggle points could theoretically
+be used to juggle the opponent twice (assuming you started with 15 points),
+leaving the opponent with 1 point left. Subsequent such attacks will miss.</p>
+<p>The reason for this juggle system is to prevent infinite combos in the air.</p>
+</div>
+</div>
+<div class="section" id="basic-parts-of-a-state">
+<h2><a class="toc-backref" href="#id12">Basic Parts of a State</a></h2>
+<p>Note: This section assumes you have at least browsed the documentation of AIR
+files, and understand the concepts of animation, as know the meaning of key
+words and phrases such as action and element of an action.</p>
+<p>Here is a short example state for P1:</p>
+<pre class="literal-block">
+[Statedef 200]
+type = S
+physics = S
+movetype = I
+ctrl = 0
+anim = 200
+velset = 0
+
+[State 200, 1]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+</pre>
+<p>This state plays back the Action 200 of P1's animation, and returns P1 to
+his standing state after the animation has ended. In this case, assume
+Action 200 has a finite looptime. That is, Action 200 does not have any
+elements with time equal to -1.</p>
+<p>At this point, you do not need to worry about the details. Let us begin by
+knowing what a state consists of.</p>
+<p>All states must have a single Statedef section and one or more State sections.</p>
+<p>Statedef contains the starting information of a state, such as what kind of
+state it is (standing, crouching, in the air) and what kind of move he is doing
+(attacking, idling.)</p>
+<p>Each State section is referred to as a state controller, or a controller for
+short. Controllers tell the program what to do to P1, and when to do it. There
+are many kinds of controllers, each with its own function. For example, there
+are controllers to change the players position or velocity, define the effects
+of attacks, create projectiles, switch between animation Actions, change
+states, and so on. Each controller must have at least one trigger. A trigger is
+an event that causes the controller to be activated. Examples are: trigger at
+the start of the state, trigger at the end of the animation (as seen in the
+example State above), trigger on an element of an animation Action, trigger
+when P2 is within a certain range of P1, and so on.</p>
+</div>
+<div class="section" id="details-on-statedef">
+<h2><a class="toc-backref" href="#id13">Details on StateDef</a></h2>
+<p>Every state must begin with exactly one StateDef group, also known as a
+Statedef section. A StateDef group must look like this (put in one or more
+parameters where the dots are):</p>
+<pre class="literal-block">
+[Statedef state_number]
+. state_parameters
+.
+.
+</pre>
+<p>Replace <tt class="docutils literal">state_number</tt> with the number of the state you are programming. With
+the exception of the special group numbers (see Appendix A) you are allowed to
+use any state number you choose. To avoid choosing a special group number, do
+not choose numbers from 0-199, and from 5000-5999.</p>
+<p>The lines that follow should include the following basic parameters:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#type">type</a></li>
+<li><a class="reference internal" href="#movetype">movetype</a></li>
+<li><a class="reference internal" href="#physics">physics</a></li>
+<li><a class="reference internal" href="#anim">anim</a></li>
+</ul>
+<p>There are also additional optional parameters that may be included:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#velset">velset</a></li>
+<li><a class="reference internal" href="#ctrl">ctrl</a></li>
+<li><a class="reference internal" href="#poweradd">poweradd</a></li>
+<li><a class="reference internal" href="#juggle">juggle</a></li>
+<li><a class="reference internal" href="#facep2">facep2</a></li>
+<li><a class="reference internal" href="#hitdefpersist">hitdefpersist</a></li>
+<li><a class="reference internal" href="#movehitpersist">movehitpersist</a></li>
+<li><a class="reference internal" href="#hitcountpersist">hitcountpersist</a></li>
+<li><a class="reference internal" href="#sprpriority">sprpriority</a></li>
+</ul>
+<div class="section" id="type">
+<h3><a class="toc-backref" href="#id14"><tt class="docutils literal">type</tt></a></h3>
+<p>This is the state type of P1 in that state. It defines if he is standing,
+crouching, in the air, or lying down. The corresponding values are &quot;S&quot;, &quot;C&quot; ,
+&quot;A&quot; and &quot;L&quot; respectively (without the quotation marks). To leave the type
+unchanged from the previous state, use a value of &quot;U&quot;. If this line is omitted,
+it assumes the type is &quot;S&quot;. You will most commonly use &quot;S&quot;, &quot;C&quot; and &quot;A&quot;. For
+example, a crouching state type would require the line:</p>
+<pre class="literal-block">
+type = C
+</pre>
+<p>The type is used to determine several factors, most importantly, how P1 will
+react to being hit. For example, being in a &quot;stand&quot;-type state, P1 will react
+as if he is standing on the ground. If the type was &quot;air&quot;, then P1 would react
+to the hit accordingly.</p>
+</div>
+<div class="section" id="movetype">
+<h3><a class="toc-backref" href="#id15"><tt class="docutils literal">movetype</tt></a></h3>
+<p>This is the type of move P1 is doing: &quot;A&quot; for attack, &quot;I&quot; for idle and &quot;H&quot; for
+being hit. To leave the movetype unchanged from the previous state, use a value
+of &quot;U&quot;. The value is assumed to be &quot;I&quot; if this line is omitted. &quot;A&quot; and &quot;H&quot;
+should be self-explanatory. &quot;I&quot; is used for states where P1 is neither
+attacking, nor being hit. For example, an attack state should have the line:</p>
+<pre class="literal-block">
+movetype = A
+</pre>
+<p>You need to specify the movetype so the program will know how to process the
+state. Incorrectly specifying the movetype may cause P1 to act incorrectly.</p>
+</div>
+<div class="section" id="physics">
+<h3><a class="toc-backref" href="#id16"><tt class="docutils literal">physics</tt></a></h3>
+<p>You need to specify what physics to use in that state. Valid values are &quot;S&quot; for
+stand, &quot;C&quot; for crouch, &quot;A&quot; for air, and &quot;N&quot; for none. To leave the physics
+unchanged from the previous state, use a value of &quot;U&quot;. If omitted, the value of
+&quot;N&quot; is assumed. The kind of physics is used to determine how P1 behaves.</p>
+<ul class="simple">
+<li>For &quot;S&quot; physics, P1 will experience friction with the ground. The value
+for the friction coefficient is set in the <a class="reference internal" href="#player-variables">Player Variables</a>.</li>
+<li>For &quot;C&quot; physics, P1 will experience friction, just like in the &quot;S&quot; state.</li>
+<li>For &quot;A&quot; physics, P1 will accelerate downwards, and if his y-position is
+greater than 0 (ie. he touches the ground) he will immediately go into his
+landing state.</li>
+<li>If you use &quot;N&quot; P1 will not use any of these pre-programmed physics.</li>
+</ul>
+<p>Do not confuse &quot;physics&quot; with the state &quot;type&quot;. They are usually the same, but
+you are given the choice if you want more control. For instance, you may choose
+to use &quot;N&quot; (no physics), and specify your own acceleration and landing
+detection for an aerial state.</p>
+</div>
+<div class="section" id="anim">
+<h3><a class="toc-backref" href="#id17"><tt class="docutils literal">anim</tt></a></h3>
+<p>This parameter changes the Animation Action of P1. Specify the action number as
+the value. If you do not want P1 to change animation at the start of the state,
+omit this parameter.</p>
+<p>So to have a state with number 400, where the player is doing a crouching
+attack with Action 400, the typical parameters would be:</p>
+<pre class="literal-block">
+[Statedef 400]
+type = c
+movetype = a
+physics = c
+anim = 400
+</pre>
+</div>
+<div class="section" id="velset">
+<h3><a class="toc-backref" href="#id18"><tt class="docutils literal">velset</tt></a></h3>
+<p>You can use <tt class="docutils literal">velset</tt> to set P1's velocity at the beginning of the state. The
+format is a number pair, representing the x velocity and the y velocity
+respectively. Omitting this line will leave P1's velocity unchanged. For
+example,</p>
+<pre class="literal-block">
+velset = 4,-8
+</pre>
+<p>makes P1 start moving diagonally up and forwards.</p>
+<p>There is an exception to this. Even if you have <tt class="docutils literal">velset = 0</tt>, attacking P2 in
+the corner will push P1 away.</p>
+</div>
+<div class="section" id="ctrl">
+<h3><a class="toc-backref" href="#id19"><tt class="docutils literal">ctrl</tt></a></h3>
+<p>This parameter will set P1's control. A value of &quot;0&quot; sets the flag to false,
+&quot;1&quot; sets it to true. If omitted, P1's control flag is left unchanged. For
+example, to give P1 control, use</p>
+<pre class="literal-block">
+ctrl = 1
+</pre>
+</div>
+<div class="section" id="poweradd">
+<h3><a class="toc-backref" href="#id20"><tt class="docutils literal">poweradd</tt></a></h3>
+<p>When included, the <tt class="docutils literal">poweradd</tt> parameter adds to the player's power bar. The
+value is a number, and can be positive or negative. This parameter is typically
+used in attack moves, where you want the player to gain power just by
+performing the attack. For example, to add 40 power, type</p>
+<pre class="literal-block">
+poweradd = 40
+</pre>
+</div>
+<div class="section" id="juggle">
+<h3><a class="toc-backref" href="#id21"><tt class="docutils literal">juggle</tt></a></h3>
+<p>The <tt class="docutils literal">juggle</tt> parameter is useful only for attacks. It specifies how many points of juggling the move requires. If omitted for an attack, that attack will juggle if the previous attacking state successfully juggled. You should include the <tt class="docutils literal">juggle</tt> parameter for all attacks. If an attack spans more than one state, include the <tt class="docutils literal">juggle</tt> parameter only in the first state of that attack. See also <a class="reference internal" href="#juggling">Juggling</a>.</p>
+</div>
+<div class="section" id="facep2">
+<h3><a class="toc-backref" href="#id22"><tt class="docutils literal">facep2</tt></a></h3>
+<p>When you include the line <tt class="docutils literal">facep2 = 1</tt>, the player will be turned, if
+necessary, to face the opponent at the beginning of the state. <tt class="docutils literal">facep2</tt> has
+the default value of &quot;0&quot; if omitted.</p>
+</div>
+<div class="section" id="hitdefpersist">
+<h3><a class="toc-backref" href="#id23"><tt class="docutils literal">hitdefpersist</tt></a></h3>
+<p>If set to 1, any HitDefs which are active at the time of a state
+transition to this state will remain active. If set to 0, the
+default, any such HitDefs will be disabled when the state
+transition is made.</p>
+</div>
+<div class="section" id="movehitpersist">
+<h3><a class="toc-backref" href="#id24"><tt class="docutils literal">movehitpersist</tt></a></h3>
+<p>If set to 1, the move hit information from the previous state (whether the
+attack hit or missed, guarded, etc; see &quot;Move*&quot; triggers in trigger docs) will
+be carried over into this state. If set to 0 (the default), this information
+will be reset upon entry into this state.</p>
+</div>
+<div class="section" id="hitcountpersist">
+<h3><a class="toc-backref" href="#id25"><tt class="docutils literal">hitcountpersist</tt></a></h3>
+<p>If set to 1, the hit counter (how many hits this attack has done)
+will be carried over from the previous state to this state. If set
+to 0 (the default), the hit counter will be reset upon state
+transition. This parameter does not affect the combo counter which
+is displayed on the screen. See the <tt class="docutils literal">HitCount</tt> and <tt class="docutils literal">UniqHitCount</tt>
+trigger documentation for how to check the hit counter.</p>
+</div>
+<div class="section" id="sprpriority">
+<h3><a class="toc-backref" href="#id26"><tt class="docutils literal">sprpriority</tt></a></h3>
+<p>If this parameter is present, the player's sprite layering
+priority will be set to the value specified. If omitted, the
+sprite priority will be left unchanged. <tt class="docutils literal">common1.cns</tt> (the CNS file
+that is inherited by every player) defines the sprite priority of
+standing or crouching players to be 0, and jumping players to be 1.
+For most attack states, you will want to set <tt class="docutils literal">sprpriority = 2</tt>, so
+that the attacker appears in front.</p>
+<p>See <tt class="docutils literal">SprPriority</tt> in the sctrls documentation for how to change
+sprite priority using a controller.</p>
+</div>
+</div>
+<div class="section" id="details-on-state-controllers">
+<h2><a class="toc-backref" href="#id27">Details on State Controllers</a></h2>
+<div class="section" id="controller-format">
+<h3><a class="toc-backref" href="#id28">Controller Format</a></h3>
+<p>All states must have at least one state controller, otherwise it will cause
+an error. State controller groups have the following format:</p>
+<pre class="literal-block">
+[State state_number, some_number]
+type = controller_type
+trigger1 = condition_exp
+&lt;universal optional parameters&gt;
+&lt;additional parameters depending on controller&gt;
+</pre>
+<p>The state_number must be the same number of the state from the <tt class="docutils literal">StateDef</tt>.
+<em>some_number</em> can be any number you choose; it is the number that is reported
+when an error is found, so you know which controller needs to be fixed.</p>
+<p>The universal (applicable to all state controllers) optional parameters are the
+<tt class="docutils literal">ignorehitpause</tt> and <tt class="docutils literal">persistency</tt> parameters. If <tt class="docutils literal">ignorehitpause</tt> is set
+to 1, MUGEN will check this state controller even if the character is paused by
+a hit.  Otherwise, this state controller will not be checked during a hit
+pause. The default is 0, which is recommended for all but exceptional
+situations. For an explanation of the <tt class="docutils literal">persistency</tt> parameter, see
+<a class="reference internal" href="#trigger-persistency">Trigger Persistency</a>.</p>
+<p><em>controller_type</em> is the name of the controller you are using. Each type of
+controller has a different effect, and requires different parameters. See
+sctrls.txt for a full list of state controllers.</p>
+<p>The order of the controllers is significant. Controllers listed first are the
+ones checked and, if necessary, activated first.</p>
+<p>Here is an example of a controller that gives P1 control at the start of the
+state (the same effect as putting <tt class="docutils literal">ctrl = 1</tt> as a parameter in the
+<tt class="docutils literal">StateDef</tt>):</p>
+<pre class="literal-block">
+[State 300, 1] ;State 300. 1 is just an arbitrary number.
+type = CtrlSet ;Changes the control flag.
+trigger1 = Time = 0
+value = 1
+</pre>
+<p>In this example, the <tt class="docutils literal">CtrlSet</tt> type lets you change the control flag of P1.
+The line that reads <tt class="docutils literal">trigger1 = Time = 0</tt> means that this controller is
+activated when the state-time is 0, i.e., at the start of that state. The line
+<tt class="docutils literal">value = 1</tt> says that we want to set the value of the control flag to 1,
+which means true. If we want to make P1 start the state with no control, then
+we just need to change the last line to <tt class="docutils literal">value = 0</tt>.</p>
+<p>Let's look another example. This controller moves P1 forwards by 10 pixels
+twice: on the second and third element of his current Animation Action. Don't
+worry if you don't know what parameters go with which controller types. You can
+learn more about them from the state controller documentation (sctrls).</p>
+<pre class="literal-block">
+[State 300, 2]
+type = PosAdd ;Adds to P1's position
+trigger1 = AnimElem = 2 ;Trigger on 2nd element.
+trigger2 = AnimElem = 3 ;Trigger on 3rd element.
+x = 10
+</pre>
+<p>As you see above, each controller must have at least one trigger. A trigger is
+a condition that causes the controller to be activated. This example has two
+triggers, and the controller is activated when <em>either one</em> is true.</p>
+</div>
+<div class="section" id="triggers">
+<h3><a class="toc-backref" href="#id29">Triggers</a></h3>
+<div class="section" id="trigger-logic">
+<h4><a class="toc-backref" href="#id30">Trigger Logic</a></h4>
+<p>The first trigger should always be <tt class="docutils literal">trigger1</tt>, and subsequent triggers should be <tt class="docutils literal">trigger2</tt>, then <tt class="docutils literal">trigger3</tt> and so on. The logic for deciding if a controller should be activated is:</p>
+<ol class="arabic simple">
+<li>Are all conditions of <tt class="docutils literal">trigger1</tt> true? If so, then yes, activate the controller.</li>
+<li>Otherwise, repeat the test for <tt class="docutils literal">trigger2</tt>, and so on, until no more triggers are found.</li>
+</ol>
+<p>This can be thought of as &quot;OR&quot; logic.</p>
+<p>Be careful; skipping numbers will cause some triggers to be ignored. For
+example, if you have triggers <tt class="docutils literal">trigger1</tt>, <tt class="docutils literal">trigger2</tt> and <tt class="docutils literal">trigger4</tt>
+without a <tt class="docutils literal">trigger3</tt>, then <tt class="docutils literal">trigger4</tt> will be ignored.</p>
+<p>Now what if you want more than one condition to be met before the controller is activated? Here is an commonly-used example for testing if a player in the air has reached the ground. The triggers used are:</p>
+<pre class="literal-block">
+trigger1 = Vel Y &gt; 0 ; True if Y-velocity is &gt; 0 (going down)
+trigger1 = Pos Y &gt; 0 ; True if Y-position is &gt; 0 (below ground)
+</pre>
+<p>At this point, you may be confused by the format of the trigger. Do not worry
+about it for now. We will get to it soon.</p>
+<p>As you can see above, both the triggers have the same number. When several
+triggers have the same number, it implements &quot;AND&quot; logic. That is, the
+controller is activated if every one of the triggers with the same number is
+true, but not if one or more of them is false.</p>
+<p>You can combine both ideas. For example:</p>
+<pre class="literal-block">
+trigger1 = Vel Y &gt; 0 ; True if Y-velocity is &gt; 0 (going down)
+trigger1 = Pos Y &gt; 0 ; True if Y-position is &gt; 0 (below ground)
+trigger2 = Time = 5  ; True if state-time is 5
+</pre>
+<p>The controller for this would be activated if the player landed on the ground
+(y-velocity and y-Position are both &gt; 0), OR if his state time was 5.</p>
+<p>Here is a summary:</p>
+<ul class="simple">
+<li>Triggers with the same number activate the controller only if all of
+them are true.</li>
+<li>Triggers with different numbers activate the controller if any one or
+more of them are true.</li>
+</ul>
+<p>The format of a trigger is:</p>
+<blockquote>
+<tt class="docutils literal">trigger?</tt> = <em>condition_exp</em></blockquote>
+<p><tt class="docutils literal">condition_exp</tt> is an arithmetic expression to be checked for equality to 0.
+If condition_exp is 0, then the trigger is false. If <em>condition_exp</em> is
+nonzero, then the trigger is true. The <em>condition_exp</em> is usually a simple
+relational expression as in the examples above, but can be as simple or as
+complicated as required.</p>
+<p>It is possible to use logical operators between expressions. For instance, this is equivalent to the previous example above.</p>
+<pre class="literal-block">
+trigger1 = ((Vel Y &gt; 0) &amp;&amp; (Pos Y &gt; 0)) || Time = 5
+</pre>
+<p>See <a class="reference internal" href="#expressions">Expressions</a> for a detailed explanation of arithmetic expressions.</p>
+<p>A useful shortcut you might use is <tt class="docutils literal">triggerall</tt>. It specifies a condition
+that must be true for all triggers. For instance, consider:</p>
+<pre class="literal-block">
+triggerall = Vel X = 0
+trigger1 = Pos Y &gt; -2
+trigger2 = AnimElem = 3
+trigger3 = Time = [2,9]
+</pre>
+<p>For any of <tt class="docutils literal">trigger1</tt> to <tt class="docutils literal">trigger3</tt> to be checked, the <tt class="docutils literal">triggerall</tt>
+condition must be true too. In this case, as long as the x-velocity is not 0,
+then the state controller will not be activated. You can have more than one
+<tt class="docutils literal">triggerall</tt> condition if you need. Note that at least one trigger1 must be
+present, even if you specify <tt class="docutils literal">triggerall</tt>.</p>
+</div>
+<div class="section" id="trigger-persistency">
+<h4><a class="toc-backref" href="#id31">Trigger Persistency</a></h4>
+<p>In the case where you do not want the trigger to activate every single time the
+condition is true, you will need to add a <tt class="docutils literal">persistent</tt> parameter. Let us
+begin with an example:</p>
+<pre class="literal-block">
+[State 310, 1]
+type = PosAdd
+trigger1 = Vel Y &gt; 1
+x = 10
+</pre>
+<p>This state controller moves P1 forwards by 10 pixels for every tick of game
+time where P1's y-velocity is greater than 1. That is, the controller is being
+activated everytime the trigger condition is true. If we want the controller to
+be activated only once, we will need to add a line:</p>
+<pre class="literal-block">
+[State 310, 1]
+type = PosAdd
+trigger1 = Vel Y &gt; 1
+persistent = 0       ;&lt;-- Added this line
+x = 10
+</pre>
+<p><tt class="docutils literal">persistent</tt> has a default value of 1, meaning that the controller is
+activated everytime the trigger is true.  Setting <tt class="docutils literal">persistent</tt> to 0 allows
+the controller to be activated only once during that state. This holds true
+until P1 leaves that state. If P1 returns to that state later, the controller
+can be activated once again.</p>
+<p>The <tt class="docutils literal">persistent</tt> parameter can also take values other than 0 and 1:</p>
+<pre class="literal-block">
+[State 310, 1]
+type = PosAdd
+trigger1 = Vel Y &gt; 1
+persistent = 2       ;&lt;-- Modified this line
+x = 10
+</pre>
+<p>In this case, setting <tt class="docutils literal">persistent</tt> to 2 means the controller will be
+activated once of every two times the trigger is true. Setting <tt class="docutils literal">persistent</tt>
+to 3 activates the controller every 3rd time, and so on.</p>
+</div>
+<div class="section" id="trigger-redirection">
+<h4><a class="toc-backref" href="#id32">Trigger redirection</a></h4>
+<p>One might wish to check the statetime of the player's target, or the player's
+parent (if the player is a helper), etc. This is possible using so-called
+trigger redirection. See <a class="reference internal" href="#expressions">Expressions</a> for details.</p>
+</div>
+</div>
+<div class="section" id="commonly-used-controllers">
+<h3><a class="toc-backref" href="#id33">Commonly-used controllers</a></h3>
+<p>The <tt class="docutils literal">null</tt> controller will be useful for debugging. A <tt class="docutils literal">null</tt> controller
+basically does nothing. You can use it to temporarily turn off certain
+controllers, instead of commenting out the entire section. For example, you
+might want to disable this:</p>
+<pre class="literal-block">
+[State 300, 1] ;Controller that accelerates P1 forwards
+type = VelAdd
+trigger1 = Time &gt;= 0
+x = .8
+</pre>
+<p>Simply comment out the type and put in <tt class="docutils literal">null</tt>:</p>
+<pre class="literal-block">
+[State 300, 1] ;Controller that accelerates P1 forwards
+type = null ;VelAdd
+trigger1 = Time &gt;= 0
+x = .8
+</pre>
+<p>Later, when you want to reenable the controller, just change the type back to
+what it used to be.</p>
+<p>Now let us look back at the example:</p>
+<pre class="literal-block">
+[Statedef 200]
+type = S
+physics = S
+movetype = I
+ctrl = 0
+anim = 200
+velset = 0
+
+[State 200, 1]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+</pre>
+<p><tt class="docutils literal">[State 200, 1]</tt> is a <tt class="docutils literal">ChangeState</tt> controller. As the name implies, it
+changes P1's state number (i.e., the <tt class="docutils literal">[StateDef]</tt> block from which P1
+executes). The <tt class="docutils literal">value</tt> parameter should have the number of the
+state to change to. The optional <tt class="docutils literal">ctrl</tt> parameter can be set P1's control
+flag as he changes states.</p>
+<p>Now let's make this an attack state. First of all, the animation action needs
+attack collision boxes. A quick review from the AIR documentation: <tt class="docutils literal">Clsn1</tt> is
+for attack and <tt class="docutils literal">Clsn2</tt> is where the player can be hit. So P1 will hit P2 if
+any one of P1's <tt class="docutils literal">Clsn1</tt> boxes intersects with any of P2's <tt class="docutils literal">Clsn2</tt> boxes.</p>
+<p>As an example, let's assume the animation action in P1's AIR file looks like
+this:</p>
+<pre class="literal-block">
+[Begin Action 200]
+200,0, 0,0, 3
+200,1, 0,0, 4
+200,2, 0,0, 4
+200,3, 0,0, 3
+</pre>
+<p>After defining the bounding boxes, it looks like:</p>
+<pre class="literal-block">
+[Begin Action 200]
+Clsn2: 1
+  Clsn2[0] = -10,0, 10,-80
+200,0, 0,0, 3
+Clsn1: 1
+  Clsn1[0] =  10,-70, 40,-60
+Clsn2: 2
+  Clsn2[0] = -10,  0, 10,-80
+  Clsn2[1] =  10,-70, 40,-60
+200,1, 0,0, 4
+Clsn2Default: 1 ;Use this box for the last two frames
+  Clsn2[0] = -10,0, 10,-80
+200,2, 0,0, 4
+200,3, 0,0, 3
+</pre>
+<p>As you can see, each element has a <tt class="docutils literal">Clsn2</tt> box defined for it (the last two
+elements are using the same boxes). The second element is the only one with a
+<tt class="docutils literal">Clsn1 box</tt>.</p>
+<p>Note: It is all right to define <tt class="docutils literal">Clsn1</tt> boxes for any elements in an
+Animation Action, but if you put a <tt class="docutils literal">Clsn1</tt> box in the very first element, the
+attack will be instantaneous, and become unblockable. Therefore, it is
+recommended that you define <tt class="docutils literal">Clsn1</tt> boxes only for elements after the first
+one.</p>
+<p>Now we are ready to set up the state in the CNS. We will explain the changes
+below.</p>
+<pre class="literal-block">
+[Statedef 200]
+type = S
+physics = S
+movetype = A  ;&lt;-- changed from &quot;I&quot; to &quot;A&quot;
+ctrl = 0
+anim = 200
+velset = 0
+
+[State 200, 1] ;&lt;-- Added this state controller
+type = HitDef
+trigger1 = AnimElem = 2
+attr = S, NA
+animtype  = Light
+damage    = 10
+guardflag = MA
+pausetime = 12,12
+sparkxy = 0,-55
+hitsound   = 5,0
+guardsound = 6,0
+ground.type = High
+ground.slidetime = 12
+ground.hittime  = 15
+ground.velocity = -5
+air.velocity = -2.5,-3.5
+
+[State 200, 2]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+</pre>
+<p>The <tt class="docutils literal">movetype</tt> parameter in the StateDef is set to <tt class="docutils literal">A</tt> for &quot;attack&quot;.
+Remember to do this for all attack states. As before, P1 changes back to his
+standing state after his animation is over.</p>
+<p>That <tt class="docutils literal">HitDef</tt> controller looks like a monster! Do not worry, we will go
+through it slowly.</p>
+<pre class="literal-block">
+type = HitDef
+trigger1 = AnimElem = 2
+</pre>
+<p>This specifies the controller type as <tt class="docutils literal">HitDef</tt>, which stands for &quot;Hit
+Definition&quot;. It is triggered on the second element of animation. Any <tt class="docutils literal">Clsn2</tt>
+box from the time the trigger was activated will take on this hit definition.</p>
+<p>If, for example, you had a <tt class="docutils literal">Clsn1</tt> in both the second and third element of
+animation, triggering a single <tt class="docutils literal">HitDef</tt> at the second element makes it apply
+to both elements of animation. So P1 will hit at most once: if the second
+element hits, the third will miss. If the second element misses, the third can
+still hit. To make the attack hit twice, you must trigger a <tt class="docutils literal">HitDef</tt> for each
+of the two elements.</p>
+<pre class="literal-block">
+attr = S, NA
+</pre>
+<p>This is the attribute of the attack. It is used to determine if the attack can hit P2. In this case, it is a Standing Normal Attack.</p>
+<p><tt class="docutils literal">attr</tt> has the format <tt class="docutils literal">attr = arg1, arg2</tt>, where:</p>
+<ul class="simple">
+<li><tt class="docutils literal">arg1</tt> is either <tt class="docutils literal">S</tt>, <tt class="docutils literal">C</tt> or <tt class="docutils literal">A</tt>. Similar to <tt class="docutils literal">statetype</tt> for the
+<tt class="docutils literal">StateDef</tt>, this says whether the attack is a standing, crouching, or
+aerial attack.</li>
+<li><tt class="docutils literal">arg2</tt> is a 2-character string. The first character is either <tt class="docutils literal">N</tt> for
+&quot;normal&quot;, <tt class="docutils literal">S</tt> for &quot;special&quot;, or <tt class="docutils literal">H</tt> for &quot;hyper&quot; (or &quot;super&quot;, as it is
+commonly known). The second character must be either <tt class="docutils literal">A</tt> for &quot;attack&quot; (a
+normal hit attack), <tt class="docutils literal">T</tt> for &quot;throw&quot;, or <tt class="docutils literal">P</tt> for projectile.</li>
+</ul>
+<pre class="literal-block">
+animtype = Light
+</pre>
+<p>This refers to the type of animation that P2 will go into when hit by the
+attack. Choose from <tt class="docutils literal">light</tt>, <tt class="docutils literal">medium</tt>, <tt class="docutils literal">hard</tt> or <tt class="docutils literal">back</tt>. The first
+three should be self-explanatory. <tt class="docutils literal">Back</tt> is the animation where P2 is knocked
+off her feet.</p>
+<pre class="literal-block">
+damage = 10
+</pre>
+<p>This is the damage that P2 takes when hit, and it does no damage if guarded. If
+we changed that line to <tt class="docutils literal">damage = 10, 1</tt>, then it would do 1 point of damage
+if guarded.</p>
+<pre class="literal-block">
+guardflag = MA
+</pre>
+<p><tt class="docutils literal">guardflag</tt> determines how P2 may guard the attack. Here, it may be guarded
+high(standing), low (crouching) and in the air. The argument must be a string
+of characters that includes any of the following: <tt class="docutils literal">H</tt> for &quot;high&quot;, <tt class="docutils literal">L</tt> for
+&quot;low&quot; or <tt class="docutils literal">A</tt> for air. <tt class="docutils literal">M</tt> (mid) is equivalent to saying <tt class="docutils literal">HL</tt>.</p>
+<pre class="literal-block">
+pausetime = 12,12
+</pre>
+<p>This is the time that each player will pause on the hit. The first argument is
+the time to freeze P1, measured in game-ticks. The second is the time to make
+P2 shake before recoiling from the hit.</p>
+<pre class="literal-block">
+sparkxy = 0,-55
+</pre>
+<p>This is where to make the hit/guard spark. The arguments must be in the form
+<tt class="docutils literal">x, y</tt>. <tt class="docutils literal">x</tt> is relative to the front of P2. A negative <tt class="docutils literal">x</tt> makes a
+spark deeper inside P2. <tt class="docutils literal">y</tt> is relative to P1. A negative <tt class="docutils literal">y</tt> makes a
+spark higher up.</p>
+<pre class="literal-block">
+hitsound = 5,0
+</pre>
+<p>This is the sound to play on hit (from fight.snd). The included fight.snd lets
+you choose from 5,0 (light hit sound) through to 5,4 (painful whack). To play a
+sound from the player's own SND file, precede the first number with an <tt class="docutils literal">S</tt>.
+For example, <tt class="docutils literal">hitsound = S1,0</tt>.</p>
+<pre class="literal-block">
+guardsound = 6,0
+</pre>
+<p>This is the sound to play on guard (from fight.snd). Right now all we have is
+6,0. To play a sound from the player's own SND file, precede the first number
+with an <tt class="docutils literal">S</tt>.</p>
+<pre class="literal-block">
+ground.type = High
+</pre>
+<p>This is the kind of attack for ground attacks (it also defaults to air attacks
+if you do not specify an <tt class="docutils literal">air.type</tt> parameter). In this case, it is a high
+attack. Choose from <tt class="docutils literal">High</tt> for attacks that make P2's head snap backwards,
+<tt class="docutils literal">Low</tt> for attacks that look like they hit in the stomach, <tt class="docutils literal">Trip</tt> for low
+sweep attacks, or <tt class="docutils literal">None</tt> to not do anything to P2. <tt class="docutils literal">High</tt> and <tt class="docutils literal">Low</tt>
+attacks are the same on P2 if the <tt class="docutils literal">AnimType</tt> is <tt class="docutils literal">Back</tt>.</p>
+<pre class="literal-block">
+ground.slidetime = 12
+</pre>
+<p>This is the time in game-ticks that P2 will slide back for after being hit
+(this time does not include the pausetime for P2). Applicable only to hits that
+keep P2 on the ground.</p>
+<pre class="literal-block">
+ground.hittime = 15
+</pre>
+<p>Time that P2 stays in the hit state after being hit. Applicable only to hits
+that keep P2 on the ground.</p>
+<pre class="literal-block">
+ground.velocity = -5
+</pre>
+<p>Initial x-velocity to give P2 after being hit, if P2 is in a standing or
+crouching state on the ground. You can specify a y-velocity as the second
+argument if you want P2 to be knocked into the air, eg.
+<tt class="docutils literal">ground.velocity = <span class="pre">-3,</span> <span class="pre">-2</span></tt>.</p>
+<pre class="literal-block">
+air.velocity = -2.5,-3.5
+</pre>
+<p>Initial velocity to give P2 if P2 is hit in the air.</p>
+<p>There are more things that you can control in a <tt class="docutils literal">HitDef</tt>. See the sctrls
+documentation for details.</p>
+</div>
+</div>
+</div>
+<div class="section" id="common-states-common1-cns">
+<h1><a class="toc-backref" href="#id34">Common states (common1.cns)</a></h1>
+<p>If you look at a player's DEF file, you will see the line:</p>
+<pre class="literal-block">
+stcommon = common1.cns  ;Common states
+</pre>
+<p>Every player shares some common states, which are the basic parts of the game
+engine. These common states are found in data/common1.cns. Some examples are
+states for running and getting hit. A full list is available in
+<a class="reference internal" href="#special-state-numbers">Special State Numbers</a>.</p>
+<p>If there is a common state that you would like to override for a certain
+player, all you need to do is make a state in that player's CNS with the same
+number as the one you would like to override. Then, when the player changes to
+that certain state number, he will enter that new state, instead of the one in
+common1.cns.</p>
+<p>You should remember that when overriding certain states that have special
+properties coded inside M.U.G.E.N, the new states you make will still have the
+same special properties as the ones you overrode. For example, the run state
+(state 100) sets the player's velocity to whatever values you specified in his
+player variables. If you override state 100, the new state will still have the
+property of setting that player's velocity.</p>
+<p>A common example is overriding the running state. M.U.G.E.N's default behaviour
+for the running state is to have the player continue moving forward at a
+constant speed, until you let go of the forward key. At that point he returns
+to the stand state.</p>
+<p>Now, let's say we want that player (let us call him P1) to instead hop forward,
+just like the default double-tap back hop. You can make a state in P1's CNS:</p>
+<pre class="literal-block">
+; RUN_FWD (overridden to dash-type)
+[Statedef 100]
+type    = S   ;Running is on the ground
+physics = N   ;We'll define our own physics
+anim = 100    ;Anim action 100
+ctrl = 0      ;No control for duration of dash
+
+[State 100, 1] ;To start dashing forwards
+type = VelSet
+trigger1 = Time = [0,5]
+x = 6
+
+[State 100, 2] ;Friction after initial dash
+type = VelMul
+trigger1 = Time &gt; 5
+x = .85
+
+[State 100, 3] ;
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+</pre>
+<p>Here, we assume that Action 100 has a finite looptime. The velocity in
+<tt class="docutils literal">run.fwd</tt> under <tt class="docutils literal">[Velocity]</tt> of the player variables is not really
+ignored, but <tt class="docutils literal">[State 100,1]</tt> overrides that detail by setting the
+x-velocity to 6.</p>
+</div>
+<div class="section" id="special-state-numbers">
+<h1><a class="toc-backref" href="#id35">Special State Numbers</a></h1>
+<p>Unless you plan to override a common state, avoid choosing state numbers in the
+range 0-199 and 5000-5999. Here is a list of states in common1.cns.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Number</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>0</td>
+<td>Stand</td>
+</tr>
+<tr><td>10</td>
+<td>Stand to crouch</td>
+</tr>
+<tr><td>11</td>
+<td>Crouching</td>
+</tr>
+<tr><td>12</td>
+<td>Crouch to stand</td>
+</tr>
+<tr><td>20</td>
+<td>Walk</td>
+</tr>
+<tr><td>40</td>
+<td>Jump start</td>
+</tr>
+<tr><td>45</td>
+<td>Air jump start</td>
+</tr>
+<tr><td>50</td>
+<td>Jump up</td>
+</tr>
+<tr><td>52</td>
+<td>Jump land</td>
+</tr>
+<tr><td>100</td>
+<td>Run forward</td>
+</tr>
+<tr><td>105</td>
+<td>Hop backwards</td>
+</tr>
+<tr><td>106</td>
+<td>Hop backwards (land)</td>
+</tr>
+<tr><td>120</td>
+<td>Guard (start)</td>
+</tr>
+<tr><td>130</td>
+<td>Stand guard (guarding)</td>
+</tr>
+<tr><td>131</td>
+<td>Crouch guard (guarding)</td>
+</tr>
+<tr><td>132</td>
+<td>Air guard (guarding)</td>
+</tr>
+<tr><td>140</td>
+<td>Guard (end)</td>
+</tr>
+<tr><td>150</td>
+<td>Stand guard hit (shaking)</td>
+</tr>
+<tr><td>151</td>
+<td>Stand guard hit (knocked back)</td>
+</tr>
+<tr><td>152</td>
+<td>Crouch guard hit (shaking)</td>
+</tr>
+<tr><td>153</td>
+<td>Crouch guard hit (knocked back)</td>
+</tr>
+<tr><td>154</td>
+<td>Air guard hit (shaking)</td>
+</tr>
+<tr><td>155</td>
+<td>Air guard hit (knocked away)</td>
+</tr>
+<tr><td>170</td>
+<td>Lose (time over)</td>
+</tr>
+<tr><td>175</td>
+<td>Draw game (time over)</td>
+</tr>
+<tr><td>190</td>
+<td>Pre-intro</td>
+</tr>
+<tr><td>191</td>
+<td>Intro (override this state to give character an intro)</td>
+</tr>
+<tr><td>5000</td>
+<td>Stand get-hit (shaking)</td>
+</tr>
+<tr><td>5001</td>
+<td>Stand get-hit (knocked back)</td>
+</tr>
+<tr><td>5010</td>
+<td>Crouch get-hit (shaking)</td>
+</tr>
+<tr><td>5011</td>
+<td>Crouch get-hit (knocked back)</td>
+</tr>
+<tr><td>5020</td>
+<td>Air get-hit (shaking)</td>
+</tr>
+<tr><td>5030</td>
+<td>Air get-hit (knocked away)</td>
+</tr>
+<tr><td>5035</td>
+<td>Air get-hit (transition)</td>
+</tr>
+<tr><td>5040</td>
+<td>Air get-hit (recovering in air, not falling)</td>
+</tr>
+<tr><td>5050</td>
+<td>Air get-hit (falling)</td>
+</tr>
+<tr><td>5070</td>
+<td>Tripped get-hit (shaking)</td>
+</tr>
+<tr><td>5071</td>
+<td>Tripped get-hit (knocked away)</td>
+</tr>
+<tr><td>5080</td>
+<td>Downed get-hit (shaking)</td>
+</tr>
+<tr><td>5081</td>
+<td>Downed get-hit (knocked back)</td>
+</tr>
+<tr><td>5100</td>
+<td>Downed get-hit (hit ground from fall)</td>
+</tr>
+<tr><td>5101</td>
+<td>Downed get-hit (bounce off ground)</td>
+</tr>
+<tr><td>5110</td>
+<td>Downed get-hit (lying down)</td>
+</tr>
+<tr><td>5120</td>
+<td>Downed get-hit (getting up)</td>
+</tr>
+<tr><td>5150</td>
+<td>Downed get-hit (lying defeated)</td>
+</tr>
+<tr><td>5200</td>
+<td>Air get-hit (fall recovery on ground; still falling)</td>
+</tr>
+<tr><td>5201</td>
+<td>Air get-hit (fall recovery on ground)</td>
+</tr>
+<tr><td>5210</td>
+<td>Air get-hit (fall recovery in air)</td>
+</tr>
+<tr><td>5500</td>
+<td>Continue screen animation</td>
+</tr>
+<tr><td>5900</td>
+<td>Initialize (at the start of the round)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="expressions">
+<h1><a class="toc-backref" href="#id36">Expressions</a></h1>
+<p>MUGEN supports arithmetic expressions in most triggers and state controllers.
+This allows much more flexible and customizable behavior than would be
+possible using only fixed values. This section gives a description of
+expression concepts and syntax.</p>
+<div class="section" id="data-types">
+<h2><a class="toc-backref" href="#id37">Data types</a></h2>
+<p>MUGEN uses three data types: 32-bit integers, 32-bit floats, and a special
+null value, &quot;bottom&quot;. Integers represent whole numbers between -2^31 and
+2^31-1, or about -2 billion to 2 billion. Floats are single-precision
+floating-point numbers. That is, they are numbers with a &quot;decimal part&quot; and
+about 7 significant figures of precision. Floats can represent small fractions
+or very large numbers.</p>
+<p>When you write numbers in an expression, MUGEN deduces the data type from
+the presence of a decimal point. Thus &quot;7&quot; is always an int, for example.
+If you wanted 7 as a float, then you would write &quot;7.0&quot;.</p>
+<p>&quot;bottom&quot; is a special data type that zeros out any expression that it appears
+in (with a few very limited exceptions). Its presence signifies some kind of
+error condition. You should try to code in such a way that bottom is never
+produced. For details, you can see the dedicated section on <a class="reference internal" href="#bottom">bottom</a>.</p>
+<p>The behavior of arithmetic expressions depends heavily on the underlying data
+types used to represent numbers. Also, state controllers may expect their input
+to be given as a certain type, and will give errors if the wrong type is
+supplied.</p>
+<p>&quot;Type promotion&quot; occurs when values of different data types need to be
+combined in some way (e.g., by addition). Generally this means that an integer
+will be changed to a float, with possible loss of precision in the process.
+In the sections below we will note any relevant type promotion scenarios.</p>
+</div>
+<div class="section" id="arithmetic-operators">
+<h2><a class="toc-backref" href="#id38">Arithmetic Operators</a></h2>
+<p>Arithmetic operators allow you to perform basic operations like addition,
+multiplication, division, etc. MUGEN has a selection of operators that should
+be familiar to most programmers. They are as follows:</p>
+<ul>
+<li><p class="first">+</p>
+<p>Adds two numbers. If x and y are both ints, then x + y is also an int.
+If both are floats, then x + y is a float. If one is a float, then the
+other is promoted to float, and then the two floats are added.</p>
+</li>
+<li><p class="first">-</p>
+<p>Subtraction of numbers. Type promotion works the same as addition.</p>
+</li>
+<li><p class="first">*</p>
+<p>Multiplication of two numbers. Type promotion works the same as addition.</p>
+</li>
+<li><p class="first">/</p>
+<p>Division of two numbers. If x and y are both ints, then x/y gives the
+integer quotient, i.e., the number of times that y goes evenly into x.
+For instance, 7/2 = 3. If x and y are both floats, then x/y returns a
+float. Our previous example would become 7.0/2.0 = 3.5. If only one of
+x or y is a float, then the other is promoted and float division is
+performed. Division by 0 will produce bottom.</p>
+</li>
+<li><p class="first">%</p>
+<p>The remainder or mod operator. If x and y are both ints, then x % y gives
+the remainder when x is divided by y. If one or both are floats, or if y
+is 0, then bottom is produced.</p>
+</li>
+<li><p class="first">**</p>
+<p>The exponentiation operator. If x and y are both non-negative ints, then
+x**y gives an int representing x raised to the power of y. (We define
+0**0 = 1). However, it is very easy to overflow the maximum possible
+value for an int when computing large powers. In these cases MAX_INT
+(the largest possible integer) will be returned, and a warning will be
+generated. If one of x or y is negative or is a float, then both arguments
+are promoted to float and x**y is computed as an exponentiation of real
+numbers. An invalid exponentiation like -1 ** .5 will produce bottom.</p>
+</li>
+<li><p class="first">!</p>
+<p>Logical NOT operator. !x evaluates to 0 (int) if x is nonzero, and 1
+(int) if x is zero.</p>
+</li>
+<li><p class="first">&amp;&amp;</p>
+<p>The logical AND operator. x &amp;&amp; y evaluates to 1 (int) if x and y
+are both nonzero, and to 0 (int) otherwise.</p>
+</li>
+<li><p class="first">||</p>
+<p>The logical OR operator. x || y evaluates to 1 (int) if one or more
+of x and y is nonzero, and to 0 (int) otherwise.</p>
+</li>
+<li><p class="first">^^</p>
+<p>The logical XOR operator. x ^^ y evaluates to 1 (int) if exactly one
+of x and y is nonzero, and to 0 (int) otherwise.</p>
+</li>
+<li><p class="first">~</p>
+<p>The bitwise NOT operator. ~x inverts the bits of x's binary (two's
+complement) representation. Produces bottom if x is a float.</p>
+</li>
+<li><p class="first">&amp;</p>
+<p>The bitwise AND operator. The nth bit of x&amp;y is set if and only if the
+nth bits of both x and y are set. Produces bottom if x or y is a float.</p>
+</li>
+<li><div class="first line-block">
+<div class="line"><br /></div>
+</div>
+<p>The bitwise OR operator. The nth bit of x|y is set if and only if the
+nth bit of either x or of y (or both) is set. Returns bottom if either
+x or y is a float.</p>
+</li>
+<li><p class="first">^</p>
+<p>The bitwise XOR operator. The nth bit of x^y is set if and only if the
+nth bit of exactly one of x and y is set. Returns bottom if either of
+x or y is a float.</p>
+</li>
+<li><p class="first">=</p>
+<p>The equality operator. If x and y are both ints or both floats, x = y
+evaluates to 1 (int) if x and y are equal, and 0 otherwise. If exactly
+one of x or y is a float, then they are both converted to floats before
+testing for equality.</p>
+</li>
+<li><p class="first">:=</p>
+<p>The assignment operator. An unredirected variable name (var(n) or fvar(n) for
+suitable values of n) must appear on the left-hand side. If the left-hand
+side contains an integer variable, then the right-hand side is truncated to
+an integer before assignment. If the left-hand side contains a float
+variable, then the right-hand side is converted to float if necessary before
+assignment. In both cases, the value of the expression is the value that is
+assigned to the variable.</p>
+</li>
+<li><p class="first">!=</p>
+<p>The inequality operator. If x and y are both ints or both floats,
+x != y evaluates to 1 (int) if x and y are not equal, and 0 otherwise.
+If exactly one of x or y is a float, then they are both converted to
+floats before testing for equality.</p>
+</li>
+<li><p class="first">&lt;</p>
+<p>The less-than operator. If x and y are both ints or both floats, x &lt;
+y evaluates to 1 (int) if x &lt; y, and 0 otherwise. If exactly one of x or y
+is a float, then they are both converted to floats before testing for
+equality.</p>
+</li>
+<li><p class="first">&lt;=</p>
+<p>Similar to &lt;, with the exception that if x = y, then x &lt;= y returns
+1 (int).</p>
+</li>
+<li><p class="first">&gt;</p>
+<p>The greater-than operator. If x and y are both ints or both floats,
+x &gt; y evaluates to 1 (int) if x &gt; y, and 0 (int) otherwise. If exactly
+one of x or y is a float, then they are both converted to floats before
+testing for equality.</p>
+</li>
+<li><p class="first">&gt;=</p>
+<p>Similar to &gt;, with the exception that if x = y, then x &gt;= y returns
+1 (int).</p>
+</li>
+<li><p class="first">=[,]
+!=[,]
+=[,)
+!=[,)
+=(,]
+!=(,]
+=(,)
+!=(,)</p>
+<p>Interval operators. These take three arguments, x, y, and z. If any of x, y,
+or z is a float, they are all converted to floats. After conversion if
+necessary, x = [y,z] is equivalent to (x &gt;= y) &amp;&amp; (x &lt;= z). Similarly, x =
+(y,z) is equivalent to (x &gt; y) &amp;&amp; (x &lt; z). The half-open intervals have the
+obvious meaning.</p>
+<p>The negated interval operators work as follows: x != [y,z] is equivalent
+(after conversion if necessary) to (x &lt; y) || (x &gt; z).  x != (y,z) is
+equivalent to (x &lt;= y) || (x &gt;= z). The half-open intervals again have the
+obvious meaning.</p>
+<p>You can view the interval operators as producing the appropriate open,
+closed, or half-open intervals on the ints or the floats. The = symbol means
+set membership in this context.</p>
+<p>Some restrictions apply on where intervals may be placed in an expression. See
+the section on syntax for details.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="precedence-and-associativity-of-operators">
+<h2><a class="toc-backref" href="#id39">Precedence and associativity of operators</a></h2>
+<p>If you consider an expression like 3+2*5, the result is different
+depending if you evaluate the * first (yielding 13) or if you evaluate
+the + first (yielding 25). To disambiguate expressions such as this,
+operators are assigned distinct precedence levels. In this case, the
+precedence of * is higher than the precedence of +, so the * is
+evaluated first, then the + is applied to the result. So the correct
+answer is 13.</p>
+<p>If two operators share the same precedence, then the expression is evaluated
+from left to right, except for the unary operators and the assignment operator,
+which associate right to left. For instance, * and / share the same precedence,
+so 5.0*5/6 evaluates to 25.0/6, which evaluates to 4.166667.  On the other
+hand, 5/6*5.0 evaluates to 0*5.0, which evaluates to 0.0.  In contrast, because
+unary operators associate right to left, -!0 is grouped as -(!0), which
+evaluates to -(1), which then evaluates to -1.</p>
+<p>If part of an expression is grouped in parentheses (), then that part of the
+expression is evaluated first. For instance, in the expression (3+2)*5, the +
+is evaluated first, giving 5*5, which then evaluates to 25. If parentheses are
+nested, the innermost parentheses are evaluated first.</p>
+<p>Operator precedence is basically the same as in C. The complete list of operator precedence, from highest to lowest, is as follows:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="59%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Operator(s)</th>
+<th class="head">Precedence Level</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>! ~ - (unary operators)</td>
+<td>Highest</td>
+</tr>
+<tr><td>**</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>* / %</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>+ -</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>&gt; &gt;= &lt; &lt;=</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>= != intervals</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>:=</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>&amp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>^</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>|</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>&amp;&amp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>^^</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>||</td>
+<td>Lowest</td>
+</tr>
+</tbody>
+</table>
+<p>Programmers are encouraged to parenthesize as necessary to maintain
+clarity. Otherwise, bugs due to subtle misunderstanding of operator
+precedence are almost assured.</p>
+</div>
+<div class="section" id="expression-syntax">
+<h2><a class="toc-backref" href="#id40">Expression syntax</a></h2>
+<p>Basically, any normal arithmetic expression is allowable. In addition,
+since the relational operators (&gt;, &lt;=, etc.) are viewed as returning
+ints, it is possible to operate on their return values, giving some
+unusual-looking expressions like</p>
+<pre class="literal-block">
+1.0 = (2 = (1 &gt; 0) + !(0 &lt; 1))
+</pre>
+<p>The 1 &gt; 0 term evaluates to 1, and the 0 &lt; 1 term evaluates to 0. Hence
+!(0 &lt; 1) evaluates to 1, so the expression simplifies to</p>
+<pre class="literal-block">
+1.0 = (2 = 1 + 1)
+</pre>
+<p>Since 2 = 1 + 1, the term in parentheses evaluates to 1, so the
+expression further simplifies (after type conversion) to</p>
+<pre class="literal-block">
+1.0 = 1.0
+</pre>
+<p>which evaluates to 1 (int), since the equality holds.</p>
+<p>A notable restriction in expression syntax is that interval operators
+are only allowed to appear on the rightmost side of an expression. If
+part of an expression is enclosed in parentheses, then that part is
+considered a subexpression, and an interval is allowed to appear on the
+right side of that subexpression. So the following is a well-formed
+expression, which evaluates to 0:</p>
+<pre class="literal-block">
+(1 = [0,2]) = (0,1)
+</pre>
+<p>But the following is not well-formed:</p>
+<pre class="literal-block">
+1 = [0,2] = (0,1)
+</pre>
+<p>In addition, no operator symbols other than = or != may appear before an
+interval. So an expression like 5 &gt; [0,2], or 4 + [1,4), is not allowed.</p>
+<p>In comma-separated parameter lists, such as the arguments to some function-type
+triggers or parameters to state controllers, each expression in the list is
+considered a separate subexpression, and therefore intervals may appear at the
+end of those subexpressions.</p>
+</div>
+<div class="section" id="condition-and-function-type-triggers">
+<h2><a class="toc-backref" href="#id41">Condition- and function-type triggers</a></h2>
+<p>For historical reasons, two distinct constructs are both called
+&quot;triggers.&quot; The first is what might be more properly called a
+condition-type trigger, and the second is what might be more properly
+called a function-type trigger. For instance, in the CNS, a typical
+state controller might look like</p>
+<pre class="literal-block">
+[State 1234, 5]
+type = ChangeState
+trigger1 = time = 0
+value = 0
+</pre>
+<p>The entire line &quot;trigger1 = time = 0&quot; is a condition-type trigger. If
+the expression &quot;time = 0&quot; evaluates to a nonzero value, then the
+ChangeState controller is executed. If the expression &quot;time = 0&quot;
+evaluates to zero, then the ChangeState controller is not executed.
+Thus whether the condition is zero or nonzero affects whether the
+controller is triggered.</p>
+<p>On the other hand, the word &quot;time&quot; appearing in the expression is a
+function-type trigger. It returns a value, namely, the amount of time
+that the player has been in state 1234. Note that a function-type
+trigger doesn't &quot;trigger&quot; anything. It just gives a value that can be
+acted on within the expression.</p>
+<p>To further illustrate the difference, let us consider a different state
+controller:</p>
+<pre class="literal-block">
+[State 1234, 5]
+type = VarSet
+trigger1 = 1
+v = 0
+value = time + 5
+</pre>
+<p>Note that the condition-type trigger &quot;trigger1 = 1&quot; now contains no
+function-type triggers within it. Since the expression &quot;1&quot; always
+evaluates to 1, the controller will be triggered every frame. To
+determine what value to assign var0, the expression &quot;time + 5&quot; is
+evaluated. The function-type trigger &quot;time&quot; returns the player's
+statetime. Then 5 is added and the result is stored in var0.</p>
+<p>A complete list of function-type triggers can be found in trigger.html.</p>
+<p>In general, which of the two types of triggers is meant is clear from
+context. Where there is some ambiguity, the terms &quot;condition-type
+trigger&quot; and &quot;function-type trigger&quot; will be used.</p>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id42">Trigger redirection</a></h2>
+<p>In the above example, the time trigger returned the statetime of the player.
+But sometimes, one might wish to check the statetime of the player's target, or
+the player's parent (if the player is a helper), etc. This can be accomplished
+by preceding the trigger name by a keyword indicating whose information should
+be returned. This process is known as trigger redirection. For example,</p>
+<p>5 + (parent, time)</p>
+<p>returns 5 + the player's parent's statetime.</p>
+<p>The complete list of redirection keywords is the following:</p>
+<ul>
+<li><p class="first">parent</p>
+<p>Redirects the trigger to the player's parent. (Player must be a
+helper.)</p>
+</li>
+<li><p class="first">root</p>
+<p>Redirects the trigger to the root.</p>
+</li>
+<li><p class="first">helper</p>
+<p>Redirects the trigger to the first helper found. See the related
+trigger &quot;NumHelper&quot; in the trigger documentation.</p>
+</li>
+<li><p class="first">helper(ID)</p>
+<p>ID should be a well-formed expression that evaluates to a positive
+integer. The trigger is then redirected to a helper with the
+corresponding ID number.</p>
+</li>
+<li><p class="first">target</p>
+<p>Redirects the trigger to the first target found.</p>
+</li>
+<li><p class="first">target(ID)</p>
+<p>ID should be a well-formed expression that evaluates to a non-
+negative integer. The trigger is then redirected to a target with
+the corresponding targetID. The targetID is specified in the &quot;ID&quot;
+parameter of a HitDef controller.</p>
+</li>
+<li><p class="first">partner</p>
+<p>Redirects the trigger to the player's partner. Normal helpers and
+neutral players are not considered opponents. See the related
+trigger &quot;numpartner&quot; in the trigger documentation.</p>
+</li>
+<li><p class="first">enemy</p>
+<p>Redirects the trigger to the first opponent found. Normal helpers
+and neutral players are not considered opponents. See the related
+trigger &quot;numenemy&quot; in the trigger documentation.</p>
+</li>
+<li><p class="first">enemy(n)</p>
+<p>n should be a well-formed expression that evaluates to a non-
+negative integer. The trigger is redirected to the n'th opponent.</p>
+</li>
+<li><p class="first">enemyNear</p>
+<p>Redirects the trigger to the nearest opponent.</p>
+</li>
+<li><p class="first">enemyNear(n)</p>
+<p>n should be a well-formed expression that evaluates to a non-
+negative integer. The trigger is redirected to the n'th-nearest
+opponent.</p>
+</li>
+<li><p class="first">playerID(ID)</p>
+<p>n should be a well-formed expression that evaluates to a non-
+negative integer. The trigger is redirected to the player with
+unique ID equal to ID. See the &quot;ID&quot; and &quot;PlayerExistID&quot; triggers
+in the trigger documentation.</p>
+</li>
+</ul>
+<p>If the trigger is redirected to an invalid destination (for instance,
+if it is retargeted to a helper when none exist), then bottom is returned.</p>
+<p>Note: recursive redirection (e.g., &quot;root,target,time&quot;) is not supported.</p>
+</div>
+<div class="section" id="bottom">
+<h2><a class="toc-backref" href="#id43">bottom</a></h2>
+<p>There are several sources of unrecoverable error in expressions. For instance,
+one could attempt to divide by 0, evaluate the square root of a negative
+number, or attempt to redirect a trigger to a nonexistent destination. In these
+situations, bottom is used as a way to complete expression evaluation
+gracefully. If bottom appears anywhere in an expression (with two exceptions to
+be noted below: see <a class="reference internal" href="#special-forms">Special Forms</a>), then the whole expression's value becomes bottom. For
+instance, consider the expression:</p>
+<pre class="literal-block">
+5 + fvar(0) ** 0.5
+</pre>
+<p>If fvar(0) were equal to -1 at the time this was evaluated, then the expression
+would become 5 + bottom, yielding bottom.</p>
+<p>Condition-type triggers consider bottom to be 0. Thus, an expression that
+generates an error will never cause a trigger to fire.
+So, for example, in</p>
+<pre class="literal-block">
+type = ChangeState
+trigger1 = helper, statetype = A
+value = 0
+</pre>
+<p>the ChangeState controller would never be executed if no helpers
+existed, because the expression &quot;helper, statetype = A&quot; would evaluate
+to bottom, which is 0.</p>
+<p>Typically a warning is printed to MUGEN's debug console when bottom is
+generated. This is because presence of bottom indicates a possible error or
+ambiguity in logic. For instance, in the above ChangeState example, if no
+helpers exist, then the statement &quot;helper, statetype = A&quot; is vacuous, and it is
+not clear whether it should be considered to be true or false.</p>
+<div class="section" id="special-forms">
+<h3><a class="toc-backref" href="#id44">Special Forms</a></h3>
+<p>The IfElse and Cond triggers handle bottom in a special way. Both of these
+triggers take the form:</p>
+<pre class="literal-block">
+&lt;trigger_name&gt;(&lt;exp_cond&gt;,&lt;exp_true&gt;,&lt;exp_false&gt;)
+</pre>
+<p>&lt;exp_cond&gt; is a condition expression which, depending if it is nonzero,
+controls which of &lt;exp_true&gt; or &lt;exp_false&gt; gets returned. If bottom is
+produced in the expression that is not returned, then it does not propagate out
+to the rest of the expression. For instance, consider the expression
+<tt class="docutils literal">IfElse(time &gt; 0, 1.0/time, 2))</tt>. If time &gt; 0, then the value of the
+expression is <tt class="docutils literal">1.0/time</tt>, which is a valid float value. If time = 0, then the
+value of the expression is 2, even though the unused branch divides by 0 and
+thus produces bottom.</p>
+<p>However, even though the above IfElse trigger never returns bottom, it still
+has an annoying feature: the division by 0 still generates a warning to the
+debug output.  This is because IfElse evaluates all its arguments, even the
+unused ones.  In contrast, Cond will only evaluate the arguments that it
+actually uses. Thus, if we rewrote our expression as <tt class="docutils literal">Cond(time &gt; 0, 1.0/time,
+2)</tt>, the argument <tt class="docutils literal">1.0/time</tt> would never get evaluated when time was 0, and
+thus no warning would be generated.</p>
+<p>You may wonder when to use Cond versus IfElse. The answer is that you almost
+always want to use Cond, unless one of &lt;exp_true&gt; or &lt;exp_false&gt; has a side
+effect that you need. In other words, if you are doing a variable assignment
+within one of the branches that always needs to be executed, regardless of
+the value of &lt;exp_cond&gt;, then you need to use IfElse. Otherwise, you should
+use Cond, especially for the purposes of isolating bottom.</p>
+</div>
+</div>
+<div class="section" id="avoiding-warnings">
+<h2><a class="toc-backref" href="#id45">Avoiding warnings</a></h2>
+<p>Several common error conditions often produce a flood of warnings in
+characters. Here are some of the most common scenarios and how to avoid them.</p>
+<ul>
+<li><p class="first">Coercion of floats to ints</p>
+<p>If MUGEN expects an int somewhere (e.g., a var number), but a float is
+provided, then MUGEN will convert the int to a float. However, it will
+complain, because this may represent an error on your part. To get rid
+of the warning, indicate that you know what you are doing by supplying
+an explicit conversion to int with floor() or ceil().</p>
+</li>
+<li><p class="first">Nonexistent trigger redirection targets</p>
+<p>If you redirect to a target that doesn't exist, such as a helper when you
+don't have one, then bottom is produced and a warning is logged. This is
+because the expression is logically ambiguous. You can avoid the warning
+by checking for existence of the target before redirecting. So,</p>
+<pre class="literal-block">
+trigger1 = helper(1234), time &gt; 20
+</pre>
+<p>would generate a warning if helper 1234 didn't exist, but</p>
+<pre class="literal-block">
+trigger1 = numhelper(1234) &gt; 0
+trigger1 = helper(1234), time &gt; 20
+</pre>
+<p>would not. This is because the first trigger1 line causes evaluation to
+be aborted before attempting the redirection.</p>
+<p>Alternatively, you can use the Cond trigger to isolate code that could
+potentially produce a warning. Suppose we wanted an expression that gives
+helper(1234)'s life, if it exists, or the player's life otherwise. Then
+we could write</p>
+<pre class="literal-block">
+Cond(numhelper(1234) &gt; 0, (helper(1234), life), life)
+</pre>
+<p>(The extra parentheses around <tt class="docutils literal">helper(1234), life</tt> are not required, but
+improve readability.)</p>
+</li>
+<li><p class="first">Missing required animations/sprites</p>
+<p>This is not an expressions problem. Add the animations/sprites!</p>
+</li>
+</ul>
+</div>
+<div class="section" id="expressions-in-trigger-arguments">
+<h2><a class="toc-backref" href="#id46">Expressions in trigger arguments</a></h2>
+<p>Most function-type triggers either take no arguments or take arguments in a
+parameter list. For instance, the time trigger takes no arguments, whereas the
+ifelse trigger takes three arguments</p>
+<p>ifelse(exp1,exp2,exp3)</p>
+<p>where exp1, exp2, and exp3 are all valid expressions. In this kind of
+situation, exp1, exp2, and exp3 are all considered separate subexpressions, so
+intervals can appear on the rightmost end of each of those subexpressions. The
+order of evaluation of parameter lists is from left to right.</p>
+<p>Due to irregular syntax, some old function-type triggers cannot take
+expressions as their arguments. Because of this, they cannot be integrated into
+expressions in the standard manner. For nonstandard triggers of this type, the
+triggers can only appear with certain sets of operators and arguments (which
+are outlined in trigger.doc). In particular, these triggers cannot take
+expressions as their arguments. For instance,</p>
+<pre class="literal-block">
+trigger1 = AnimElem = (1+1)
+</pre>
+<p>is an invalid expression.</p>
+<p>Old-style function-type triggers appear only in &quot;clauses&quot; of the form &quot;trigger,
+relational operator, argument&quot;. These clauses are treated as a single unit
+(specifically, a single nullary trigger) for the purposes of expression
+evaluation. This means, among other things, that the concept of operator
+precedence is not applicable to operators appearing within an old-style
+function-type trigger clause. For instance, in</p>
+<pre class="literal-block">
+trigger1 = AnimElem = 5 + 4
+</pre>
+<p>the expression is broken down into three units:</p>
+<pre class="literal-block">
+ AnimElem=5    +    4
+|__________|  |_|  |_|
+</pre>
+<p>The &quot;AnimElem=5&quot; unit is treated as the name of a nullary trigger, hence the +
+operator does not have precedence over the = appearing within the name
+&quot;AnimElem=5&quot;. In other words, this expression means something like &quot;Execute the
+trigger called 'AnimElem=5', then add 4 to the result.&quot;</p>
+<p>Some old-style function-type triggers have expression-capable
+replacements. These are as follows:</p>
+<ul class="simple">
+<li>AnimElem, superseded by AnimElemTime</li>
+<li>TimeMod, superseded by the % operator</li>
+<li>ProjHit, ProjContact, ProjGuarded; superseded by ProjHitTime,
+ProjContactTime, and ProjGuardedTime</li>
+</ul>
+<p>For the complete list of irregular triggers, see trigger.html. Irregular
+triggers are marked with ***.</p>
+</div>
+<div class="section" id="expressions-in-state-and-state-controller-parameters">
+<h2><a class="toc-backref" href="#id47">Expressions in state and state controller parameters</a></h2>
+<p>For the most part, any parameter to the statedef or a state controller can be
+an expression. The exceptions are parameters that are given as strings. For
+instance, hit attributes, guardflags, etc. cannot be specified as expressions.
+Also, the ignorehitpause and persistent parameters (in all controllers) are
+irregular in that they cannot take expressions.</p>
+<p>State controller parameters are evaluated at the time the controller is
+triggered, and are not subsequently re-evaluated unless the controller is
+triggered again. Parameters that are given as comma-separated lists are
+evaluated from left to right. To achieve continual evaluation of controller
+parameters, the controller must be continually triggered.</p>
+<p>In the case of certain controllers such as HitDef, it is not always wise to use
+continual triggering, since this decreases performance and also may lead to
+undesired behavior. In this case, the programmer may wish to try to delay
+triggering the HitDef as long as possible, so as to evaluate the HitDef
+parameters right before they are used.</p>
+</div>
+<div class="section" id="organizing-for-efficiency">
+<h2><a class="toc-backref" href="#id48">Organizing for efficiency</a></h2>
+<p>Expression handling does not tax modern computers, so readability of your code
+is more important than micro-optimization of expressions. However, following
+certain good practices will increase efficiency without harming clarity.</p>
+<p>MUGEN evaluates condition-type triggers for a state controller in the following
+order: First it evaluates triggeralls, from top to bottom. If any of the
+triggeralls evaluates to 0, the rest of the triggers are skipped and evaluation
+proceeds to the next controller. If all the triggeralls evaluate to nonzero,
+then the engine starts to evaluate trigger1's, from top to bottom. If any of
+these evaluate to 0, then evaluation skips to the first trigger2, and so on. If
+all the triggers in a block (besides triggerall) evaluate to nonzero, then the
+state controller parameters are evaluated and the controller is triggered.</p>
+<p>In other words, the logical evaluation of triggers is short-circuited.
+In C-like notation, this setup might be denoted</p>
+<pre class="literal-block">
+triggerall,1 &amp;&amp; triggerall,2 &amp;&amp; ... &amp;&amp; ((trigger1,1 &amp;&amp; trigger1,2
+  &amp;&amp; ...) || (trigger2,1 &amp;&amp; trigger2,2 &amp;&amp; ...) || ... )
+</pre>
+<p>where (e.g.) trigger1,2 denotes the second trigger1 line; trigger2,1 denotes
+the first trigger2 line; etc. The logical evaluation of this trigger group
+would then be short-circuited as in C.</p>
+<p>Because of this system, considerable efficiency gains can be attained by
+organizing expressions so that the condition-type triggers are as simple, and
+as few in number, as possible. The bulk of the &quot;work&quot; can be offloaded to the
+state controller parameters, which are only evaluated once at trigger time,
+instead of every frame that the player is in the state. For instance,</p>
+<pre class="literal-block">
+[State -1]
+type = ChangeState
+trigger1 = command = &quot;a&quot;
+trigger1 = power &lt; 1000
+value = 3000
+
+[State -1]
+type = ChangeState
+trigger1 = command = &quot;a&quot;
+trigger1 = power &gt;= 1000
+value = 3001
+
+[State -1]
+type = ChangeState
+trigger1 = command = &quot;a&quot;
+trigger1 = power &gt;= 2000
+value = 3002
+</pre>
+<p>could be more compactly expressed as</p>
+<pre class="literal-block">
+[State -1]
+type = ChangeState
+trigger1 = command = &quot;a&quot;
+value = 3000 + (power &gt;= 1000) + (power &gt;= 2000)
+</pre>
+<p>You can also help the engine out by placing triggeralls that are most likely to
+be false at the top of the triggerall block. Similarly, the trigger1 block
+should be the most likely block to trigger, but within the trigger1 block
+itself, the triggers that are most likely to evaluate to 0 should be placed
+highest. For state controllers with many triggers containing duplicated
+conditions, it may be better to break the controllers up into two separate
+blocks, each with its own set of triggeralls.</p>
+<p>If you have a complex condition which is being used as the trigger condition
+for many consecutive state controllers, you may choose to save the value of the
+condition in a variable, then use that variable as a trigger to the subsequent
+controllers. For instance,</p>
+<pre class="literal-block">
+trigger1 = (command=&quot;abc&quot; &amp;&amp; command!=&quot;holddown&quot; &amp;&amp; power&gt;=1000) ||
+           (command=&quot;abc&quot; &amp;&amp; command!=&quot;holddown&quot; &amp;&amp; var(5)) ||
+           ((command != &quot;abc&quot; || command = &quot;holddown&quot;) &amp;&amp; power&gt;=2000)
+</pre>
+<p>could be written as (assuming var(0) is available):</p>
+<pre class="literal-block">
+trigger1 = (var(0):=(command=&quot;abc&quot; &amp;&amp; command !=&quot;holddown&quot;) &amp;&amp; power&gt;=
+         1000) || (var(0) &amp;&amp; var(5)) || (!var(0) &amp;&amp; power&gt;=2000)
+</pre>
+<p>Here, you must balance the readability gain of factoring out common
+subexpressions against the readability loss of using the := operator.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

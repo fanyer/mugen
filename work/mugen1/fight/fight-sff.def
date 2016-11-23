@@ -1,0 +1,68 @@
+[Output]
+filename = data/mugen1/fight.sff
+
+[Option]
+sprite.compress.5 = lz5
+sprite.compress.8 = rle8
+sprite.compress.24 = none
+sprite.decompressonload = 0
+sprite.detectduplicates = 0
+sprite.autocrop = 1
+pal.detectduplicates = 1
+pal.discardduplicates = 1
+
+[Option]
+sprite.usepal = -1
+
+[Sprite]
+  10,   0,        lifeba0.pcx,	427,  0
+  11,   0,       lifebg0l.pcx,	449,  0
+  12,   0,        lifemd0.pcx,	427,  0
+  12,   1,        lifemd1.pcx,	427,  0
+  12,   2,        lifemd2.pcx,	427,  0
+  12,   3,        lifemd3.pcx,	427,  0
+  12,   4,        lifemd4.pcx,	427,  0
+  12,   5,        lifemd5.pcx,	427,  0
+  13,   0,       lifefr0l.pcx,	427,  0
+  20,   0,  simul/lifeba0.pcx,	427,  0
+  40,   0,        pwrba0l.pcx,	239,  0
+  41,   0,        pwrbg0l.pcx,	268,  0
+  43,   0,        pwrfr0l.pcx,	239,  0
+  43,   1,        pwrfr1l.pcx,	239,  0
+  43,   2,        pwrfr2l.pcx,	239,  0
+  43,   3,        pwrfr3l.pcx,	239,  0
+  43,   4,        pwrfr4l.pcx,	239,  0
+  43,   5,        pwrfr5l.pcx,	239,  0
+  43,   6,        pwrfr6l.pcx,	239,  0
+  43,   7,        pwrfr7l.pcx,	239,  0
+  43,   8,        pwrfr8l.pcx,	239,  0
+  43,   9,        pwrfr9l.pcx,	239,  0
+  43,  10,       pwrfr10l.pcx,	239,  0
+  43,  11,       pwrfr11l.pcx,	239,  0
+  43,  12,       pwrfr12l.pcx,	239,  0
+  43,  13,       pwrfr13l.pcx,	239,  0
+  43,  14,       pwrfr14l.pcx,	239,  0
+  43,  15,       pwrfr15l.pcx,	239,  0
+  43,  16,       pwrfr16l.pcx,	239,  0
+  43,  17,       pwrfr17l.pcx,	239,  0
+  50,   0,       facebg0l.pcx,	  5,  4
+  51,   0,       facebg1l.pcx,	  0,  0
+  70,   0, turns/facebg0l.pcx,	  5,  4
+  71,   0, turns/facebg1l.pcx,	  0,  0
+  72,   0,  turns/facex0l.pcx,	  0,  0
+  80,   0,          fight.pcx,	303, 73
+  80,   1,         fight1.pcx,	334, 80
+  80,   2,         fight2.pcx,	409, 98
+  80,   3,         fight3.pcx,	607,146
+  80,   4,         fight4.pcx,	640,292
+ 100,   0,          w_vic.pcx,	  8,  9
+ 101,   0,       w_hisatu.pcx,	  8,  9
+ 102,   0,       w_chouhi.pcx,	  8,  9
+ 103,   0,         w_nage.pcx,	  8,  9
+ 104,   0,       w_cheese.pcx,	  8,  9
+ 105,   0,        w_jikan.pcx,	  8,  9
+ 106,   0,       w_jisatu.pcx,	  8,  9
+ 107,   0,         w_team.pcx,	  9,  9
+ 110,   0,        wo_pfct.pcx,	 -6, 10
+ 120,   0,           w_bg.pcx,    6,  6
+ 200,   0,             ko.pcx,	215, 70

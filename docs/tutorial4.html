@@ -1,0 +1,537 @@
+<HTML>
+<HEAD>
+<title>M.U.G.E.N Tutorial 4</title>
+<style type="text/css">
+
+/*
+M.U.G.E.N documentation stylesheet.
+
+
+Modified from voidspace.css.
+
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+em, i {
+  font-family: Times New Roman, Times, serif;
+}
+
+a {
+  color: #5577EE;
+  text-decoration: none;
+}
+
+a.reference.internal {
+  font-size: 80%;
+}
+
+a.toc-backref {
+  color: black;
+  text-decoration: none;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #445BAA;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #667788;
+  color: #ffffff;
+  border: thin solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #445BAA;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+  font-size: 120%;
+}
+
+</style>
+</HEAD>
+
+<BODY>
+
+<h1>
+How Do I...?  A  M.U.G.E.N primer</h1>
+<h2>Tutorial Part 4 - A simple attack move (Part II)</h2>
+
+<p>M.U.G.E.N, Elecbyte (c)1999-2009<br>
+Updated 17 September 2009
+</p><br>
+
+Tutorial <a href="tutorial1.html">1</a> | <a href="tutorial2.html">2</a> | 
+         <a href="tutorial3.html">3</a> | <b>4</b>
+<hr>
+
+<br><h3>Introduction</h3>
+<p>In tutorial 3, you saw how to begin making a state in the player's .cns.
+Here, you'll see how to define the attack parameters by using a HitDef
+controller. If your character doesn't already have all the required
+get-hit animations from the <a href="air.html">AIR documentation</a>, you may
+want to test your character with KFM as the opponent for now (type
+"mugen player kfm").</p>
+
+<br><h3>1. HitDef controller basics</h3>
+
+<p>The HitDef state controller is the last component to completing your
+attack state. You can think of it as assigning hit properties to the Clsn1
+(red) boxes in your character's animation. It says how the boxes will hit
+the opponent.</p>
+
+<p>Open up player.cns (or whatever you named your character's .cns file).
+Add some things to state 200, that you made in Tutorial 3:</p>
+
+<table border="0" cellspacing="0" cellpadding="4" bgcolor="#DDDDDD" width="640">
+<tr><td>
+<pre>
+[StateDef 200]
+anim = 200
+ctrl = 0
+type = S
+movetype = A   ;*** Add this line ***
+physics = S
+velset = 0,0
+
+;*** Add this new block ***
+[State 200, HitDef]
+type = HitDef
+trigger1 = Time = 0    ;Activate at time = 0 (start of state)
+attr = S, NA           ;Attributes of the HitDef (explained later)
+damage = 30            ;Damage points to deal
+;*** End of new block ***
+
+[State 200, 1]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1
+</pre></td></tr></table><br>
+
+<p>The "movetype = A" line in the StateDef tells MUGEN that this is an
+attack state. When you don't have this line, MUGEN will automatically
+assume that it's an idle state. <b>This is important.</b> If you forget
+this line, you won't be able to hit your opponent.</p>
+
+<p>When the HitDef controller is executed, we say "a HitDef has been
+enabled" for your character. When a HitDef is enabled, if any Clsn1 box
+in your character's animation comes in contact with any Clsn2 box in your
+opponent's animation, your opponent will get hit. If your press Ctrl-C
+to turn on collision box display, a letter 'H' will appear to the
+bottom-right of your character whenever he has a HitDef that's enabled.</p>
+
+<p>The parameters in the HitDef controller should be self-explanatory,
+except for the "attr" parameter. "attr" defines the attribute of your
+hit. In this case, the value "S, NA" means that it's a "<u>S</u>tanding,
+<u>N</u>ormal <u>A</u>ttack". You always have to tell MUGEN what
+attribute your hit has. In other examples, you could have 
+"C, SA" for "<u>C</u>rouching, <u>S</u>pecial <u>A</u>ttack", or 
+"A, HT" for "<u>A</u>erial, <u>H</u>yper <u>T</u>hrow". You can read up
+on "attr" in the HitDef controller in the <a href="sctrls.html">State controller docs</a>
+for detailed info (there're a lot of other parameters, don't worry if you don't
+understand them all yet). We'll be making more references to the state controller
+docs (sctrls) throughout the rest of this tutorial.</p>
+
+<p>If you try playing your character now, you'll notice the attack does
+hit the opponent, but doesn't really work right. We'll add parameters a
+bit at a time, until we get a hit that works nicely. From now on, our
+code snippets will show only the HitDef controller:</p>
+
+<table border="0" cellspacing="0" cellpadding="4" bgcolor="#DDDDDD" width="640">
+<tr><td>
+<pre>
+[State 200, HitDef]
+type = HitDef
+trigger1 = Time = 0
+attr = S, NA
+damage = 30
+pausetime = 12,12      ;*** Add this line ***
+hitsound = 5,0         ;*** Add this line ***
+guardsound = 6,0       ;*** Add this line ***
+sparkxy = 0,-70        ;*** Add this line ***
+</pre></td></tr></table><br>
+
+<p>Try running MUGEN with your player with these additions. You'll
+immediately notice some things. For one, both players get stunned
+for a short while when the hit connects. This is a result of using
+the "pausetime" parameter. The first value is the time (in ticks) to
+pause your character, and the second is the time to pause the player
+being hit. Try various values like "60,60", "60,10" and "10,60" to
+see the effect.</p>
+
+<img src="tutorial/atkx1.gif" width="144" height="120" alt="Attack hits!"><br>
+
+<p>The "hitsound" and "guardsound" parameters determine what sounds
+get played when the hit comes in contact with the opponent. "sparkxy"
+positions the spark that you see when the hit connects (you'll want
+to adjust its value to fit your character's attack). Like for the
+other parameters we're going to add, you should look up these
+parameters in the sctrls docs for detailed descriptions. The
+descriptions you see in this tutorial are very brief.</p>
+
+<p>Did you notice this attack can't be guarded against?</p>
+
+<table border="0" cellspacing="0" cellpadding="4" bgcolor="#DDDDDD" width="640">
+<tr><td>
+<pre>
+[State 200, HitDef]
+type = HitDef
+trigger1 = Time = 0
+attr = S, NA
+damage = 30
+guardflag = MA         ;*** Add this line ***
+pausetime = 12,12
+hitsound = 5,0
+guardsound = 6,0
+sparkxy = 0,-70
+</pre></td></tr></table><br>
+
+<p>The "guardflag" parameter determines how the opponent can guard
+against your character's attack. "MA" stands for "<u>M</u>iddle+<u>A</u>ir".
+That means you can guard against it by holding back while standing, crouching,
+or while in the air. If you change it to just "M", then a jumping opponent
+can't guard it. If it's "HA", only a standing or jumping opponent can guard
+it.</p>
+
+<p>Let's add some more parameters.</p>
+
+<table border="0" cellspacing="0" cellpadding="4" bgcolor="#DDDDDD" width="640">
+<tr><td>
+<pre>
+[State 200, HitDef]
+type = HitDef
+trigger1 = Time = 0
+attr = S, NA
+damage = 30
+guardflag = MA
+pausetime = 12,12
+hitsound = 5,0
+guardsound = 6,0
+sparkxy = 0,-70
+ground.type = High     ;*** Add this line ***
+ground.slidetime = 10  ;*** Add this line ***
+ground.hittime  = 12   ;*** Add this line ***
+ground.velocity = -5   ;*** Add this line ***
+air.velocity = -2,-3   ;*** Add this line ***	
+</pre></td></tr></table><br>
+
+<p>Now when your character hits, the opponent gets knocked back. It's
+starting to look more like a real attack now!</p>
+
+<p>"ground.type" determines what type of animation the opponent will
+go into when he's hit by your character's attack. "ground.slidetime"
+is how long the opponent will slide backwards after being hit, and
+"ground.hittime" is the time that the opponent will spend in the
+get-hit state before recovering. "ground.velocity" and "air.velocity"
+are the velocities the opponent gets when he's hit. For "ground.velocity",
+try numbers like these to see the effects: "5", "-20", "-5,-5" and "0,-5".</p>
+
+<br><h3>2. HitDef animation types</h3>
+
+<p>Besides using "ground.type", you can affect the opponenet's get-hit
+animation using "animtype":</p>
+
+<table border="0" cellspacing="0" cellpadding="4" bgcolor="#DDDDDD" width="640">
+<tr><td>
+<pre>
+[State 200, HitDef]
+type = HitDef
+trigger1 = Time = 0
+attr = S, NA
+damage = 30
+guardflag = MA
+pausetime = 12,12
+hitsound = 5,0
+guardsound = 6,0
+sparkxy = 0,-70
+animtype = Medium      ;*** Add this line ***
+ground.type = High
+ground.slidetime = 10
+ground.hittime  = 12
+ground.velocity = -5
+air.velocity = -2,-3
+</pre></td></tr></table><br>
+
+<p>If "ground.type" is "High", different values for "animtype" will
+affect the animation:</p>
+
+<table cellspacing="0" cellpadding="4" border="0">
+<tr>
+  <td>
+    <img src="tutorial/atkx-hil.gif" width="144" height="120" alt="light"><br>
+  </td>
+  <td>
+    <img src="tutorial/atkx-him.gif" width="144" height="120" alt="medium"><br>
+  </td>
+  <td>
+    <img src="tutorial/atkx-hih.gif" width="144" height="120" alt="hard"><br>
+  </td>
+</tr>
+<tr>
+  <td align="center"><font face="Arial" size="-1">
+    animtype = light
+  </font></td>
+  <td align="center"><font face="Arial" size="-1">
+    animtype = medium
+  </font></td>
+  <td align="center"><font face="Arial" size="-1">
+    animtype = hard
+  </font></td>
+</tr>
+</table>
+
+<p>Similarly, for "ground.type = Low":</p>
+
+<table cellspacing="0" cellpadding="4" border="0">
+<tr>
+  <td>
+    <img src="tutorial/atkx-lol.gif" width="144" height="120" alt="light"><br>
+  </td>
+  <td>
+    <img src="tutorial/atkx-lom.gif" width="144" height="120" alt="medium"><br>
+  </td>
+  <td>
+    <img src="tutorial/atkx-loh.gif" width="144" height="120" alt="hard"><br>
+  </td>
+</tr>
+<tr>
+  <td align="center"><font face="Arial" size="-1">
+    animtype = light
+  </font></td>
+  <td align="center"><font face="Arial" size="-1">
+    animtype = medium
+  </font></td>
+  <td align="center"><font face="Arial" size="-1">
+    animtype = hard
+  </font></td>
+</tr>
+</table>
+
+<br><h3>3. Falling and juggling</h3>
+
+<p>If you want your opponent to fall down, you can use the "fall"
+parameter.</p>
+
+<table border="0" cellspacing="0" cellpadding="4" bgcolor="#DDDDDD" width="640">
+<tr><td>
+<pre>
+[State 200, HitDef]
+type = HitDef
+trigger1 = Time = 0
+attr = S, NA
+damage = 30
+guardflag = MA
+pausetime = 12,12
+hitsound = 5,0
+guardsound = 6,0
+sparkxy = 0,-70
+animtype = Medium
+ground.type = High
+ground.slidetime = 10
+ground.hittime  = 12
+ground.velocity = -1,-7;*** Modify this line ***
+air.velocity = -2,-3
+fall = 1               ;*** Add this line ***
+</pre></td></tr></table><br>
+
+<p>The line "fall = 1" will make your opponent fall to the floor if
+he is hit by your attack. It's pretty straightforward. You might run
+into a gameplay issue, however. If you stand near the edge of the
+stage with your opponent between you and the edge, you'll find out
+that your character can hit him as he falls down. This is called a 
+"juggle". The problem is that you can juggle the opponent over and
+over until he's KO'ed. There's a line you can add to the StateDef to
+solve this problem.</p>
+
+<table border="0" cellspacing="0" cellpadding="4" bgcolor="#DDDDDD" width="640">
+<tr><td>
+<pre>
+[StateDef 200]
+anim = 200
+ctrl = 0
+type = S
+movetype = A
+physics = S
+velset = 0,0
+juggle = 5     ;*** Add this line ***
+</pre></td></tr></table><br>
+
+<p>Here's how juggles work. It's works as a point system, where you
+start with 15 juggle points (or whatever value you set for the "airjuggle"
+player variable). If you have the "juggle" parameter in your attack's
+StateDef, then every time you hit your opponent with that attack,
+your juggle points will be decreased by the value of the "juggle"
+paramter. If your current attack would decrease your juggle points
+to less than zero, then it won't be able to hit. The juggle system is
+activated the moment your opponent is hit by a HitDef with
+"fall = 1".</p>
+
+<p>Try playing your character now and juggling the opponent. Notice
+you can only hit a maximum of 3 times now, before the opponent falls
+onto the floor. If you set "juggle = 3" you'd be able to hit 5 times,
+and if you set "juggle = 2" you could hit 7 times, and so on.</p>
+
+<p>To see how many juggle points you have left, press Ctrl-C to turn
+on collision box display. When you hit an opponent, the number of
+juggle points is displayed at the end of the bottom line of text
+(in pink, starting with "target") right below your character.</p>
+
+<p>All attacks should have a juggle parameter in the StateDef. If
+you use multiple states for a single attack (we'll cover that in a
+later tutorial) then you should have the juggle parameter only in
+the first state's StateDef. Take a look at kfm.cns to see what
+typical values might be.</p>
+
+<br><h3>4. Checklist</h3>
+
+<p>Here are some things to pay attention to whenever you make a 
+new attack state: </p>
+
+In the StateDef:
+
+<ul>
+  <li>Are your statetype and physics correctly set?
+  <li>Do you have "movetype = A"?
+  <li>Did you remember to set the "juggle" parameter?
+  <li>Do you have "ctrl = 0"?
+</ul>
+
+In the HitDef:
+<ul>
+  <li>Is the "attr" parameter correctly set?
+  <li>Did you position the hit spark properly?
+  <li>Do you have your "guardflag" parameter set fairly?
+  <li>Is your "ground.hittime" set to a fair number?
+</ul>
+
+<br><h3>What's next?</h3>
+
+<p>Now's a good time to read up on the rest of the HitDef parameters
+in the sctrls docs. Here's a short list of some others that you might
+commonly use:</p>
+
+<ul>
+  <li>air.type, air.animtype, air.hittime, etc
+  <li>hitflag
+  <li>priority
+  <li>sparkno
+  <li>guard.velocity
+  <li>fall.recover
+</ul>
+
+<p>Once you're comfortable with making a simple attack state, it's
+time to learn how to get the character to enter that state. We'll
+save that for a later tutorial. If you want to go on ahead, take a
+look in kfm.cmd.</p>
+
+<!---------------------------------------------------------------->
+<br><hr>
+
+Tutorial <a href="tutorial1.html">1</a> | <a href="tutorial2.html">2</a> | 
+         <a href="tutorial3.html">3</a> | <b>4</b>
+</BODY></HTML>

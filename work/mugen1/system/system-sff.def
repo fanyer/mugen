@@ -1,0 +1,54 @@
+[Output]
+filename = data/mugen1/system.sff
+
+[Option]
+sprite.compress.5 = lz5
+sprite.compress.8 = rle8
+sprite.compress.24 = none
+sprite.decompressonload = 0
+sprite.detectduplicates = 0
+sprite.autocrop = 1
+pal.detectduplicates = 1
+pal.discardduplicates = 1
+
+[Option]
+sprite.usepal = -1
+
+[Sprite]
+   0,   0,          title.png,	388, 55
+ 100,   0,         selbg1.png,	  0,  0
+ 100,   1,         selbg2.png,	  0,  0
+ 102,   0,       seltitl0.png,	  0,  0
+ 102,   1,       seltitl1.png,	  0,  0
+ 102,   2,       seltitl2.png,	  0,  0
+ 150,   0,          boxbg.png,	  5,  5
+ 151,   0,        boxrand.png,	  0,  0
+ 160,   0,       boxon1-0.png,	 25, 12
+ 160,   1,       boxon1-1.png,	 25, 12
+ 160,   2,       boxon1-2.png,	 25, 12
+ 160,   3,       boxon1-3.png,	 25, 12
+ 160,   4,       boxon1-4.png,	 25, 12
+ 160,   5,       boxon1-5.png,	 25, 12
+ 160,   6,       boxon1-6.png,	 25, 12
+ 170,   0,       boxon2-0.png,	 25, 12
+ 170,   1,       boxon2-1.png,	 25, 12
+ 170,   2,       boxon2-2.png,	 25, 12
+ 170,   3,       boxon2-3.png,	 25, 12
+ 170,   4,       boxon2-4.png,	 25, 12
+ 170,   5,       boxon2-5.png,	 25, 12
+ 170,   6,       boxon2-6.png,	 25, 12
+ 161,   0,        boxoff1.png,	 -6,-78
+ 171,   0,        boxoff2.png,	-62,-78
+ 180,   0,         tmcur1.png,	 21, 35
+ 190,   0,         tmcur2.png,	  0, 35
+ 181,   0,        tmicon1.png,	 13, 43
+ 191,   0,        tmicon2.png,	 13, 43
+ 182,   0,       tmicone1.png,	 13, 43
+ 192,   0,       tmicone2.png,	 13, 43
+ 200,   0,             vs.png,	115, 63
+ 201,   0,      vs-shadow.png,  128, 63
+ 202,   0,        vs-next.png,  220, 29
+ 203,   0,        vs-box1.png,   11, 11
+ 203,   1,        vs-box2.png,   11, 11
+ 204,   0,           vsbg.png,  640,  0
+ 

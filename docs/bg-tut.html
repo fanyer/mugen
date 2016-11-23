@@ -1,0 +1,494 @@
+<HTML>
+<HEAD>
+<title>M.U.G.E.N Stages/Backgrounds Tutorial</title>
+<style type="text/css">
+
+/*
+M.U.G.E.N documentation stylesheet.
+
+
+Modified from voidspace.css.
+
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+em, i {
+  font-family: Times New Roman, Times, serif;
+}
+
+a {
+  color: #5577EE;
+  text-decoration: none;
+}
+
+a.reference.internal {
+  font-size: 80%;
+}
+
+a.toc-backref {
+  color: black;
+  text-decoration: none;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #445BAA;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #667788;
+  color: #ffffff;
+  border: thin solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #445BAA;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+  font-size: 120%;
+}
+
+</style>
+</HEAD>
+
+<BODY>
+
+<h1>
+A Brief Introduction To Backgrounds</h1>
+
+<p>M.U.G.E.N, Elecbyte (c)1999-2009<br>
+Updated 19 September 2009
+</p><br>
+
+<hr>
+
+<br><h3>Introduction</h3>
+<p>The most obvious use for backgrounds in M.U.G.E.N is for what you see behind
+characters during a fight (referred to as a "stage background"). In addition,
+backgrounds are used almost everywhere else in M.U.G.E.N, from what you see on
+the title screen, to the versus screen display, storyboard cutscenes and more.
+These are called "system backgrounds."
+</p>
+
+<p>Stage backgrounds are the backgrounds in stage data files, such as
+stages/kfm.def. System backgrounds are found in data/system.def. In this
+tutorial, we are going to cover how to make a stage background, and we
+will see how to apply the same procedure to making a system background.
+</p>
+
+<br><h3>What you need to know</h3>
+<p>This document assumes that you are already familiar with how to create SFF 
+files. To make animated backgrounds, you need know about AIR files.
+You can go through the first couple of our <a href="tutorial1.html">character
+tutorials</a> to pick up the basics.
+</p>
+
+
+<br><h3>What makes a background?</h3>
+<p>A background in M.U.G.E.N consists of the following elements:</p>
+<ul>
+<li>One or more background sprites, drawn from back to front, with or 
+   without masking, and with or without parallax effects
+<li>Specifications of how those sprites should move in relation to the camera
+<li>Animation data for background animations
+<li>Specifications of the width and height of the playing field
+<li>Specification of the "ground level" for the stage
+<li>More miscellaneous settings
+<li>Background controller definitions for more advanced effects.
+</ul>
+
+
+<br><h3>Getting started</h3>
+
+<p>The first thing to decide is the coordinate space you want to use for the
+background.  This affects the resolution of the sprites you need to make.
+Set the localcoord parameter in the [StageInfo] group to one of "320,240", "640,480",
+"1280,720" or "1920,1080".
+</p>
+
+<p>The simplest kind of stage will simply have a single element in the background.
+An element is usually a sprite or animation. Here we'll start by putting sprite
+into the stage.
+Suppose you have a single image file which you want to use as a background 
+picture. Create a file named stage1.sff in the stages/ directory, with this image
+as sprite 0,0. Place the axis on the center of the bottom edge of the image. 
+Now copy data/stage0.def to data/stage1.def and open stage1.def up in a text editor.
+</p>
+
+<p>In the [Info] group, you can customize the name of the stage. Stage names
+should be enclosed in double quotes.
+</p>
+
+<p>To get the stage up and running as quickly as possible, simply go to the 
+[BGDef] group. Change the spr parameter to point to stage1.sff, and set
+debugbg to 1. Now go to the [BG 0] group. Make sure the type parameter is
+set to normal (since this is not a parallaxing background element). Make
+sure the spriteno parameter is set to 0,0. Set the layerno to 0 to prevent
+the background from being drawn in front of the characters. Finally, set 
+the start parameter to the desired starting location of the background. 
+The coordinates are measured from the center of the bottom edge of the
+screen. If you placed the axis for sprite 0,0 in the bottom center as 
+suggested, then you can just set start = 0, 0.
+</p>
+
+<p>There are other parameters that can be set for this BG element.
+The comments you see in stage1.def give a description of the parameters' functions.
+Here are the ones you will commonly use:
+</p>
+
+<p><tt>delta = xdelta, ydelta</tt><br>
+xdelta and ydelta are scaling factors: for each pixel the camera moves
+horizontally, the background element will move xdelta pixels, etc. If you
+only have a single background image, you will generally want to set delta to
+1, 1. Using smaller deltas for the rear background elements can create the 
+illusion of depth when you have multiple elements.
+</p>
+
+<p>
+<tt>trans = none, add, add1 or sub</tt><br>
+Controls the transparency of the background element.
+</p>
+
+<p>
+<tt>mask = 0 or 1</tt><br>
+If you have multiple elements, set mask = 1 on the foreground elements to prevent
+drawing color 0 for them. If masking is not necessary, then make sure to set
+mask = 0.
+</p>
+
+<tt><pre>tile = x, y
+tilespacing = x, y
+window = x1, y1, x2, y2
+</pre></tt>
+
+<p>Unless you are using a small image which you want to tile to fill up the whole
+background, you should set tile to 0,0.
+</p>
+
+<p>Your [BG 0] section will look similar to the following (shown without comments):</p>
+
+<table border="0" cellspacing="0" cellpadding="4" bgcolor="#DDDDDD" width="640">
+<tr><td>
+<pre>
+[BG 0]
+type = normal
+spriteno = 0, 0
+layerno = 0                
+start = 0, 185
+delta = 1, 1
+trans = none
+mask = 0
+velocity = 0, 0
+tile = 0, 0
+tilespacing = 0, 0
+window = 0,0, 319, 239
+</pre></td></tr></table><br>
+
+<p>Finally, delete or comment out the [BG 1] block, since we don't have any 
+other background elements.
+</p>
+
+<br><h3>Setting up stage parameters</h3>
+
+<p>Now it's time to test your stage:<br>
+<tt>mugen kfm kfm -s stage1</tt>
+</p>
+
+<p>Try walking and jumping around. Depending on the dimensions of sprite 0,0, you
+may not be able to see all of the background, or you may end up scrolling past
+the edge of the background and seeing a solid magenta color (the result of 
+setting debugbg = 1). To fix this problem, and to further customize the stage,
+you can adjust the parameters listed below.
+</p>
+
+<p>In the [Camera] group, the boundleft and boundright parameters control how
+far the camera can scroll left and right from its initial starting position.
+You should adjust these so that the camera cannot scroll past the edge of the
+background. For instance, if your background image is 1000 pixels wide and 
+the camera view is 640 pixels wide, then you should set boundleft to -180
+and boundright to 180.
+</p>
+
+<p>Similarly, the boundhigh and boundlow parameters control how far the camera
+can scroll vertically. boundlow should be kept at 0 in most circumstances.
+If your background image is 750 pixels high and the screen is 480 pixels 
+tall, then boundhigh should be set to -290.
+</p>
+
+<p>You can leave the verticalfollow, floortension, and tension parameters alone
+for now. These are used to tweak camera behavior according to the comments
+in stage0.def.
+</p>
+
+<p>The [PlayerInfo] and [Scaling] groups can also be left alone for now.
+</p>
+
+<p>The [Bound] group contains the parameters screenleft and screenright, which 
+control how much a character can protrude off the edge of the screen. These
+parameters are typically set to about 15.
+</p>
+
+<p>The [StageInfo] group contains the zoffset, autoturn, and resetBG parameters.
+zoffset determines the ground level of the stage. It is measured in pixels
+from the top of the screen when the camera is in its starting position. You
+should adjust this value to make sure the players actually stand on the 
+ground level of your image. The autoturn parameter makes players turn around
+to face each other if necessary, and should be left at 1. The resetBG 
+parameter, if set to 1, resets stage animations and background controllers 
+to their initial states. Since we won't be using animations or background
+controllers in this example, you can leave resetBG alone.
+</p>
+
+<p>The [Shadow] group determines how player shadows are displayed on the stage.
+Player shadows are just vertically scaled copies of the player sprites. The
+yscale parameter controls the scaling factor (where 1 means no scaling).
+The intensity parameter can be set like this:
+intensity = I
+where I is the darkness of the shadow (ranging between 0 and 256). The higher
+the number, the darker the shadow.
+</p>
+
+<p>The [Reflection] group lets you control show shiny the floor looks. The
+intensity parameter is how visible the reflection is (ranging from 0 to 256).
+The higher the number, the greater the reflection.
+</p>
+
+<p>Once your BG is working, be sure to turn debugbg back off.
+</p>
+
+<br><h3>Adding more elements</h3>
+
+<p>To add another background element, simply copy and paste the [BG 0]
+group, rename the group appropriately, then set up the parameters for
+the new element. Remember to keep in mind that elements are drawn from
+back to front in the order that they appear in the background file.
+</p>
+
+<p>The following example has two elements, BG Sky and BG Floor. BG Sky is drawn
+behind BG Floor and has a smaller delta value to make it appear as if
+it is far away.</p>
+
+<table border="0" cellspacing="0" cellpadding="4" bgcolor="#DDDDDD" width="640">
+<tr><td>
+<pre>
+[BG Sky]
+type = normal
+spriteno = 0, 0
+start = 0, 185
+delta = .25, .25
+
+[BG Floor]
+type = normal
+spriteno = 1, 0
+start = 0, 185
+delta = 1, 1
+</pre></td></tr></table><br>
+
+<br><h3>Animated elements</h3>
+
+<p>Animated background elements have a syntax similar to normal ones. The "type"
+parameter is "anim" instead of "normal", and you use the "actionno" parameter
+instead of the "spriteno" parameter. Animated BGs are always masked (meaning
+that color 0 of the sprites is the transparent color), and must have the
+animation action in the same file.
+</p>
+
+<table border="0" cellspacing="0" cellpadding="4" bgcolor="#DDDDDD" width="640">
+<tr><td>
+<pre>
+[BG Anim]
+type = Anim
+actionno = 10      ;This number here...
+start = 50, 0
+delta = 1, 1
+
+[Begin Action 10]  ;should be the same as this number here
+10,0, 0,0, 5
+10,1, 0,0, 5
+10,2, 0,0, 5
+</pre></td></tr></table><br>
+
+<br><h3>Parallax elements</h3>
+
+<p>A parallax BG elements can be used to create a 3-dimensional effect. The basic
+workings of a parallax element is similar to that of a normal (sprite) element,
+except that a parallax element has the added ability to skew horizontally
+as the camera moves.
+</p>
+
+<p>
+To imagine how it works, we'll take the example of a flat floor sprite.
+Imagine that as the camera moves left slowly, the top part of the floor scrolls
+right on the screen at the same pace (delta=1). Now let's say the bottom part of
+the floor scrolls along at double the speed (delta=2), skewing the floor sprite
+as it moves. This creates a 3D-looking effect, using 2D sprites!
+</p>
+
+<p>Here's a clip out of stages/kfm.def (KFM's sample stage in M.U.G.E.N)
+
+<table border="0" cellspacing="0" cellpadding="4" bgcolor="#DDDDDD" width="640">
+<tr><td>
+<pre>
+[BG Parallax Floor]
+type = parallax
+spriteno = 10,0
+start = 0, 181
+delta = .78, .75
+xscale = 1, 1.75
+yscalestart = 100
+yscaledelta = 1.2
+</pre></td></tr></table><br>
+
+<p>As you notice, the "type" parameter is set to "parallax". Most other
+paremters are the same as normal BG elements (except you can't use the
+"trans" parameter). The line that makes parallax work is the "xscale"
+parameter. These numbers scale the x-delta value at the top and at the
+bottom of the sprite respectively. So for "xscale = 1, 1.75", it means
+that the top part of the sprite moves at .78*1 = .78 pixels/camera unit.
+The bottom part of the sprite moves at .78*1.75 = 1.365 pixels/camera unit.
+</p>
+
+<p>There are two optional parameters: "yscalestart" and "yscaledelta".
+These create the vertical portion of the 3D illusion. yscalestart
+is a percentage that represents the starting vertical scale factor
+when the camera's y-position (call it camera-y) is at ground-level.
+yscaledelta is the amount to add to the scale factor for every camera
+unit the camera moves up. In the example above, if the camera moves
+up by one unit, the scale factor will 101.2%, and if it moves up
+another unit, the scale will be 102.4% and so on. You can try various
+values of yscalestart and yscaledelta in kfm.def to see the effect.
+</p>
+
+<p>When designing the sprite for a parallax element, you generally want
+to keep the perspective such that projected width at the top and bottom of
+the sprite correspond to the ratio of the two values in the "xscale"
+parameter. As an example, you can take a look at work/stages/kfm/floor0.pcx
+(all of KFM's stage work files are in work/stages/kfm/).
+</p>
+
+
+<br><h3>System backgrounds</h3>
+<p>System backgrounds are simply stage backgrounds without any delta
+values (the camera is assumed to be in a fixed position). That's all
+there is to it! data/system.def has several backgrounds that can be
+changed. It's good to play with these to get familiar with how backgrounds
+work.
+</p>
+
+<br><h3>Where to go from here</h3>
+<p>Be sure to read up <a href="bgs.html">Background / Stage docs</a> for the full
+documentation on backgrounds. There are many additional parameters
+you can use to make your stages and backgrounds look better. Learn to
+use background controllers to make more complex animations. What
+you learn about backgrounds can be applied to <a href="storyboard.html">
+storyboards</a> as well.
+</p>
+
+<!---------------------------------------------------------------->
+<br><hr>
+
+</BODY></HTML>

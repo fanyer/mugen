@@ -1,0 +1,180 @@
+[Output]
+ ;Filename of the SFF file to create (required).
+filename = font/name14.sff
+
+[Option]
+ ;Directory containing source files.
+;input.dir =
+ ;Use compression for medium and large fonts.
+sprite.compress.5 = lz5
+sprite.compress.8 = rle8
+sprite.compress.24 = none
+ ;Decompressed when loaded from disk.
+sprite.decompressonload = 0
+ ;0 - Detect identical files only through filename.
+sprite.detectduplicates = 0
+ ;0 - Do not auto-crop sprites (default).
+sprite.autocrop = 0
+ ;0 - Detect identical files only through filename.
+pal.detectduplicates = 0
+ ;0 - Do not discard duplicate palettes (default).
+pal.discardduplicates = 0
+
+;Palettes
+;Accepts .act as well as .pcx files (the palette is extracted from the pcx)
+;Format:
+;  group,itemno, fname, startcol,endcol
+;For font palettes, group,itemno should be 0,bankno, where bankno is the
+;color bank number.  Accepts an arbitrary number of color banks.
+;startcol,endcol should be 0,255 for 256-color palettes.
+[Pal]
+0,0, name14.pcx, 0,255
+0,1, red.act, 0, 255
+0,2, green.act, 0, 255
+0,3, blue.act, 0, 255
+0,4, brown.act, 0, 255
+0,5, cyan.act, 0, 255
+0,6, purple.act, 0, 255
+0,7, yellow.act, 0, 255
+
+[Option]
+;Use this pal for all sprites
+sprite.usepal = 0,0
+
+;Sprites
+;Accepts 8-bit .pcx files
+;group,itemno, fname, axisx, axisy
+[Sprite]
+;For font sprites, group,itemno should be 0,ASCII-code (See reference at bottom).
+;Sorry, no UTF-8 support!
+0, 33, name14.pcx,670, 0           ? crop=670,0,677,13    ;!
+0, 34, name14.pcx,686, 0           ? crop=686,0,697,13    ;"
+0, 35, name14.pcx,702, 0           ? crop=702,0,717,13    ;#
+0, 36, name14.pcx,720, 0           ? crop=720,0,735,13    ;$
+0, 37, name14.pcx,738, 0           ? crop=738,0,753,13    ;%
+0, 38, name14.pcx,756, 0           ? crop=756,0,771,13    ;&
+0, 39, name14.pcx,779, 0           ? crop=779,0,785,13    ;'
+0, 40, name14.pcx,799, 0           ? crop=799,0,807,13    ;(
+0, 41, name14.pcx,810, 0           ? crop=810,0,818,13    ;)
+0, 42, name14.pcx,833, 0           ? crop=833,0,842,13    ;*
+0, 43, name14.pcx,847, 0           ? crop=847,0,859,13    ;+
+0, 44, name14.pcx,869, 0           ? crop=869,0,874,13    ;,
+0, 45, name14.pcx,883, 0           ? crop=883,0,895,13    ;-
+0, 46, name14.pcx,905, 0           ? crop=905,0,910,13    ;.
+0, 47, name14.pcx,918, 0           ? crop=918,0,933,13    ;/
+0, 48, name14.pcx,  0, 0           ? crop=0,0,15,13       ;0
+0, 49, name14.pcx, 18, 0           ? crop=18,0,33,13      ;1
+0, 50, name14.pcx, 36, 0           ? crop=36,0,51,13      ;2
+0, 51, name14.pcx, 54, 0           ? crop=54,0,69,13      ;3
+0, 52, name14.pcx, 72, 0           ? crop=72,0,87,13      ;4
+0, 53, name14.pcx, 90, 0           ? crop=90,0,105,13     ;5
+0, 54, name14.pcx,108, 0           ? crop=108,0,123,13    ;6
+0, 55, name14.pcx,126, 0           ? crop=126,0,141,13    ;7
+0, 56, name14.pcx,144, 0           ? crop=144,0,159,13    ;8
+0, 57, name14.pcx,162, 0           ? crop=162,0,177,13    ;9
+0, 58, name14.pcx,941, 0           ? crop=941,0,946,13    ;:
+0, 59, name14.pcx,959, 0           ? crop=959,0,964,13    ;;
+0, 60, name14.pcx,977, 0           ? crop=977,0,987,13    ;<
+0, 61, name14.pcx,992, 0           ? crop=992,0,1002,13   ;=
+0, 62, name14.pcx,1008, 0          ? crop=1008,0,1018,13  ;>
+0, 63, name14.pcx,1026, 0          ? crop=1026,0,1041,13  ;?
+0, 64, name14.pcx,1045, 0          ? crop=1045,0,1058,13  ;@
+0, 65, name14.pcx,180, 0           ? crop=180,0,195,13    ;A
+0, 66, name14.pcx,198, 0           ? crop=198,0,213,13    ;B
+0, 67, name14.pcx,216, 0           ? crop=216,0,231,13    ;C
+0, 68, name14.pcx,234, 0           ? crop=234,0,249,13    ;D
+0, 69, name14.pcx,252, 0           ? crop=252,0,267,13    ;E
+0, 70, name14.pcx,270, 0           ? crop=270,0,285,13    ;F
+0, 71, name14.pcx,288, 0           ? crop=288,0,303,13    ;G
+0, 72, name14.pcx,306, 0           ? crop=306,0,321,13    ;H
+0, 73, name14.pcx,329, 0           ? crop=329,0,335,13    ;I
+0, 74, name14.pcx,342, 0           ? crop=342,0,357,13    ;J
+0, 75, name14.pcx,360, 0           ? crop=360,0,375,13    ;K
+0, 76, name14.pcx,378, 0           ? crop=378,0,393,13    ;L
+0, 77, name14.pcx,395, 0           ? crop=395,0,412,13    ;M
+0, 78, name14.pcx,414, 0           ? crop=414,0,429,13    ;N
+0, 79, name14.pcx,432, 0           ? crop=432,0,447,13    ;O
+0, 80, name14.pcx,450, 0           ? crop=450,0,465,13    ;P
+0, 81, name14.pcx,467, 0           ? crop=467,0,484,13    ;Q
+0, 82, name14.pcx,486, 0           ? crop=486,0,501,13    ;R
+0, 83, name14.pcx,504, 0           ? crop=504,0,519,13    ;S
+0, 84, name14.pcx,522, 0           ? crop=522,0,537,13    ;T
+0, 85, name14.pcx,540, 0           ? crop=540,0,555,13    ;U
+0, 86, name14.pcx,558, 0           ? crop=558,0,573,13    ;V
+0, 87, name14.pcx,575, 0           ? crop=575,0,592,13    ;W
+0, 88, name14.pcx,612, 0           ? crop=612,0,627,13    ;X
+0, 89, name14.pcx,630, 0           ? crop=630,0,645,13    ;Y
+0, 90, name14.pcx,648, 0           ? crop=648,0,663,13    ;Z
+0, 91, name14.pcx,1069, 0          ? crop=1069,0,1077,13  ;[
+0, 92, name14.pcx,1080, 0          ? crop=1080,0,1095,13  ;\
+0, 93, name14.pcx,1098, 0          ? crop=1098,0,1106,13  ;]
+0, 94, name14.pcx,1118, 0          ? crop=1118,0,1130,13  ;^
+0, 95, name14.pcx,1134, 0          ? crop=1134,0,1149,13  ;_
+0, 96, name14.pcx,1157, 0          ? crop=1157,0,1163,13  ;`
+0, 97, name14.pcx,180, 0           ? crop=180,0,195,13    ;a
+0, 98, name14.pcx,198, 0           ? crop=198,0,213,13    ;b
+0, 99, name14.pcx,216, 0           ? crop=216,0,231,13    ;c
+0,100, name14.pcx,234, 0           ? crop=234,0,249,13    ;d
+0,101, name14.pcx,252, 0           ? crop=252,0,267,13    ;e
+0,102, name14.pcx,270, 0           ? crop=270,0,285,13    ;f
+0,103, name14.pcx,288, 0           ? crop=288,0,303,13    ;g
+0,104, name14.pcx,306, 0           ? crop=306,0,321,13    ;h
+0,105, name14.pcx,329, 0           ? crop=329,0,335,13    ;i
+0,106, name14.pcx,342, 0           ? crop=342,0,357,13    ;j
+0,107, name14.pcx,360, 0           ? crop=360,0,375,13    ;k
+0,108, name14.pcx,378, 0           ? crop=378,0,393,13    ;l
+0,109, name14.pcx,395, 0           ? crop=395,0,412,13    ;m
+0,110, name14.pcx,414, 0           ? crop=414,0,429,13    ;n
+0,111, name14.pcx,432, 0           ? crop=432,0,447,13    ;o
+0,112, name14.pcx,450, 0           ? crop=450,0,465,13    ;p
+0,113, name14.pcx,467, 0           ? crop=467,0,484,13    ;q
+0,114, name14.pcx,486, 0           ? crop=486,0,501,13    ;r
+0,115, name14.pcx,504, 0           ? crop=504,0,519,13    ;s
+0,116, name14.pcx,522, 0           ? crop=522,0,537,13    ;t
+0,117, name14.pcx,540, 0           ? crop=540,0,555,13    ;u
+0,118, name14.pcx,558, 0           ? crop=558,0,573,13    ;v
+0,119, name14.pcx,575, 0           ? crop=575,0,592,13    ;w
+0,120, name14.pcx,612, 0           ? crop=612,0,627,13    ;x
+0,121, name14.pcx,630, 0           ? crop=630,0,645,13    ;y
+0,122, name14.pcx,648, 0           ? crop=648,0,663,13    ;z
+0,123, name14.pcx,1177, 0          ? crop=1177,0,1185,13  ;{
+0,124, name14.pcx,1193, 0          ? crop=1193,0,1199,13  ;|
+0,125, name14.pcx,1206, 0          ? crop=1206,0,1214,13  ;}
+0,126, name14.pcx,1225, 0          ? crop=1225,0,1238,13  ;~
+
+;ASCII code table
+;Printable characters are in the range 32-126
+;Char  Dec | Char  Dec | Char  Dec | Char  Dec  
+;---------------------------------------------
+;(nul)   0 | (sp)   32 | @      64 | `      96
+;(soh)   1 | !      33 | A      65 | a      97
+;(stx)   2 | "      34 | B      66 | b      98
+;(etx)   3 | #      35 | C      67 | c      99
+;(eot)   4 | $      36 | D      68 | d     100
+;(enq)   5 | %      37 | E      69 | e     101
+;(ack)   6 | &      38 | F      70 | f     102
+;(bel)   7 | '      39 | G      71 | g     103
+;(bs)    8 | (      40 | H      72 | h     104
+;(ht)    9 | )      41 | I      73 | i     105
+;(nl)   10 | *      42 | J      74 | j     106
+;(vt)   11 | +      43 | K      75 | k     107
+;(np)   12 | ,      44 | L      76 | l     108
+;(cr)   13 | -      45 | M      77 | m     109
+;(so)   14 | .      46 | N      78 | n     110
+;(si)   15 | /      47 | O      79 | o     111
+;(dle)  16 | 0      48 | P      80 | p     112
+;(dc1)  17 | 1      49 | Q      81 | q     113
+;(dc2)  18 | 2      50 | R      82 | r     114
+;(dc3)  19 | 3      51 | S      83 | s     115
+;(dc4)  20 | 4      52 | T      84 | t     116
+;(nak)  21 | 5      53 | U      85 | u     117
+;(syn)  22 | 6      54 | V      86 | v     118
+;(etb)  23 | 7      55 | W      87 | w     119
+;(can)  24 | 8      56 | X      88 | x     120
+;(em)   25 | 9      57 | Y      89 | y     121
+;(sub)  26 | :      58 | Z      90 | z     122
+;(esc)  27 | ;      59 | [      91 | {     123
+;(fs)   28 | <      60 | \      92 | |     124
+;(gs)   29 | =      61 | ]      93 | }     125
+;(rs)   30 | >      62 | ^      94 | ~     126
+;(us)   31 | ?      63 | _      95 | (del) 127

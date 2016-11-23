@@ -1,0 +1,180 @@
+[Output]
+ ;Filename of the SFF file to create (required).
+filename = font/enter48.sff
+
+[Option]
+ ;Directory containing source files.
+;input.dir =
+ ;Use compression for medium and large fonts.
+sprite.compress.5 = lz5
+sprite.compress.8 = rle8
+sprite.compress.24 = none
+ ;Decompressed when loaded from disk.
+sprite.decompressonload = 0
+ ;0 - Detect identical files only through filename.
+sprite.detectduplicates = 0
+ ;0 - Do not auto-crop sprites (default).
+sprite.autocrop = 0
+ ;0 - Detect identical files only through filename.
+pal.detectduplicates = 0
+ ;0 - Do not discard duplicate palettes (default).
+pal.discardduplicates = 0
+
+;Palettes
+;Accepts .act as well as .pcx files (the palette is extracted from the pcx)
+;Format:
+;  group,itemno, fname, startcol,endcol
+;For font palettes, group,itemno should be 0,bankno, where bankno is the
+;color bank number.  Accepts an arbitrary number of color banks.
+;startcol,endcol should be 0,255 for 256-color palettes.
+[Pal]
+0,0, enter48.pcx, 0,255
+0,1, red.act, 0, 255
+0,2, green.act, 0, 255
+0,3, blue.act, 0, 255
+0,4, brown.act, 0, 255
+0,5, cyan.act, 0, 255
+0,6, purple.act, 0, 255
+0,7, yellow.act, 0, 255
+
+[Option]
+;Use this pal for all sprites
+sprite.usepal = 0,0
+
+;Sprites
+;Accepts 8-bit .pcx files
+;group,itemno, fname, axisx, axisy
+[Sprite]
+;For font sprites, group,itemno should be 0,ASCII-code (See reference at bottom).
+;Sorry, no UTF-8 support!
+0, 33, enter48.pcx,0, 0           ? crop=0,0,14,47    ;!
+0, 34, enter48.pcx,16, 0           ? crop=16,0,33,47    ;"
+0, 35, enter48.pcx,36, 0           ? crop=36,0,64,47    ;#
+0, 36, enter48.pcx,67, 0           ? crop=67,0,99,47    ;$
+0, 37, enter48.pcx,102, 0           ? crop=102,0,147,47    ;%
+0, 38, enter48.pcx,150, 0           ? crop=150,0,187,47    ;&
+0, 39, enter48.pcx,190, 0           ? crop=190,0,200,47    ;'
+0, 40, enter48.pcx,205, 0           ? crop=205,0,223,47    ;(
+0, 41, enter48.pcx,227, 0           ? crop=227,0,245,47    ;)
+0, 42, enter48.pcx,248, 0           ? crop=248,0,271,47    ;*
+0, 43, enter48.pcx,274, 0           ? crop=274,0,300,47    ;+
+0, 44, enter48.pcx,302, 0           ? crop=302,0,316,47    ;,
+0, 45, enter48.pcx,318, 0           ? crop=318,0,344,47    ;-
+0, 46, enter48.pcx,346, 0           ? crop=346,0,360,47    ;.
+0, 47, enter48.pcx,363, 0           ? crop=363,0,383,47    ;/
+0, 48, enter48.pcx,387, 0           ? crop=387,0,422,47    ;0
+0, 49, enter48.pcx,430, 0           ? crop=430,0,449,47    ;1
+0, 50, enter48.pcx,452, 0           ? crop=452,0,485,47    ;2
+0, 51, enter48.pcx,489, 0           ? crop=489,0,520,47    ;3
+0, 52, enter48.pcx,523, 0           ? crop=523,0,562,47    ;4
+0, 53, enter48.pcx,566, 0           ? crop=566,0,598,47    ;5
+0, 54, enter48.pcx,602, 0           ? crop=602,0,635,47    ;6
+0, 55, enter48.pcx,640, 0           ? crop=640,0,671,47    ;7
+0, 56, enter48.pcx,675, 0           ? crop=675,0,708,47    ;8
+0, 57, enter48.pcx,712, 0           ? crop=712,0,745,47    ;9
+0, 58, enter48.pcx,749, 0           ? crop=749,0,763,47    ;:
+0, 59, enter48.pcx,765, 0           ? crop=765,0,779,47    ;;
+0, 60, enter48.pcx,784, 0           ? crop=784,0,808,47    ;<
+0, 61, enter48.pcx,811, 0           ? crop=811,0,837,47    ;=
+0, 62, enter48.pcx,840, 0           ? crop=840,0,864,47    ;>
+0, 63, enter48.pcx,867, 0           ? crop=867,0,898,47    ;?
+0, 64, enter48.pcx,901, 0           ? crop=901,0,936,47    ;@
+0, 65, enter48.pcx,939, 0           ? crop=939,0,979,47    ;A
+0, 66, enter48.pcx,983, 0           ? crop=983,0,1016,47    ;B
+0, 67, enter48.pcx,1019, 0           ? crop=1019,0,1047,47    ;C
+0, 68, enter48.pcx,1050, 0           ? crop=1050,0,1083,47    ;D
+0, 69, enter48.pcx,1086, 0           ? crop=1086,0,1114,47    ;E
+0, 70, enter48.pcx,1117, 0           ? crop=1117,0,1144,47    ;F
+0, 71, enter48.pcx,1147, 0           ? crop=1147,0,1180,47    ;G
+0, 72, enter48.pcx,1183, 0           ? crop=1183,0,1216,47    ;H
+0, 73, enter48.pcx,1218, 0           ? crop=1218,0,1235,47    ;I
+0, 74, enter48.pcx,1238, 0           ? crop=1238,0,1264,47    ;J
+0, 75, enter48.pcx,1267, 0           ? crop=1267,0,1304,47    ;K
+0, 76, enter48.pcx,1307, 0           ? crop=1307,0,1334,47    ;L
+0, 77, enter48.pcx,1337, 0           ? crop=1337,0,1381,47    ;M
+0, 78, enter48.pcx,1384, 0           ? crop=1384,0,1419,47    ;N
+0, 79, enter48.pcx,1424, 0           ? crop=1424,0,1459,47    ;O
+0, 80, enter48.pcx,1462, 0           ? crop=1462,0,1495,47    ;P
+0, 81, enter48.pcx,1498, 0           ? crop=1498,0,1532,47    ;Q
+0, 82, enter48.pcx,1535, 0           ? crop=1535,0,1570,47    ;R
+0, 83, enter48.pcx,1573, 0           ? crop=1573,0,1604,47    ;S
+0, 84, enter48.pcx,1607, 0           ? crop=1607,0,1637,47    ;T
+0, 85, enter48.pcx,1641, 0           ? crop=1641,0,1675,47    ;U
+0, 86, enter48.pcx,1678, 0           ? crop=1678,0,1716,47    ;V
+0, 87, enter48.pcx,1719, 0           ? crop=1719,0,1769,47    ;W
+0, 88, enter48.pcx,1772, 0           ? crop=1772,0,1810,47    ;X
+0, 89, enter48.pcx,1813, 0           ? crop=1813,0,1849,47    ;Y
+0, 90, enter48.pcx,1852, 0           ? crop=1852,0,1886,47    ;Z
+0, 91, enter48.pcx,1890, 0           ? crop=1890,0,1907,47    ;[
+0, 92, enter48.pcx,1910, 0           ? crop=1910,0,1930,47    ;\
+0, 93, enter48.pcx,1932, 0           ? crop=1932,0,1949,47    ;]
+0, 94, enter48.pcx,1951, 0           ? crop=1951,0,1977,47    ;^
+0, 95, enter48.pcx,1980, 0           ? crop=1980,0,2005,47    ;_
+0, 96, enter48.pcx,2008, 0           ? crop=2008,0,2024,47    ;`
+0, 97, enter48.pcx,2027, 0           ? crop=2027,0,2059,47    ;a
+0, 98, enter48.pcx,2062, 0           ? crop=2062,0,2093,47    ;b
+0, 99, enter48.pcx,2096, 0           ? crop=2096,0,2122,47    ;c
+0,100, enter48.pcx,2125, 0           ? crop=2125,0,2156,47    ;d
+0,101, enter48.pcx,2159, 0           ? crop=2159,0,2190,47    ;e
+0,102, enter48.pcx,2193, 0           ? crop=2193,0,2220,47    ;f
+0,103, enter48.pcx,2222, 0           ? crop=2222,0,2253,47    ;g
+0,104, enter48.pcx,2256, 0           ? crop=2256,0,2288,47    ;h
+0,105, enter48.pcx,2290, 0           ? crop=2290,0,2306,47    ;i
+0,106, enter48.pcx,2308, 0           ? crop=2308,0,2332,47    ;j
+0,107, enter48.pcx,2335, 0           ? crop=2335,0,2368,47    ;k
+0,108, enter48.pcx,2370, 0           ? crop=2370,0,2385,47    ;l
+0,109, enter48.pcx,2387, 0           ? crop=2387,0,2432,47    ;m
+0,110, enter48.pcx,2436, 0           ? crop=2436,0,2468,47    ;n
+0,111, enter48.pcx,2471, 0           ? crop=2471,0,2503,47    ;o
+0,112, enter48.pcx,2506, 0           ? crop=2506,0,2537,47    ;p
+0,113, enter48.pcx,2540, 0           ? crop=2540,0,2572,47    ;q
+0,114, enter48.pcx,2575, 0           ? crop=2575,0,2599,47    ;r
+0,115, enter48.pcx,2602, 0           ? crop=2602,0,2631,47    ;s
+0,116, enter48.pcx,2635, 0           ? crop=2635,0,2662,47    ;t
+0,117, enter48.pcx,2665, 0           ? crop=2665,0,2697,47    ;u
+0,118, enter48.pcx,2700, 0           ? crop=2700,0,2732,47    ;v
+0,119, enter48.pcx,2735, 0           ? crop=2735,0,2780,47    ;w
+0,120, enter48.pcx,2783, 0           ? crop=2783,0,2816,47    ;x
+0,121, enter48.pcx,2820, 0           ? crop=2820,0,2851,47    ;y
+0,122, enter48.pcx,2854, 0           ? crop=2854,0,2885,47    ;z
+0,123, enter48.pcx,2888, 0           ? crop=2888,0,2908,47    ;{
+0,124, enter48.pcx,2911, 0           ? crop=2911,0,2921,47    ;|
+0,125, enter48.pcx,2924, 0           ? crop=2924,0,2945,47    ;}
+0,126, enter48.pcx,2949, 0           ? crop=2949,0,2971,47    ;~
+
+;ASCII code table
+;Printable characters are in the range 32-126
+;Char  Dec | Char  Dec | Char  Dec | Char  Dec  
+;---------------------------------------------
+;(nul)   0 | (sp)   32 | @      64 | `      96
+;(soh)   1 | !      33 | A      65 | a      97
+;(stx)   2 | "      34 | B      66 | b      98
+;(etx)   3 | #      35 | C      67 | c      99
+;(eot)   4 | $      36 | D      68 | d     100
+;(enq)   5 | %      37 | E      69 | e     101
+;(ack)   6 | &      38 | F      70 | f     102
+;(bel)   7 | '      39 | G      71 | g     103
+;(bs)    8 | (      40 | H      72 | h     104
+;(ht)    9 | )      41 | I      73 | i     105
+;(nl)   10 | *      42 | J      74 | j     106
+;(vt)   11 | +      43 | K      75 | k     107
+;(np)   12 | ,      44 | L      76 | l     108
+;(cr)   13 | -      45 | M      77 | m     109
+;(so)   14 | .      46 | N      78 | n     110
+;(si)   15 | /      47 | O      79 | o     111
+;(dle)  16 | 0      48 | P      80 | p     112
+;(dc1)  17 | 1      49 | Q      81 | q     113
+;(dc2)  18 | 2      50 | R      82 | r     114
+;(dc3)  19 | 3      51 | S      83 | s     115
+;(dc4)  20 | 4      52 | T      84 | t     116
+;(nak)  21 | 5      53 | U      85 | u     117
+;(syn)  22 | 6      54 | V      86 | v     118
+;(etb)  23 | 7      55 | W      87 | w     119
+;(can)  24 | 8      56 | X      88 | x     120
+;(em)   25 | 9      57 | Y      89 | y     121
+;(sub)  26 | :      58 | Z      90 | z     122
+;(esc)  27 | ;      59 | [      91 | {     123
+;(fs)   28 | <      60 | \      92 | |     124
+;(gs)   29 | =      61 | ]      93 | }     125
+;(rs)   30 | >      62 | ^      94 | ~     126
+;(us)   31 | ?      63 | _      95 | (del) 127

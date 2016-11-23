@@ -1,0 +1,10 @@
+data/system.snd
+work/system/sound/cursorm.wav
+100
+0
+work/system/sound/cursord.wav
+100
+1
+work/system/sound/cursorc.wav
+100
+2

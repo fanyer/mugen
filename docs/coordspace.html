@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<title></title>
+<style type="text/css">
+
+/*
+M.U.G.E.N documentation stylesheet.
+
+
+Modified from voidspace.css.
+
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+em, i {
+  font-family: Times New Roman, Times, serif;
+}
+
+a {
+  color: #5577EE;
+  text-decoration: none;
+}
+
+a.reference.internal {
+  font-size: 80%;
+}
+
+a.toc-backref {
+  color: black;
+  text-decoration: none;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #445BAA;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #667788;
+  color: #ffffff;
+  border: thin solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #445BAA;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+  font-size: 120%;
+}
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<div class="section" id="coordinate-space-notes">
+<h1><a class="toc-backref" href="#id1">Coordinate Space Notes</a></h1>
+<p>M.U.G.E.N, (c) Elecbyte 1999-2009</p>
+<p>Documentation for version 1.0 (2009)</p>
+<p>Updated 18 September 2009</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#coordinate-space-notes" id="id1">Coordinate Space Notes</a></li>
+<li><a class="reference internal" href="#overview" id="id2">Overview</a><ul>
+<li><a class="reference internal" href="#terminology" id="id3">Terminology</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#characters" id="id4">Characters</a></li>
+<li><a class="reference internal" href="#motifs" id="id5">Motifs</a></li>
+<li><a class="reference internal" href="#stages" id="id6">Stages</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="overview">
+<h1><a class="toc-backref" href="#id2">Overview</a></h1>
+<p>M.U.G.E.N 1.0 supports the loading of assets made for different coordinate spaces.
+Characters, motifs and stages made for different coordinate spaces are processed at runtime to interact in a single common coordinate space.  This common coordinate space is referred to as the &quot;game coordinate space&quot;.  The conversion from one coordinate space to another is known as &quot;translation&quot;.</p>
+<p>In M.U.G.E.N, the game coordinate space is specified in mugen.cfg by the GameWidth and GameHeight parameters of the [Config] group.</p>
+<p>The translation scaling factor of vectors between coordinate spaces is the ratio of the target coordinate space's width and the source coordinate space's width.  For example, a character made for a 320x240 coordinate space will be scaled by a factor of 4 to operate in a 1280x720 coordinate space.</p>
+<div class="section" id="terminology">
+<h2><a class="toc-backref" href="#id3">Terminology</a></h2>
+<dl class="docutils">
+<dt>Game coordinate space</dt>
+<dd>The common coordinate space in which interactions are calculated in.
+Coordinate and vectors of characters, motifs and stages are converted to game coordinate space
+for interactions.</dd>
+<dt>Translation</dt>
+<dd>The conversion from one coordinate space to another.</dd>
+<dt>Aspect ratio</dt>
+<dd>The ratio of the width and height of a coordinate space.
+Also known simply as &quot;aspect&quot;.</dd>
+<dt>Game aspect</dt>
+<dd>The aspect ratio of the game coordinate space.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="characters">
+<h1><a class="toc-backref" href="#id4">Characters</a></h1>
+<p>The coordinate space for a character is specified in the character def file by the localcoord parameter of the [Info] group.</p>
+</div>
+<div class="section" id="motifs">
+<h1><a class="toc-backref" href="#id5">Motifs</a></h1>
+<p>The coordinate space for motifs is specified in the system.def file by the localcoord parameter of the [Info] group.
+A limitation of motifs in 1.0 is that they are unable to adapt to game aspect ratios different from that of the motif.
+The height parameter of localcoord is not used.</p>
+</div>
+<div class="section" id="stages">
+<h1><a class="toc-backref" href="#id6">Stages</a></h1>
+<p>The coordinate space for stages is specified in the system.def file by the localcoord parameter of the [StageInfo] group.  Stages contain additional parameters to control cropping if the game aspect is shorter than the stage's coordinate space aspect, and to control overdraw if the game aspect is taller than the stage's aspect.
+The height parameter of localcoord is not used.</p>
+</div>
+</div>
+</body>
+</html>

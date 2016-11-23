@@ -1,0 +1,42 @@
+The following is a summary of licenses for the libraries used by the M.U.G.E.N
+distribution. Detailed license text may be found in the licenses/ subdirectory.
+
+*) Allegro: Allegro License (allegro.txt)
+
+*) FreeType 2.0: Freetype License (FTL.txt)
+
+*) GLEW: Modified BSD/Mesa 3-D/Khronos (GLEW.txt)
+
+*) libmikmod: LGPL (LGPL.txt)
+
+*) libmpg123: LGPL (LGPL.txt)
+
+*) libogg: BSD license (xiph.txt)
+
+*) libpng: zlib/libpng License (libpng.txt)
+
+*) libresample: LGPL 2.1 (LGPL.txt)
+
+   Elecbyte has made some minor modifications to the original libresample
+   distribution. Source code for the modified version is available upon 
+   request.
+
+*) libvorbis: BSD license (xiph.txt)
+
+*) libvorbisfile: BSD license (xiph.txt)
+
+*) Pthreads-win32: LGPL 2.1 (LGPL.txt)
+
+*) SDL: LGPL (LGPL.txt)
+
+*) SDL_gfx: LGPL (LGPL.txt)
+
+*) SDL_image: LGPL (LGPL.txt)
+
+*) SDL_mixer: LGPL (LGPL.txt)
+
+*) SDL_ttf: LGPL (LGPL.txt)
+
+*) SMPEG: LGPL (LGPL.txt)
+
+*) zlib: zlib License (zlib.txt)

@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<title>Storyboard Documentation</title>
+<style type="text/css">
+
+/*
+M.U.G.E.N documentation stylesheet.
+
+
+Modified from voidspace.css.
+
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+em, i {
+  font-family: Times New Roman, Times, serif;
+}
+
+a {
+  color: #5577EE;
+  text-decoration: none;
+}
+
+a.reference.internal {
+  font-size: 80%;
+}
+
+a.toc-backref {
+  color: black;
+  text-decoration: none;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #445BAA;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #667788;
+  color: #ffffff;
+  border: thin solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #445BAA;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+  font-size: 120%;
+}
+
+</style>
+</head>
+<body>
+<div class="document" id="storyboard-documentation">
+<h1 class="title">Storyboard Documentation</h1>
+
+<p>M.U.G.E.N, (c) Elecbyte 1999-2009</p>
+<p>Documentation for version 1.0 (2009)</p>
+<p>Updated 29 June 2009</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#overview" id="id1">Overview</a></li>
+<li><a class="reference internal" href="#terminology" id="id2">Terminology</a></li>
+<li><a class="reference internal" href="#getting-started" id="id3">Getting Started</a><ul>
+<li><a class="reference internal" href="#cutscenes-events" id="id4">Cutscenes Events</a></li>
+<li><a class="reference internal" href="#trying-it-out" id="id5">Trying It Out</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#viewing-storyboards" id="id6">Viewing Storyboards</a></li>
+<li><a class="reference internal" href="#storyboard-basics" id="id7">Storyboard Basics</a></li>
+<li><a class="reference internal" href="#testing-your-storyboard" id="id8">Testing Your Storyboard</a></li>
+<li><a class="reference internal" href="#parameter-reference" id="id9">Parameter Reference</a><ul>
+<li><a class="reference internal" href="#info-parameter-reference" id="id10">Info Parameter Reference</a></li>
+<li><a class="reference internal" href="#scenedef-parameter-reference" id="id11">SceneDef Parameter Reference</a></li>
+<li><a class="reference internal" href="#scene-parameter-reference" id="id12">Scene Parameter Reference</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h1><a class="toc-backref" href="#id1">Overview</a></h1>
+<p>A storyboard in M.U.G.E.N is composed of a combination of animation, text, music and/or sound, in the form of a cutscene.  Storyboards can be used to make cutscenes such as the game introduction, character endings, credits and more.</p>
+</div>
+<div class="section" id="terminology">
+<h1><a class="toc-backref" href="#id2">Terminology</a></h1>
+<dl class="docutils">
+<dt>cutscene</dt>
+<dd>What you actually see (and hear).</dd>
+<dt>event</dt>
+<dd>What triggers a cutscene to be played back.</dd>
+<dt>storyboard</dt>
+<dd>The .def file that defines what you see during a cutscene.</dd>
+</dl>
+<p>For example, during the <em>ending event</em>, the <em>ending cutscene</em> will be played back. The <em>ending cutscene</em> uses the ending.def <em>storyboard</em>.</p>
+</div>
+<div class="section" id="getting-started">
+<h1><a class="toc-backref" href="#id3">Getting Started</a></h1>
+<div class="section" id="cutscenes-events">
+<h2><a class="toc-backref" href="#id4">Cutscenes Events</a></h2>
+<p>There are several global events when cutscenes may be played. The storyboards for these cutscenes are defined in system.def, and applies to all characters within the game.  The cutscenes in this set are called the &quot;system cutscenes&quot;.</p>
+<dl class="docutils">
+<dt>Game Logo</dt>
+<dd>Played back once when you start M.U.G.E.N.</dd>
+<dt>Game Intro</dt>
+<dd>Played back after the Game Logo.</dd>
+<dt>Default Ending</dt>
+<dd>Played back after you beat the game with a character that does not have a user-defined ending.</dd>
+<dt>Credits</dt>
+<dd>Played back after the ending cutscene.</dd>
+<dt>Game Over</dt>
+<dd>Played back if you choose &quot;No&quot; at the continue screen.</dd>
+</dl>
+<p>Another set of cutscenes is specific to each character, and is defined in each character's .def file.  These are known as the &quot;character cutscenes&quot;.  For example, Kung Fu Man's character cutscenes are defined in chars/kfm/kfm.def.</p>
+<dl class="docutils">
+<dt>Character Intro</dt>
+<dd>Played back once after character selection in arcade mode.</dd>
+<dt>Character Ending</dt>
+<dd>Played back after beating the game in arcade mode. The default ending, where a generic congratulatory message is shown, will not be played back if this cutscene is defined.</dd>
+</dl>
+</div>
+<div class="section" id="trying-it-out">
+<h2><a class="toc-backref" href="#id5">Trying It Out</a></h2>
+<p>At the command line, type:</p>
+<blockquote>
+mugen -r kfm</blockquote>
+<p>This will start the &quot;KFM&quot; motif (for more information on motifs, please read readme.txt). Right away, you will see the game logo, followed by the game intro. After the game intro ends, you will be at the title screen. If you start Arcade mode and choose Kung Fu Man, his character intro will be played, and then the fight begins. If you lose the fight and choose &quot;No&quot; at the continue screen, the game over cutscene is played and you are returned to the title screen. If you win, Kung Fu Man's character ending will be played, followed by the ending credits.</p>
+<p>These are what each of the storyboard files are named in the KFM motif.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Game Logo</td>
+<td>data/kfm/logo.def</td>
+</tr>
+<tr><td>Game Intro</td>
+<td>data/kfm/intro.def</td>
+</tr>
+<tr><td>Default Ending</td>
+<td>(none)</td>
+</tr>
+<tr><td>Credits</td>
+<td>data/kfm/credits.def</td>
+</tr>
+<tr><td>Game Over</td>
+<td>data/kfm/gameover.def</td>
+</tr>
+<tr><td>Character Intro</td>
+<td>chars/kfm/intro.def</td>
+</tr>
+<tr><td>Character Ending</td>
+<td>chars/kfm/ending.def</td>
+</tr>
+</tbody>
+</table>
+<p>The storyboard filenames for the system cutscenes are specified in data/kfm/system.def.</p>
+</div>
+</div>
+<div class="section" id="viewing-storyboards">
+<h1><a class="toc-backref" href="#id6">Viewing Storyboards</a></h1>
+<p>To play back a storyboard file, use M.U.G.E.N's -storyboard command-line option. The syntax is:</p>
+<blockquote>
+mugen -storyboard &lt;storyboard filename&gt;</blockquote>
+<p>For example, to play back data/kfm/intro.def, you would type:</p>
+<blockquote>
+mugen -storyboard data/kfm/intro.def</blockquote>
+<p>The storyboard search directory defaults to data/, so you can omit the &quot;data/&quot; part if you like. The following will also play back data/kfm/intro.def:</p>
+<blockquote>
+mugen -storyboard kfm/intro.def</blockquote>
+<p>This feature can be useful for quickly testing your storyboards as you build them.</p>
+</div>
+<div class="section" id="storyboard-basics">
+<h1><a class="toc-backref" href="#id7">Storyboard Basics</a></h1>
+<p>Here is an example of a simple storyboard that shows just one picture for 5 seconds. If you are not already familiar with sprites and animations, please consult the spr and air docs before continuing.</p>
+<pre class="literal-block">
+;----------------------------------------------------------
+[Info]
+localcoord = 640,480   ;This storyboard is made for a 640x480 size screen
+
+[SceneDef]
+spr = sprite.sff       ;Filename of sprite file to use
+
+[Scene 0]
+; Layers
+layerall.pos = 319,239 ;Default position for all layers
+layer0.anim =  0       ;Anim action number to show
+; Total time
+end.time = 300         ;300 ticks = 5 seconds
+
+;Animation to use
+[Begin Action 0]
+0,0, 0,0, -1
+;----------------------------------------------------------
+</pre>
+<p>A storyboard must always contain a [SceneDef] group. Within this group you must specify the name of the sprite file to use. This sprite file must exist in the same directory as the storyboard file. The sprite file should contain all the sprites you need for your storyboard.</p>
+<p>A storyboard is broken up into scenes. How you choose to divide up your storyboard is up to you. In the example above, there is only one scene, the [Scene 0] group. All scenes must begin with a group that looks like [Scene ?], where the question mark (?) can be any identifier string. Typically, scenes are labeled in numerical order starting from 0.</p>
+<p>Scenes are composed of up to 10 animation objects. Each of these objects exists on its own layer, and the layers are overlaid on top of each other. Layers are numbered from 0 to 9, with 0 being at the bottom, and 9 at the top. For instance, an animation on layer 0 is underneath another on layer 1, and the animation on layer 1 is under that of layer 2, and so on. Each animation object must make reference to an animation action using a &quot;layerX.anim&quot; parameter, where X is the layer number. Each action must be defined within the same storyboard file.</p>
+<p>The simple example above has only one layer. Its drawing position is determined by the value of the &quot;layerall.pos&quot; parameter, and the action number of the animation is the value of the &quot;layer0.anim&quot; parameter. In this case, the action number is 0. Action 0 is defined right after the [Scene 0] group.</p>
+<p>One important parameter is &quot;end.time&quot;. This is the time to end the scene, measured in ticks. One tick is equivalent to 1/60th of a second. When one scene ends, it goes on to show the next. If there are no more scenes, the storyboard playback ends. In the example, &quot;end.time&quot; is 300 ticks, which is the same as 5 seconds. Since there is only one scene, the storyboard ends at the same time.</p>
+<p>The next example will show a slideshow of pictures, along with text overlaid on top. Again, this only has one scene.</p>
+<pre class="literal-block">
+;----------------------------------------------------------
+[Info]
+localcoord = 640,480   ;This storyboard is made for a 640x480 size screen
+
+[SceneDef]
+spr = sprite.sff       ;Filename of sprite file to use
+font0 = myfont.def     ;Filename of a font file to use for the text
+
+[Scene 0]
+; Layers
+layerall.pos = 319,239 ;Default position for all layers
+layer0.anim =  0       ;Anim action number for slideshow pictures
+layer1.text = &quot;Hello&quot;  ;Text to show
+layer1.font = 0        ;Use font0
+; Total time
+end.time = 600         ;600 ticks = 10 seconds
+
+;Animation to use for pictures
+[Begin Action 0]
+0,0, 0,0, 120
+0,1, 0,0, 120
+0,2, 0,0, 120
+0,3, 0,0, 120
+0,4, 0,0, 120
+;----------------------------------------------------------
+</pre>
+<p>Note that there are 2 layers now. Layer 0 is used for the slideshow of pictures, and layer 1 is used for the overlay title. If you imagine the slideshow to be pictures of your vacation trip, the title might be an image with text that reads, &quot;My summer vacation&quot;.</p>
+<p>The new &quot;fadein.time&quot; and &quot;fadeout.time&quot; parameters specify fade-in and fade-out times respectively, measured in ticks.</p>
+<p>This third example shows multiple scenes, with screen fades between each scene.  Additionally, it plays music and a sound effect.</p>
+<pre class="literal-block">
+;----------------------------------------------------------
+[Info]
+localcoord = 640,480
+
+[SceneDef]
+spr = sprite.sff
+snd = sound.snd
+
+[Scene 0]
+; Fade parameters
+fadein.time = 30       ;30 ticks (0.5 seconds) for fade-in
+fadeout.time = 30      ;30 ticks for fade-out
+; Layers
+layerall.pos = 319,239
+layer0.anim =  0
+; Music
+bgm = mysong.s3m       ;Filename for music
+; Total time
+end.time = 120
+
+;Animation to use for scene 0
+[Begin Action 0]
+0,0, 0,0, -1
+
+[Scene 1]
+; Fade parameters
+fadein.time = 30       ;30 ticks (0.5 seconds) for fade-in
+fadeout.time = 30      ;30 ticks for fade-out
+; Layers
+layerall.pos = 160,120
+layer0.anim =  10
+; Total time
+end.time = 120
+
+;Animation to use for scene 1
+[Begin Action 10]
+10,0, 0,0, -1
+
+[Scene 2]
+; Fade parameters
+fadein.time = 30       ;30 ticks (0.5 seconds) for fade-in
+fadeout.time = 30      ;30 ticks for fade-out
+; Layers
+layerall.pos = 160,120
+layer0.anim =  20
+; Sounds
+sound0.value = 0,1     ;Plays sound 0,1
+sound0.starttime = 60  ;Starts playing the sound 60 ticks after the start of the scene
+; Total time
+end.time = 120
+
+;Animation to use for scene 2
+[Begin Action 20]
+20,0, 0,0, -1
+;----------------------------------------------------------
+</pre>
+<p>There is a &quot;bgm&quot; parameter in the first scene. This plays back a music file &quot;mysong.s3m&quot; at the start of the scene, and that music will continue playing until the end of the storyboard. In this case, mysong.s3m should be placed in the same directory as the storyboard file.</p>
+<p>For full details on the parameters for Scenes and SceneDefs, see the sections titled &quot;SceneDef parameter reference&quot; and &quot;Scene parameter reference&quot; below.</p>
+</div>
+<div class="section" id="testing-your-storyboard">
+<h1><a class="toc-backref" href="#id8">Testing Your Storyboard</a></h1>
+<p>This section covers some tips for testing your storyboard.</p>
+<p>You may find pausing and framestepping useful when you play back your storyboard. The pause and framestep buttons are Pause and Scroll Lock on your keyboard respectively. These key are enabled only if M.U.G.E.N is running in debug mode. You are not advised to use the pause function if your storyboard has animations synchronized to the music, as pausing may disrupt synchronization.</p>
+<p>When you write a long storyboard with many scenes, you may like to skip over completed scenes to view your newer ones. To do this, add a line to your SceneDef group:</p>
+<pre class="literal-block">
+[SceneDef]
+spr = sprite.sff       ;Filename of sprite file to use
+startscene = 0         ;&lt;-- line added
+</pre>
+<p>Change the 0 to whatever scene number you would like to start your storyboard at. For example, if you are working on the 10th scene, and you would like to skip the first 9 scenes during testing, enter the number 10. Note that skipping a scene will cause the music in that scene not to be played back.</p>
+</div>
+<div class="section" id="parameter-reference">
+<h1><a class="toc-backref" href="#id9">Parameter Reference</a></h1>
+<div class="section" id="info-parameter-reference">
+<h2><a class="toc-backref" href="#id10">Info Parameter Reference</a></h2>
+<dl class="docutils">
+<dt>Optional parameters:</dt>
+<dd><dl class="first last docutils">
+<dt>localcoord = <em>width</em>, <em>height</em> (int, int)</dt>
+<dd>This specifies the drawing canvas dimensions in pixels.  If the canvas dimensions do not match the window resolution, it will be scaled to fit.     Defaults to 320,240 if omitted.</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<div class="section" id="scenedef-parameter-reference">
+<h2><a class="toc-backref" href="#id11">SceneDef Parameter Reference</a></h2>
+<dl class="docutils">
+<dt>Required parameters:</dt>
+<dd><dl class="first last docutils">
+<dt>spr = <em>filename</em> (string)</dt>
+<dd>This is the filename of the sprite (.sff) file to use in the storyboard.</dd>
+</dl>
+</dd>
+<dt>Optional parameters:</dt>
+<dd><dl class="first last docutils">
+<dt>snd = <em>filename</em> (string)</dt>
+<dd>This is the name of the sound (.snd) file to use in the storyboard.</dd>
+<dt>fontX = <em>filename</em> (string)</dt>
+<dd>This set of parameters loads up to 10 fonts for use in the storyboard.  You can specify multiple font files, using <em>X</em> as the font number.  <em>X</em> is valid for values from 0 to 9.
+Font files are first searched for within the same directory as the storyboard def file.  If the font named <em>filename</em> cannot be loaded from that directory, the engine will attempt to load it from the font/ directory instead.</dd>
+<dt>startscene = <em>scene_number</em> (int)</dt>
+<dd>This parameter is used mainly for testing purposes. If specified, the first <em>scene_number</em> scenes will be skipped. Valid values are from 0 to the total number of scenes minus 1. If omitted, defaults to 0.</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<div class="section" id="scene-parameter-reference">
+<h2><a class="toc-backref" href="#id12">Scene Parameter Reference</a></h2>
+<p>Please note that time is measured in ticks, where 60 ticks is equal to one second. Take note that some optional parameters have default values that depend on the scene number. For example, if the &quot;clearcolor&quot; parameter is omitted, it will have a different default value on the first scene, compared to if it was omitted on following scenes.</p>
+<dl class="docutils">
+<dt>Required parameters:</dt>
+<dd><dl class="first last docutils">
+<dt>end.time = <em>t</em> (int)</dt>
+<dd><em>t</em> is the time to end the scene, measured in ticks relative to the starting time of the scene. If there is another scene after the current one, it will start when the current scene ends. Otherwise, the whole storyboard will end.</dd>
+</dl>
+</dd>
+</dl>
+<p>Basic optional parameters:</p>
+<blockquote>
+<dl class="docutils">
+<dt>fadein.time = <em>duration</em> (int)</dt>
+<dd><em>duration</em> is the length of time (measured in ticks) to fade the screen in, at the start of the scene. Note that fadein.time does not affect the ending time of the scene.</dd>
+<dt>fadein.col = <em>r</em>, <em>g</em>, <em>b</em> (int, int, int)</dt>
+<dd>This parameter is paired with fadein.time.  <em>r</em>, <em>g</em>, <em>b</em> represents the R,G and B values of the starting fade color. Valid values for duration are from 0 (no fade) to the value of end.time. Valid values for the <em>r</em>, <em>g</em>, <em>b</em> triplet are 0,0,0 (fade from black) and 255,255,255 (fade from white) only. Other fade colors are currently not supported. If omitted, duration defaults to 0 (no fade) and r,g,b to 0,0,0 (fade from black).</dd>
+<dt>fadeout.time = duration (int)</dt>
+<dd>Similar to the fadein parameters, except this fades the scene out.</dd>
+<dt>fadeout.col = <em>r</em>, <em>g</em>, <em>b</em> (int, int, int)</dt>
+<dd>Similar to the fadein parameters, except this fades the scene out.</dd>
+<dt>clearcolor = <em>r</em>, <em>g</em>, <em>b</em> (int, int, int)</dt>
+<dd>This is the color to clear the screen with before drawing each tick. If r is set to -1, the screen will not be cleared. If omitted on the first scene, r defaults to -1. If omitted on successive scenes, <em>r</em>, <em>g</em>, <em>b</em> defaults the previous scene's values. For instance, if you set clearcolor to 0,0,0 in the first scene, you do not need to specify the parameter for successive scenes if you would like them all to use the same color values.</dd>
+<dt>layerall.pos = <em>x</em>, <em>y</em> (int, int)</dt>
+<dd>This is the default position to draw all layers to. If omitted on the first scene, defaults to 0,0. If omitted on successive scenes, the value defaults to that of the previous scene's. Note that this parameter does not affect background objects.</dd>
+<dt>layerX.anim = <em>actionno</em> (int)</dt>
+<dd><p class="first">The layerX.* parameters control animations and texts to be drawn to the screen.  layerX.anim specifies an animation.  The value of <em>X</em> controls the drawing priority of the layer. For example, an layer with <em>X</em> = 0 will be drawn below another with <em>X</em> = 1. Valid values for <em>X</em> are from 0 to 99, for a total of 100 layers.</p>
+<p class="last"><em>actionno</em> specifies that an the animation with action number <em>actionno</em> will be shown. If this parameter is omitted, no animation will be drawn.</p>
+</dd>
+<dt>layerX.text = <em>text</em> (string)</dt>
+<dd><p class="first">This parameter specifies the text that will be drawn to the screen.  If you need to have a line break in <em>text</em>, enclose it in quotes and use \n to specify the line break escape sequence, e.g.
+<tt class="docutils literal">layerX.text = &quot;This is one one <span class="pre">line.\nThis</span> is on a second line.&quot;</tt></p>
+<p>A layerX.text parameter must be paired with a layerX.font parameter.</p>
+<p class="last">You cannot use text and anim on the same layer.</p>
+</dd>
+<dt>layerX.font = <em>font_no</em>, <em>bank</em>, <em>align</em>, <em>r</em>, <em>g</em>, <em>b</em> (int, int, int, int, int, int)</dt>
+<dd><p class="first">This parameter specifies the font to use for rendering the text of the layer.</p>
+<p><em>font_no</em> is the number of the font from the [SceneDef].</p>
+<p><em>bank</em> is the color bank of the font (bitmap fonts only).</p>
+<p><em>align</em> is the text alignment: 1 for left-aligned text, 0 for center, and -1 for right-aligned text.</p>
+<p class="last"><em>r</em>, <em>g</em>, <em>b</em> specifies the color of the font.  Values are from 0 to 255.</p>
+</dd>
+<dt>layerX.textdelay = <em>delay</em> (int)</dt>
+<dd>This parameter controls how quickly each letter of text is rendered to the screen.  Text is rendered one letter at a time to the screen, waiting <em>delay</em> ticks between each letter.  <em>delay</em> defaults to 0 (all text is rendered immediately).</dd>
+<dt>layerX.offset = <em>offx</em>, <em>offy</em> (int, int)</dt>
+<dd><em>offx</em>, <em>offy</em> is the x,y position offset to draw the layer to. The values of this parameter are added to those of the &quot;layerall.pos&quot; parameter to determine the drawing position. This defaults to 0,0 if omitted.</dd>
+<dt>layerX.starttime = <em>t</em> (int, int)</dt>
+<dd><em>t</em> is the time to start drawing the layer. If omitted, it defaults to 0.</dd>
+<dt>layerX.endtime = <em>t</em> (int, int)</dt>
+<dd><em>t</em> is the time to stop drawing the layer. If omitted, it defaults to the end of the scene.</dd>
+<dt>soundX.value = <em>group_no</em>, <em>sound_no</em> (int, int)</dt>
+<dd>This parameter specifies a sound to play back during the scene.
+<em>group_no</em> and <em>sound_no</em> correspond to the identifying pair that you assigned each sound in the player's snd file.
+Valid values for <em>X</em> are from 0 to 99 (up to 100 sounds per scene).</dd>
+<dt>soundX.starttime = <em>t</em> (int)</dt>
+<dd>Controls when the sound is played.
+<em>t</em> is the time to start playing the sound.  <em>t</em> defaults to 0.</dd>
+<dt>soundX.volumescale = <em>volume_scale</em> (double)</dt>
+<dd><em>volume_scale</em> is 100 for 100% volume, 50 for 50% volume, and so on.  Defaults to 100.
+Currently, there is no support to make a sound louder.</dd>
+<dt>soundX.pan = <em>p</em> (int)</dt>
+<dd>This is the positional offset of the sound.  0 plays the sound in the center.  A negative value plays it towards the left.  A positive value plays it towards the right.  Defaults to 0.
+Valid values for <em>p</em> are -127 to 127.</dd>
+<dt>bgm = <em>filename</em> (string)</dt>
+<dd>If specified, the music file named <em>filename</em> will begin to play at the start of the current scene. If omitted on the first scene, no BGM will play. If omitted on successive scenes, the BGM from the previous scene will continue to play. If <em>filename</em> is an empty string, the BGM currently being played will be stopped. The BGM file should be placed in the same directory as the storyboard file.</dd>
+<dt>bgm.loop = <em>loop</em> (boolean)</dt>
+<dd>Set <em>loop</em> to 1 to make the background music loop, 0 to prevent looping. The default value is 0.</dd>
+</dl>
+</blockquote>
+<p>Advanced optional parameters:</p>
+<blockquote>
+<dl class="docutils">
+<dt>window = <em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em> (int, int, int, int)</dt>
+<dd>This defines the drawing window of the storyboard. <em>x1</em>, <em>y1</em> are the x,y coordinates of the upper left of the window, while <em>x2</em>, <em>y2</em> represents the lower right. Anything drawn outside this window will not be seen. Note that this parameter does not affect the drawing window of background-type objects. If omitted on the first scene, the values will default to the full size of the screen. If omitted on successive scenes, the values will default to the those of the previous scene's.</dd>
+<dt>bg.name = <em>bgname</em> (string)</dt>
+<dd>If this parameter is specified, you can make use of a background object. <em>bgname</em> is a string prepended to your background definition groups. For example, if <em>bgname</em> is &quot;Scene04bg&quot;, then your background definition group must be named &quot;Scene04bgDef&quot;, and the following background elements must begin with &quot;Scene04bg&quot;. data/kfm/intro.def and data/kfm/credits.def are examples that use this parameter. Note that background objects are not affected by the &quot;window&quot; parameter. All elements of a background objects are drawn underneath all &quot;layerX&quot; animation objects, with the exception of elements with the &quot;layer&quot; parameter set at 1.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+</div>
+</body>
+</html>

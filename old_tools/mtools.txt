@@ -1,0 +1,328 @@
+M.U.G.E.N Tools v0.98a beta
+(c) 2001 Elecbyte
+www.elecbyte.com
+
+This toolset was updated: 30 May 2001
+
+
+
+Included in this archive are AirEditor, sprmaker, sndmaker, and fntmaker.
+The maker tools are needed to make .sff and .snd files used in M.U.G.E.N.
+As you might have guessed, sprmaker works on graphics (.pcx files) and
+sndmaker is for sound (.wav files).  See below (III) for an explanation
+of fntmaker.
+
+The documentation for AirEditor is in airedit.txt.
+
+
+What's New
+----------
+
+AirEditor now sizes the sprite view window according to the screen
+resolution. The zoom option works better now.
+
+
+
+====================
+I. Sprmaker
+====================
+
+Sprmaker generates sprite files (.sff) that M.U.G.E.N can read.
+
+
+Usage
+-----
+
+Running sprmaker from the command line will show:
+
+  Enter name of new or existing SFF file:
+
+Type in the name of the sprite file you wish to make, and press
+enter.  Your filename should end in ".sff", like "kfm.sff" or
+"mysprite.sff".
+
+Once you enter a name, you will see the prompt:
+
+  Enter name of graphic file:
+
+At this point, enter the name of a .pcx file to add (other image
+types are not supported).  Your .pcx file should be a 256-color
+image.
+
+Next, you will be asked for group number, image number, and the
+X and Y axes of the sprite.  For example, let's say you are
+putting in a pcx file called test.pcx.  A sample output would
+look like this:
+
+  Enter name of new or existing SFF file:  mysprite.sff
+  Enter name of graphic file:  test.pcx
+  Group no:  1000 
+  Image no:  0
+  X axis:  45
+  Y axis:  35
+
+The group number and image number entered here are used to access
+test.pcx in the .air (animation) file.  It's just a pair of
+numbers you will associate with the sprite.  For this example, in
+the .air file, instead of referring to test.pcx, you will refer to
+1000,0.
+
+The X and Y axis is used as a pivot point for the graphic.  For
+example, assume test.pcx is a 20x20 size image, with its axis at
+(10,10).  Imagine the axis coordinates as a pin through a paper
+cut-out that represents the sprite.  If we say we want to draw the
+sprite to the screen at location (100,100), it means the axis point
+will be at (100,100).  Take the pin with the paper cut-out on it,
+and stick the pin at (100,100).  Now the square will occupy a space
+on the screen from (90,90) to (110,110).  However, if your axis was
+at (0,0) instead of (10,10), then the square would occupy a space
+from (100,100) to (120,120).  That is how axes affect the position
+of images.
+
+See air.txt and spr.txt in the docs/ directory of the M.U.G.E.N
+archive for more information on what group numbers you should use.
+
+
+Usage options
+-------------
+
+There are some options you can use while running sprmaker to help
+generate a smaller file.
+
+The pound sign (#) brings up an options menu.  The first menu is
+available only at the "Enter name of new or existing SFF file"
+prompt.  Currently, there is only one primary option:
+
+  Options:
+  1. Palette type
+    Choose:
+
+Enter 1 to continue. This brings up the palette options menu:
+
+  Palette type:
+  1. Individual palette
+  2. Shared palette
+    Choose: 
+
+"Individual palette" means that all sprites will keep their own
+palette data.  This is the default behavior if you did not enter
+the options menu.
+
+"Shared palette" means that all sprites will use the palette data
+of the first sprite in the .sff file.  You should always use this
+option for your characters' .sff files.
+
+The second set of menus can be accessed at the "Enter name of
+graphic file" prompt. Enter "#" to bring up this menu:
+
+  Options:
+  1. Palette type
+  2. Override duplicate file linking
+
+Don't worry about the "override duplicate file linking" option.  It
+is a debugging option we used when developing the .sff format, and
+will not useful to you.
+
+Enter 1 to bring up the palette type options:
+
+  Palette type:
+  1. Individual palette
+  2. Use previous sprite's palette
+    Choose(was 2):
+
+This menu lets you override the default palette-type behavior set in
+first menu.  Please note that in this case, it only overrides for
+the next sprite you add.  Subsequent sprites additions will need to
+be overridden again if necessary.
+
+What's the use of overriding a shared palette file to add a sprite
+with an individual palette?  In M.U.G.E.N, character sprites must
+all be "shared" type, but there is one exception: the large portrait
+sprite (sprite 9000,1).  If your character's default palette does not
+give you enough colors for the large portrait, you are allowed to
+add it as an "individual palette"-type sprite.
+
+Don't worry about "Override duplicate file linking."  It's a debugging
+option when we were developing the .sff format.
+
+
+Command-line options
+--------------------
+
+You can type "sprmaker -?" at the command line to see these options.
+
+Usage: sprmaker [-c] [-f] [-p] [-q]
+Options: c - automatically crop images and adjust axes
+         f - eliminate duplicate files
+         p - eliminate duplicate successive palettes
+         s - summary mode (displays only summary and errors)
+         q - quiet mode (except errors)
+
+Use -c -f -p to generate the smallest file.  You are highly
+recommended to use these three options, as they save space and
+memory.
+
+
+Saving yourself some work
+-------------------------
+
+Now, you might be thinking:  "I have 100 .pcx files.  But I don't
+want to have to type all that in everytime!"
+
+Luckily, you don't.  Just make a plain text file and put exactly
+what you would type at the command line into it.  Then you can
+pipe this text file intp sprmaker everytime you need to make
+your sprite. "Piping" means feeding input from a text file into a
+program, instead of having your type it manually.  To pipe a text
+tile named "sprite.txt" into sprmaker, you would type:
+
+  sprmaker < sprite.txt
+
+If your sprite.txt file is in the work/ directory, you would type:
+
+  sprmaker < work\sprite.txt
+
+The < symbol is the input pipe symbol. It means, take the contents
+of sprite.txt, and feed it into sprmaker, as if someone was typing
+it.
+
+Here's part of an example text file to get you started.  This way
+you just make the text file once and then run sprmaker on it.  If
+you need to add more sprites later, just edit the text file and
+pipe it into sprmaker again.  The lines you see at the top of
+this example are options for generating a shared-palette sprite.
+You should use that option for character sprites. It will help keep
+your character's .sff file small.
+
+  ;Options
+  #
+  ;Palette 
+  1
+  ;Shared palette 
+  2
+  ;Filename:
+  chars/test/test.sff
+  work/test/mypic.pcx
+  9000 
+  0
+  0
+  0
+  work/test/mypic2.pcx
+  9000
+  1
+  0
+  0
+
+Note that a semicolon (;) is used for comments.  Comments can only
+be used at the beginning of a line.
+
+If you don't get any errors, your .sff should be where you specified
+in the text file.  In this example it would be in 
+[current dir]/chars/test/, where [current dir] is the directory you
+are running sprmaker from.
+
+
+
+====================
+II. Sndmaker
+====================
+
+Sndmaker is used to generate sound (.snd) files. The way Sndmaker
+works is almost exactly like sprmaker.  Again, it's best to redirect
+its input from a text file.
+
+The format is the same as sprmaker minus the palette options and such.
+Also, you don't need an X and Y axis.  
+
+  chars/test/test.snd
+  work/test/mysound.wav
+  0 
+  0
+  work/test/mysound2.wav
+  0
+  1
+
+
+If this file was saved as work/test/sound.txt, then you would type this
+at the command line:
+
+sndmaker < work\test\sound.txt
+
+
+
+====================
+III. Fntmaker
+====================
+
+The fonts generated by fntmaker work for 2000.06.27 and newer versions
+of M.U.G.E.N.
+
+pcx file - Supply a pcx file which contains all the characters in your font
+           alphabet, arranged from left to right in a single row. The pcx
+           file must be an 8-bit color sprite.
+txt file - Copy a txt file from work/font in custom.zip, and edit it to fit
+           your font's pcx file. The first part is are the font settings.
+           It is followed by character and offset pairs. The character is a
+           letter or symbol in your pcx file you wish to represent. The
+           offset is the starting x location within the pcx file of the
+           character. For example,
+             B 55
+           means that character 'B' begins at an offset of 55 pixels from the
+           left. Semicolon is treated as a comment character. To put in
+           entries for special characters such as a semi-colon, you need to
+           use a hex sequence representing the ASCII number of the
+           character. Hex sequences start with 0x. For example, a semicolon
+           (ASCII value 5B) starting at pixel 100 would have an entry:
+             0x5B 100
+
+Fonts with more than one color use "color banks" in their palette to store
+multiple color arrangements. Each color bank in the palette has a number of
+palette entries equal to the value of the "Color" parameter in the font's
+txt file. The first color bank starts at color 255, and its entries are
+laid out in reverse palette order. The next color bank's first palette entry
+starts immediately following the first, and so on. For example, a font with
+16 colors has its first bank's entries from 255 to 240. The second bank has
+entries 239 to 224 and so on. The number of banks you can have is limited by
+the palette space.
+
+Look at the files in custom.zip to see how fonts are composed in the .pcx
+files. The concept of font banks will be clearer if you look at the
+palette arrangement of some of the pcx files.
+
+
+
+====================
+IV. Distribution
+====================
+
+Please follow our distribution policy stated below. Please pay
+particular attention if you are a software developer making frontends
+for our tools.
+
+Elecbyte grants the permission to redistribute the programs included in
+this archive, specifically sprmaker, sndmaker, fntmaker and AirEditor,
+for any use, under the following restrictions:
+
+1. The program files must remain in their unmodified form. Edited
+   program executables may not be distributed.
+
+2. This file (mtools.txt) must accompany any one or more of the program
+   files you wish to redistribute. If AirEditor is included in your
+   distribution, airedit.txt must also be included.
+
+3. Permission is granted to redistribute edited documentation, specifically
+   mtools.txt and airedit.txt, as long as this original distribution notice,
+   the copyright line at the beginning of this file and the disclaimer
+   notice are present and their contents unchanged. You may, at your
+   discretion, add your own distribution policy, so long as it does not
+   conflict with this original policy.
+
+
+
+====================
+V. Disclaimer
+====================
+
+Elecbyte will not be held liable for any damages to either the user
+or the system it is run on, that may occur as a direct or indirect
+result of the use of any of the programs included in this distribution. 

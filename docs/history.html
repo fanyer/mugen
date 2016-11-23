@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<title>M.U.G.E.N  Update History</title>
+<style type="text/css">
+
+/*
+M.U.G.E.N documentation stylesheet.
+
+
+Modified from voidspace.css.
+
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+em, i {
+  font-family: Times New Roman, Times, serif;
+}
+
+a {
+  color: #5577EE;
+  text-decoration: none;
+}
+
+a.reference.internal {
+  font-size: 80%;
+}
+
+a.toc-backref {
+  color: black;
+  text-decoration: none;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #445BAA;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #667788;
+  color: #ffffff;
+  border: thin solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #445BAA;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+  font-size: 120%;
+}
+
+</style>
+</head>
+<body>
+<div class="document" id="m-u-g-e-n-update-history">
+<h1 class="title">M.U.G.E.N  Update History</h1>
+
+<p>Updates shown are in order of most recent to least recent.</p>
+<div class="section" id="version-1-0">
+<h1>Version 1.0</h1>
+<p>18 Jan 2011</p>
+<div class="section" id="engine-changes">
+<h2>Engine Changes</h2>
+<ul class="simple">
+<li>Title screen F1 info box text can now be customized in system.def.</li>
+<li>SND files with invalid WAV files now log a warning instead of causing
+MUGEN to abort.</li>
+</ul>
+</div>
+<div class="section" id="bug-fixes">
+<h2>Bug Fixes</h2>
+<ul class="simple">
+<li>CNS: Fixed associativity of := for fvars.</li>
+<li>Fixed a bug that caused some sounds to be played on incorrect channels
+or with incorrect stereo panning.</li>
+<li>Storyboard: Replaced broken soundX.volume parameters with soundX.volumescale.</li>
+<li>Fixed incorrect character positioning in win and results screens.</li>
+</ul>
+</div>
+<div class="section" id="doc-changes">
+<h2>Doc Changes</h2>
+<ul class="simple">
+<li>Some documentation was updated.</li>
+</ul>
+</div>
+<div class="section" id="license-changes">
+<h2>License Changes</h2>
+<ul class="simple">
+<li>The license has been updated to permit inclusion of the MUGEN executable
+into free non-commercial bundles.  See readme.txt.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="version-1-0-rc8">
+<h1>Version 1.0 RC8</h1>
+<p>29 Jun 2010</p>
+<div class="section" id="id1">
+<h2>Engine Changes</h2>
+<ul class="simple">
+<li>Merged EX + alpha audio system into main RC line.</li>
+<li>BG: tilespacing is now a required parameter for tiled anim BG elements.
+Setting any tilespacing argument to 0 will disable tiling in that axis
+(prevents problems with 2002 BGs that have incorrect tilespacing).</li>
+<li>CNS: Added StageVar trigger with basic functionality for checking stage
+name and author.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>Bug Fixes</h2>
+<ul class="simple">
+<li>BG: Fixed paral not working with compressed sprites</li>
+<li>BG: Fixed paral BGs drawn at incorrect y position at certain resolutions.</li>
+<li>CNS: fixed InGuardDist trigger incorrectly returning 0 during enemy attacks when
+projectiles outside guard distance exist.</li>
+<li>CNS: Fixed PlayerPush coordspace height bug.</li>
+<li>Fixed physics precision error in certain situations.</li>
+<li>Fixed software rendering sprite scaling position accuracy.</li>
+<li>Fixed player SelfAnim drawn with incorrect offset scaling when in temporary state.</li>
+<li>Removed common1.cns stand state pos y &lt; 0 detection for compatibility reasons.</li>
+<li>Font v2: fixed bank palette using palettes in the order added to the sff, instead of
+the actual palette item number.</li>
+<li>Fixed problem where program would not start on some older Windows installs.</li>
+<li>Fixed mouse pointer not reappearing after switching out of fullscreen mode by Alt-Enter
+or task switch.</li>
+<li>Fixed AllPalFX green and blue fields being ignored.</li>
+<li>Fixed system explods not getting reset before mode select and character select screens.</li>
+<li>Fixed cutscene to not adjust BGM path if the filename is empty.</li>
+<li>Fixed sound volume and panning bugs.</li>
+<li>Fixed volumescale bug.</li>
+<li>Fixed victory screen showing after quick VS.</li>
+<li>Fixed mode select repeating sound during fade in.</li>
+</ul>
+</div>
+<div class="section" id="tools">
+<h2>Tools</h2>
+<ul class="simple">
+<li>Fixed sprmake2 crash on pal.discardduplicates=0.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="version-1-0-rc7">
+<h1>Version 1.0 RC7</h1>
+<p>20 Mar 2010</p>
+<div class="section" id="id3">
+<h2>Engine Changes</h2>
+<ul class="simple">
+<li>Options screen now uses font/options.def font if present.
+If Truetype, size adapts to game resolution.</li>
+<li>Implemented Alt-Enter fullscreen toggle.</li>
+<li>mugen.cfg: [Video] Implemented BlitMode=PageFlip (resolves video tearing).</li>
+<li>motif: system.def: Added title param to [Options]</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>Bug Fixes</h2>
+<ul class="simple">
+<li>CNS: Cond trigger now works properly inside all comma-separated parameter lists.</li>
+<li>CNS: Fixed projectile screen and edge bounds being calculated incorrectly.</li>
+<li>CNS: Fixed projectile hits causing player hitdefs to reactivate.</li>
+<li>CNS: Fixed screen postype explods incorrectly positioned during envshake.</li>
+<li>CNS: HitDef: Fixed guard damage not affected by AttackMulSet controller.</li>
+<li>CNS: HitDef: Fixed fall.yvelocity and fall.xvelocity scaled incorrectly in
+different coordspaces.</li>
+<li>CNS: ChangeAnim2: Fixed reflection drawing position when other player has
+different scale.</li>
+<li>CNS: Fixed TargetBind controller default value (0,0).</li>
+<li>CNS: Fixed &quot;no&quot; debug spam.</li>
+<li>Input: Partial fix for num lock and caps lock keys only working every other key press.
+Is still buggy on first press if state of key lock is on when starting MUGEN.</li>
+<li>Motif: system.def: Fixed survival mode using selftitle instead of enemytitle for team selection.</li>
+<li>Storyboard: Fixed drawing some BG sprites off-center in pillarbox mode.</li>
+<li>Fixed 1P vs Team (Simul) advantage option not working</li>
+<li>Fixed space bar resetting time in survival mode.</li>
+</ul>
+</div>
+<div class="section" id="backwards-compatibility">
+<h2>Backwards Compatibility</h2>
+<ul class="simple">
+<li>ver2002 backwards compatibility: CNS: Pos Z trigger will return the value of
+pXstartz in the stage def file that corresponds to the player (or root, if
+the player is a helper).  This will only work for players with mugenversion
+under 1.0.</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>Tools</h2>
+<ul class="simple">
+<li>Added sff2png tool: extracts sprites from an SFF file.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="version-1-0-rc6">
+<h1>Version 1.0 RC6</h1>
+<p>8 Dec 2009</p>
+<div class="section" id="id6">
+<h2>Engine Changes</h2>
+<ul class="simple">
+<li>CNS: New Trigger: Cond. This is a short-circuiting version of ifelse.</li>
+<li>CNS: Set to use precise floating point model; was previously using a less accurate model
+that might have caused strange rounding errors.</li>
+<li>fight.def: Added [Fightfx] section with scale parameter.</li>
+<li>Keyboard: Fixed bug where keyboard presses/releases are sometimes lost when other keys are pressed
+at the same time.</li>
+<li>Storyboards: now scaled to fit screen aspect instead of being cropped.</li>
+<li>Stages: Added displayname, versiondate, mugenversion, author parameters to stage [Info].
+Stages older than 1.0 will have camera movement snapped to whole stage coordspace units.</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2>Doc Changes</h2>
+<ul class="simple">
+<li>Added description of special forms (ifelse, cond).</li>
+<li>Stages + Backgrounds: Fixed Parallax parameters description to match implementation.</li>
+<li>Other minor fixes.</li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h2>Bug Fixes</h2>
+<ul class="simple">
+<li>CNS: HitDef: Fixed bug that set default guarded getpower/givepower parameters to 0.</li>
+<li>CNS: AppendToClipboard and DisplayToClipboard: More robust handling of type mismatch scenarios.</li>
+<li>CNS: Fixed bug where Const trigger returned incorrectly-scaled values if player is in a temporary
+state of another player with a different coordspace.</li>
+<li>CNS: Fixed bug where AssertSpecial flag=invisible does not work during hitpauses.</li>
+<li>Display: Fixed Offset sctrl not scaling properly to coordspace.</li>
+<li>Display: Fixed fightfx explods being created with incorrect scale when character and system
+have different coordspaces.</li>
+<li>Display: Fixed projectile Clsn2 not being displayed in Ctrl-C mode.</li>
+<li>Fixed bug where loading malformed SFFv1 sprites would prevent the program from closing properly.</li>
+<li>Fixed character mugenversion date parser to reject malformed version strings.</li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h2>Backwards Compatibility</h2>
+<ul class="simple">
+<li>Fixed: ver2002 characters only: After a ReversalDef with p2stateno and p1stateno parameters
+has been executed, P2's state updates will lag behind P1's by 1 tick.</li>
+<li>ver2002 backwards compatibility: implemented bug where AssertSpecial flags that affect a
+single player are not reset each tick when the player is in a hitpause.
+Flags affected are: nostandguard, nocrouchguard, noairguard, noautoturn, noshadow,
+nojugglecheck, nowalk, unguardable, invisible.</li>
+<li>ver2002 backwards compatibility: implemented bug where the effects for the following
+controllers are not reset during hitpause: AngleDraw, PlayerPush, Offset, ScreenBound, Trans, Width.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="version-1-0-rc5">
+<h1>Version 1.0 RC5</h1>
+<p>28 Oct 2009</p>
+<div class="section" id="id10">
+<h2>Bug Fixes</h2>
+<ul class="simple">
+<li>CNS: Fixed bug where teammode and hitdefattr were being evaluated incorrectly.</li>
+<li>CNS: Fixed bug where hit attribute string parsing could fail in expressions.</li>
+<li>CNS: Fixed bug where explod's Y position is displaced if explod is created on
+the first tick of the round on cut stages.</li>
+<li>CNS: Fixed bug where DestroySelf did not abort remainder of state evaluation.
+This could lead to crashes or indeterminate behavior depending on the controllers used after.</li>
+<li>Fixed bug where pre-1.0 stages with zoffsetlink are drawn displaced by upwards 1 stage unit.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="version-1-0-rc4">
+<h1>Version 1.0 RC4</h1>
+<p>25 Oct 2009</p>
+<div class="section" id="id11">
+<h2>Engine Changes</h2>
+<ul class="simple">
+<li>CNS: Added GameWidth and GameHeight triggers.</li>
+<li>CNS: Display error if character uses a controller or trigger inappropriate for its mugenversion.</li>
+<li>Localization: Implemented storyboard scene localization.  See localization docs for notes.</li>
+<li>Implemented png screenshots.  Press F12 to take a screenshot.</li>
+<li>Mouse cursor now hidden in fullscreen.</li>
+</ul>
+</div>
+<div class="section" id="id12">
+<h2>Bug Fixes</h2>
+<ul class="simple">
+<li>AIR: Fixed empty anim actions throwing error.  Empty actions will be ignored.</li>
+<li>BGs: Changed start position value from integer to float.</li>
+<li>CNS: Fixed AIlevel triggering in cooperative dummy in training mode.</li>
+<li>CNS: Fixed players with HitOverride taking damage outside of movetype = H</li>
+<li>CNS: Fixed bug where CNS load error is not reported for common1.cns in a player's directory.</li>
+<li>CNS: Fixed player with HitOverride not being affected by a HitDef with
+p2stateno = &lt;any value that is not -1&gt; and p2getp1state = 1.</li>
+<li>CNS: Fixed bug where != operator was incorrectly parsed for HitDefAttr, AuthorName, TeamMode</li>
+<li>CNS: Fixed helper facing bug introduced in RC3.</li>
+<li>Fixed guard distance checking bug in a different coordinate spaces.</li>
+<li>Fixed helpers/explods with ownpal=1 not being affected by RemapPal</li>
+<li>Disabled logo storyboard from showing during quickvs</li>
+</ul>
+</div>
+</div>
+<div class="section" id="version-1-0-rc3">
+<h1>Version 1.0 RC3</h1>
+<p>12 Oct 2009</p>
+<div class="section" id="id13">
+<h2>Bug Fixes</h2>
+<ul class="simple">
+<li>CNS: Fixed ScreenPos y trigger value calculation in cut stages.</li>
+<li>CNS: Fixed Explod y offset calculation in cut stages.</li>
+<li>CNS: Fixed issue where player may get incorrect custom state resources</li>
+<li>Renderer: Fixed master palfx not affecting TTF fonts.</li>
+<li>Input: Fixed keyboard input</li>
+<li>Input: Implemented joystick hat support</li>
+<li>mugen.cfg: Fixed AI.cheat not working</li>
+<li>General: Fixed Start+button not choosing palettes 7-12</li>
+<li>General: Fixed game slowdown when skipping frames</li>
+<li>Miscellaneous other fixes.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="version-1-0-rc2">
+<h1>Version 1.0 RC2</h1>
+<p>29 Sep 2009</p>
+<div class="section" id="id14">
+<h2>Engine Changes</h2>
+<ul class="simple">
+<li>BG: Improved performance of parallax BGs.</li>
+<li>Stages: Added a hack to recognize the &quot;hires = 1&quot; stage parameter.
+This parameter isn't officially supported so we strongly recommend against using it for new content.</li>
+</ul>
+</div>
+<div class="section" id="id15">
+<h2>Bug Fixes</h2>
+<ul class="simple">
+<li>BG: Fixed bug where tiled parallax BGs did not draw.</li>
+<li>BG: Fixed scaled trans sub BGs.</li>
+<li>CNS: Fixed trigger redirection coordspace bug.</li>
+<li>CNS: Fixed screenpos x trigger.</li>
+<li>CNS: Fixed helper not inheriting palno from parent.</li>
+<li>CNS: Corrected bug in ** operator for integer arguments with exponent &gt;= 0.</li>
+<li>CNS: Integer exponentiation, Floor(), and Ceil() now generate a warning and
+clamp to INT_MAX or INT_MIN (2^31-1 or -2^31) when the integer range is
+exceeded.</li>
+<li>FNT: Fixed font newline bug for True Type fonts with text wrapping.</li>
+<li>Motifs: Fixed invalid font in combo counter crash.</li>
+<li>mugen.cfg: Added DirectX option to RenderMode.
+Setting this mode may help some people with startup issues.</li>
+<li>SND: Fixed snd loading failure using wavs with certain headers.</li>
+<li>Stages: Fixed random stage load error during continue.</li>
+<li>Added hardcoded pal change for SFFv1 sprites.
+This addresses the palette problem for old characters that override state 5900.</li>
+<li>Fixed UTF-8 BOM detection bug that caused the first group not to be read in some def files.</li>
+<li>Fixed AI.RandomColor = 0 crash.</li>
+<li>Resolved SDL crash on non-SSE2 processors.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="version-1-0-rc1">
+<h1>Version 1.0 RC1</h1>
+<p>22 Sep 2009</p>
+<div class="section" id="id16">
+<h2>Engine Changes</h2>
+<ul class="simple">
+<li>Added high-definition (HD) graphical support.<ul>
+<li>Any arbitrary resolution or aspect ratio can be set.
+For best compatibility, we recommend using 640x480, 1280x720 or 1920x1080.</li>
+<li>1280x720 set as the new default resolution.  This can be changed with the GameWidth and GameHeight
+parameters in mugen.cfg.</li>
+<li>Characters' target resolution can be set with the localcoord parameter in the character def file.
+An alternative, which affects sprites only,
+is to set smaller xscale and yscale parameters in the constants section of a
+character's CNS files.</li>
+<li>Stages' target resolution can also be set with the localcoord parameter in the stage def file.</li>
+<li>Characters, stages and motifs made for different resolutions can still interoperate with each other.</li>
+</ul>
+</li>
+<li>Added localization support.<ul>
+<li>Preferred language can be set in mugen.cfg</li>
+</ul>
+</li>
+<li>Added sound and text support to storyboards.</li>
+<li>New sprite file format: SFF v2.<ul>
+<li>Multiple palette support.</li>
+<li>Support for realtime compressed sprites to reduce memory usage.</li>
+</ul>
+</li>
+<li>New format for FNT.<ul>
+<li>Bitmap fonts now based on SFF v2.</li>
+<li>Supports Truetype fonts.</li>
+<li>UTF-8 text support (Truetype only).</li>
+<li>Text can be quoted in order to use escape sequences, e.g. \n for a line break: &quot;line1\nline2&quot;</li>
+</ul>
+</li>
+<li>CNS: New triggers.<ul>
+<li>AILevel: returns the AI difficulty setting.</li>
+</ul>
+</li>
+<li>CNS: Added [Quotes] group to constants.</li>
+<li>CNS: New controllers.<ul>
+<li>VictoryQuote: Selects a quote for the victory screen.</li>
+</ul>
+</li>
+<li>Stages: StageInfo: New parameters:<ul>
+<li>xscale, yscale: Specifies the drawing scale of the stage.</li>
+<li>overdrawhigh, overdrawlow: Specifies the number of pixels of extra drawing beyond the top
+and bottom of the screen.</li>
+<li>cuthigh, cutlow: Suggests the number of pixels that can be cut from the top and bottom of
+the screen when playing in a shorter game aspect than the stage was designed for.  cutlow
+especially will be useful for making 4:3 stages look better when viewed in 16:9.</li>
+</ul>
+</li>
+<li>Motifs: Victory screen definition can be added to system.def.
+See [Victory Screen] and [VictoryBG] groups.<ul>
+<li>Characters may use sprite 9000,2 for the victory screen.</li>
+</ul>
+</li>
+<li>Motifs: system.def and fight.def font parameters standardized to take alignment and RGB color
+values.  See font notes at end of fight.def.</li>
+<li>Motifs: common1.cns can now be included with motifs.</li>
+<li>Motifs: system.def: [VS Screen]: For consistency, changed pX.pos and pX.name.pos to pX.offset and pX.name.offset
+(.pos is deprecated but will still work).</li>
+<li>Storyboards: Added sound playback and text display capability.</li>
+</ul>
+</div>
+<div class="section" id="id17">
+<h2>Tools</h2>
+<ul class="simple">
+<li>New tool: sprmake2 - Generates sff v2 files; replaces sprmaker.<ul>
+<li>Enhanced sprite and palette manipulation options.</li>
+</ul>
+</li>
+<li>fntmaker tool deprecated; use fnt v2 def files instead.</li>
+</ul>
+</div>
+<div class="section" id="id18">
+<h2>Bug Fixes</h2>
+<ul class="simple">
+<li>CNS: Fixed: HitDef P1 pausetimes expired 1 tick sooner than specified.
+When loading 2002.04.14 and older characters, this fix will be compensated for
+by subtracting 1 from the P1 pausetime after expression evaluation.</li>
+<li>CNS: Fixed incorrect computation results using the ** operator.</li>
+<li>Motifs: fight: Fixed issue where power bar anims get out of sync with each other.</li>
+</ul>
+</div>
+<div class="section" id="sample-content">
+<h2>Sample Content</h2>
+<ul class="simple">
+<li>Added sample HD content:<ul>
+<li>mugen1 -- 720p motif.  This is the new default motif.</li>
+<li>stage0-720 -- 720p version of stage0.</li>
+</ul>
+</li>
+<li>Added sample truetype font</li>
+</ul>
+</div>
+<div class="section" id="misc">
+<h2>Misc</h2>
+<ul class="simple">
+<li>Base engine ported from Allegro to use SDL.  There may be some minor differences, such as a change in audio volumes.</li>
+</ul>
+</div>
+<div class="section" id="notes">
+<h2>Notes</h2>
+<ul class="simple">
+<li>See readme.txt for known issues.</li>
+<li>To update a character from 2002.04.14 to 1.0, add 1 to the value of the
+P1 parameter of all HitDef pausetimes.
+Then set mugenversion = 1.0 in the player's def file.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="april-2002">
+<h1>14 April 2002</h1>
+<div class="section" id="at-a-glance">
+<h2>At a Glance</h2>
+<ul class="simple">
+<li>Added zipped character support</li>
+<li>Some bugfixes</li>
+</ul>
+</div>
+<div class="section" id="code">
+<h2>Code</h2>
+<ul>
+<li><p class="first">select.def: Added experimental ZIP character support (zipped storyboards not yet
+supported) .def file must have same name as .zip file</p>
+</li>
+<li><p class="first">CNS: New trigger: MoveReversed</p>
+</li>
+<li><dl class="first docutils">
+<dt>CNS: Modified triggers: MoveContact, MoveGuarded, MoveHit</dt>
+<dd><p class="first last">Return values now give information about time since hit status change.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">CMD: Added [Remap] section for button remapping.</p>
+</li>
+<li><p class="first">CNS: ReversalDef controller: sparkxy now treated as spark offset</p>
+</li>
+<li><dl class="first docutils">
+<dt>CNS: Hitdef controller: &quot;sprpriority&quot; parameter renamed to &quot;p1sprpriority&quot;.</dt>
+<dd><p class="first last">New p2sprpriority parameter added</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">CNS: Pause/Superpause controller: new params: pausebg, endcmdbuftime</p>
+</li>
+<li><p class="first">Training menu: Added AI level option to &quot;AI&quot; dummy</p>
+</li>
+<li><p class="first">CMD: Fixed $ (4-way dir detection) bug: release of a direction was being detected as a
+press by the $ direction modifier. &quot;Transfer of charge direction&quot; bug (feature?) is
+still there</p>
+</li>
+<li><p class="first">fonts: fixed bug where right/center justified strings are cut off after a newline</p>
+</li>
+<li><p class="first">*** Changed from previous version ***</p>
+</li>
+<li><p class="first">common1.cns: states 120,130,131,132: added guard-release handling (mugen exe no longer
+does this internally)</p>
+</li>
+<li><p class="first">Fixed bug in CMD detection, where the same command will get detected multiple
+times if the last button is repeatedly pressed</p>
+</li>
+<li><p class="first">Tweaked precaching (performance may increase or decrease)</p>
+</li>
+</ul>
+</div>
+<div class="section" id="known-issues-notes">
+<h2>Known Issues / Notes</h2>
+<p>Please consult readme.txt for known issues and problems.</p>
+</div>
+</div>
+<div class="section" id="november-2001">
+<h1>14 November 2001</h1>
+<div class="section" id="id19">
+<h2>At a Glance</h2>
+<ul class="simple">
+<li>Added Survival play modes. See how long you can last!</li>
+<li>Some bugfixes</li>
+</ul>
+</div>
+<div class="section" id="id20">
+<h2>Code</h2>
+<ul class="simple">
+<li>system.def: [Title Info]: menu.itemname.*: you can disable an item by using &quot;&quot;
+Added items for survival modes.</li>
+<li>mugen.cfg: [Arcade]: added AI ramping options</li>
+<li>New play modes: Survival, Co-op Survival</li>
+<li>CNS: HitDef: ground.type and air.type: hi/lo attributes are swapped if
+p2 is hit from behind</li>
+<li>Nonexistent stages in select.def now automatically excluded from stage list</li>
+<li>Projectile damage now affected by AttackMulSet</li>
+<li>Fixed palette section bug introduced in 2001.11.01</li>
+<li>Fixed serious precaching bug</li>
+</ul>
+</div>
+<div class="section" id="id21">
+<h2>Known Issues / Notes</h2>
+<p>Please consult readme.txt for known issues and problems.</p>
+</div>
+</div>
+<div class="section" id="nov-2001-and-older">
+<h1>1 Nov 2001 and older</h1>
+<p>For older change history, refer to oldhistory.txt.</p>
+</div>
+</div>
+</body>
+</html>

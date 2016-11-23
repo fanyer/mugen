@@ -1,0 +1,592 @@
+﻿<HTML>
+<HEAD>
+<title>M.U.G.E.N Tutorial 1</title>
+<style type="text/css">
+
+/*
+M.U.G.E.N documentation stylesheet.
+
+
+Modified from voidspace.css.
+
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+em, i {
+  font-family: Times New Roman, Times, serif;
+}
+
+a {
+  color: #5577EE;
+  text-decoration: none;
+}
+
+a.reference.internal {
+  font-size: 80%;
+}
+
+a.toc-backref {
+  color: black;
+  text-decoration: none;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #445BAA;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #667788;
+  color: #ffffff;
+  border: thin solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #445BAA;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+  font-size: 120%;
+}
+
+</style>
+</HEAD>
+
+<BODY>
+
+<h1>How Do I...?  A  M.U.G.E.N primer</h1>
+
+<h2>Tutorial Part 1 - Getting started: sprites</h2>
+
+<p>M.U.G.E.N, Elecbyte (c)1999-2009<br>
+Updated 17 September 2009
+</p><br>
+
+Tutorial <b>1</b> | <a href="tutorial2.html">2</a> |
+         <a href="tutorial3.html">3</a> | <a href="tutorial4.html">4</a>
+<hr>
+
+<br><h3>Introduction</h3>
+<p>If you want to make a character for M.U.G.E.N, you'll need a good
+understanding of how every component of a character works. Because
+jumping straight into the technical documentation can be confusing,
+we've written a tutorial to help you get started. As you gain more
+understanding, be sure to refer to the docs often. You may stumble
+or get stuck several times as you make your first character, but
+like anything else, once you know the basics it becomes easier
+and faster to make progress.</p>
+
+<p>In this tutorial you will learn how to make a palette for your 
+character, and how put together your character's sprites.
+Also, you'll see how to make a simple animation action.  
+In Part 2 of the tutorial, you'll see how to define bounding boxes
+for your animations, and in Part 3 and 4 we'll define a simple attack.  
+For this tutorial, you'll need an image editing program such as GIMP,
+PhotoShop, or PaintShop Pro.
+</p>
+
+<p>We'll assume you have at least basic knowledge of text editors,
+graphics editing, game concepts, and how to navigate at a command
+prompt. If you're not familiar with all of these, we recommend you
+do some reading up in beginner books or websites.
+If you have some background in programming languages, you may find
+it a lot easier to understand our docs. All right, now let's begin.</p>
+
+<br><h3>1. Making a palette</h3>
+<p>All the sprites belonging to a character need to be 256-color PNG
+files. Every sprite should have the same 256-color palette in order
+for them to be displayed correctly in-game. If you are experienced
+with Photoshop, the following part will be simple.
+We will assume you are starting with a true-color image (called RGB
+in Photoshop).</p>
+
+<p>When converting sprites to 256 colors (also known as Indexed Color), 
+most paint programs will make the palette however which way they like,
+and they'll do it differently for each sprite.  Here we'll cover how
+to make a standard palette, and how to apply it to each sprite..
+
+<p>With Photoshop, go to Image->Mode->Indexed Color.</p>
+
+<img width="409" height="334" src="tutorial/pshop0.gif">
+
+<p>A window will pop up.  In this window, set the 
+palette to Exact.  If you're using Photoshop 5 or higher, don't click
+on OK yet.  For earlier versions of Photoshop, click OK, then convert
+to RGB (Image->Mode->RGB Color), then click on Image->Mode->Indexed Color again.</p>
+
+<img width="317" height="274" src="tutorial/pshop1.gif">
+
+<p>Now, select Custom in the palette roll-down list to bring up the Color
+Table window. The next step is to make sure the background color of your
+sprite has a color index of 0 (we'll call this &quot;color 0&quot;). In M.U.G.E.N,
+color 0 is the masking color. This means that all the parts of a sprite
+that are color 0 will not be drawn.</p>
+
+<table cellspacing="0" cellpadding="5" border="0">
+<tr><td width="360">
+  <img src="tutorial/color0.gif" width="228" height="165">
+</td></tr>
+<tr><td valign="top" width="360">
+  <font face="Arial" size="-1">
+  Color index 0 should always be the background color. The actual color (not
+  the index value) is up to you.
+  </font>
+</td></tr>
+</table>
+
+<p>In Photoshop's color table editor, set the top left color (that's
+color index 0 in Photoshop) to be the background color of the sprite.
+You will want to make sure that color 0 is a unique color in your palette,
+otherwise Photoshop will not set the color indices correctly.
+To do this, you can take the old color 0 color and put it where the
+bg color used to be (swap the two colors essentially).</p>
+
+<p>Note: If you have used versions of M.U.G.E.N prior to 1.0, the
+preferred file format used to be PCX instead of PNG.  In
+Photoshop, PCX files have the bottom right color as index 0.
+With PNG files, it is the top left color.</p>
+
+<img src="tutorial/pshop2.png"/>
+<font face="Arial" size="-1"><p>
+Example of a correct palette with background color as color 0 (green in the top left corder).
+</p></font>
+
+<table cellspacing="0" cellpadding="5" border="0">
+<tr><td width="360">
+  <img src="tutorial/color0n.gif" width="80" height="120">
+</td><td width="360">
+  <img src="tutorial/color0y.gif" width="80" height="120">
+</td></tr>
+<tr><td valign="top" width="360">
+  <font face="Arial" size="-1">
+  Result of using incorrect palette.
+  </font>
+</td><td valign="top" width="360">
+  <font face="Arial" size="-1">
+  Result of using correct palette.
+  </font>
+</td></tr>
+</table>
+
+<p>Click on the Save button to save this palette (we will call it player.act
+for the purpose of this tutorial). Now click OK to apply the palette
+to this image, and the save the file as a PNG file.</p>
+
+<p> The next step is to convert all your other images to this palette that
+you just created (player.act). You can use the following method:</p>
+
+<UL>
+  <LI>Open the first image, then click on Image -> Mode -> Indexed Color.
+  <LI>Select Custom from the Palette list, and click on Load to select
+  the palette file you just made (player.act). Hit OK until you
+  are back at the main window.
+  <LI>Now save it as a PNG file, and repeat for the rest of your images.
+</UL>
+
+<p>Palette design is very important early on when making your sprites.
+Although M.U.G.E.N lets you use up to 255 colors for each sprite, a character
+with a well-designed palette does not necessarily have to use all the
+available colors indices. Working with a limited number of colors not only
+decreases the size of the PNG files, but also makes it easier to create
+alternate palettes (different color schemes) later on. Pixel sprite art done
+by hand is easier with a small set of colors (16
+to 32), but can become tedious when you have a large palette to work with.
+On the other hand, pre-rendered sprites may look better with a larger range
+of colors, at the cost of little extra work. Keep these points in mind
+when designing your character's palette.
+</p>
+
+<br><h3>2. How do I start making a character?</h3>
+<p>Go to the chars/ directory and make a new directory for your 
+character. Let's call this character "Player", for an example 
+(replace "player" with whatever you want to call your character). In 
+this case, make a directory called chars/player.
+
+<br><h3>3. What does this character need?</h3>
+<p>You'll need to have these in the chars/player directory:</p>
+<pre><code>player.air
+player.cmd
+player.cns
+player.def
+player.sff
+player.snd</code></pre>
+
+To see what each of these files are, read the
+<a href="overview.html">Overview</a> included
+in the docs/ directory of the M.U.G.E.N zip file.<br>
+In this tutorial, you'll make player.sff, the sprite file.
+
+<br><h3>4. How do I start making these files?</h3>
+<p>You can make them all from scratch... Or, you can start by using
+our example character Kung Fu Man (KFM).  KFM's character directory
+is located in chars/kfm/, and his work files are in work/kfm/.
+
+
+<br><h3>5. OK, I got KFM. Now what?</h3>
+
+<p>The first thing to do is to copy over and rename the files needed
+for your character. Assuming your player's directory name is &quot;player&quot;,
+these are the files you should copy:
+<pre><code>
+chars/kfm/kfm.air -> chars/player/player.air
+chars/kfm/kfm.cns -> chars/player/player.cns
+chars/kfm/kfm.cmd -> chars/player/player.cmd
+chars/kfm/kfm.def -> chars/player/player.def
+</pre></code>
+
+What are these files? These 4 files are all in text format, which you can
+edit in a text editor such as MS-DOS EDIT or Windows WordPad. Here is a
+list of each of these files, what they do, and their corresponding technical
+documentation files.
+<UL>
+<LI><b>.air</b> - Animation data. This describes how your sprites
+    will be animated.
+    (<a href="air.html">AIR format</a>)
+<LI><b>.cns</b> - Constants and states. This is where you define your
+    character's state machine. It is the core of how a character
+	behaves.
+    (<a href="cns.html">CNS format</a>, 
+     <a href="exp.html">Expressions</a>)
+<LI><b>.cmd</b> - Move command definitions. The .cmd defines which
+    input move commands trigger which attack states. It works with
+	the .cns file to define how your character reacts to keyboard
+	or joystick input.
+    (see comments in kfm.cmd)
+<LI><b>.def</b> - Files and basic information about a character
+    (see comments in kfm.def)
+</UL>
+
+To set up your character's basic information, open player.def using
+a text editor. Change the fields to the appropriate values. For example:</p>
+
+<table border="0" cellspacing="0" cellpadding="4" bgcolor="#DDDDDD" width="640">
+<tr><td>
+<pre><code>
+; Player information
+[Info]
+name = "Player"             ;Name of character
+displayname = "Player"      ;Name of character to display
+versiondate = 09,09,2009    ;Version date of character (MM-DD-YYYY)
+mugenversion = 1.0          ;Version of M.U.G.E.N character works on
+author = "My Name"          ;Character author name
+pal.defaults = 1,2,3,4      ;Default palettes in order of preference (up to 4)
+                            ;Numbering starts from 1
+localcoord = 320,240        ;Local coordinate space width and height
+
+; Files for the player
+[Files]
+cmd     = player.cmd        ;Command set
+cns     = player.cns        ;Constants
+st      = player.cns        ;States
+stcommon = common1.cns      ;Common states (from data/ or motif)
+sprite  = player.sff        ;Sprite
+anim    = player.air        ;Animation
+sound   =                   ;Sound (leave blank if none) *** Set to blank for now ***
+ai      = kfm.ai            ;AI hints data (not used)
+
+; Arcade mode
+[Arcade]
+intro.storyboard =     ;*** Set to blank for now ***
+ending.storyboard =    ;*** Set to blank for now ***
+</code></pre></td></tr></table><br>
+
+<h4>Making the sprite file</h4>
+
+<p>Now let's make player.sff, the character's sprite file.
+It will contain all the graphics used by your character.
+The sprite file is called an SFF, and the tool that generates
+it is called sprmake2 (short for Sprite Maker 2 -- it is a
+newer version of a tool used prior to M.U.G.E.N 1.0).
+</p>
+
+<p>We'll concentrate on just making standing animation for now.
+If you already have the sprites you want to use, get those ready.  Let's say 
+that the standing animations you want to use are named stand00.png -
+stand03.png and are in the work/player/ directory.  Now, make a text 
+file inside work/player/ and call that file player-sff.def.  
+Here's the start of the text file 
+you would use (comment lines begin with a semicolon).</p>
+
+<br>
+<table border="0" cellspacing="0" cellpadding="4" bgcolor="#DDDDDD" width="640">
+<tr><td>
+<pre><code>
+[Output]
+ ;Filename of the SFF file to create (required).
+filename = chars/player/player.sff
+
+[Option]
+ ;Leave all these options at default.  Don't worry about what they do for now.
+sprite.compress.5 = lz5
+sprite.compress.8 = rle8
+sprite.compress.24 = none
+sprite.decompressonload = 0
+sprite.detectduplicates = 0
+sprite.autocrop = 1
+pal.detectduplicates = 1
+pal.discardduplicates = 1
+pal.reverseact = 0
+pal.reversepng = 0
+
+[Pal]
+ ;This is where you specify color palettes that the character has.
+ ;1,1 maps to color scheme 1; 1,2 to color scheme 2 and so on.
+ ;You can have up to 6.
+1,1, stand00.png
+
+[Option]
+ ;This option forces all sprites you add to use palette 1,1.
+ ;It helps ensure your SFF file is built correctly.
+sprite.usepal = 1,1
+
+[Sprite]
+ ;This is where you specify all your sprites.
+ ;The first two numbers on each line are the group and image number.
+ ;That is a pair of numbers you use to uniquely identify each sprite.
+ ;The filename is specified next.
+ ;Following that, the last two numbers are the X and Y axis.  You'll
+ ;need to change the axis numbers for your own sprites.
+0, 0, stand00.png,  18,105
+0, 1, stand01.png,  18,104
+0, 2, stand02.png,  18,104
+0, 3, stand03.png,  18,104
+; end of file
+</code></pre></td></tr></table><br>
+
+<p>The group number and image number you enter for each sprite is
+used to access it in the .air (animation) file. It's just a pair of
+numbers you will associate with the sprite. For example, instead of
+referring to stand02.pcx, you will refer to 0,2.</p>
+
+<p>Group number 0 is used for standing frames.  You can check the 
+<a href="air.html">AIR docs</a> later
+for recommended numbers for other animation actions.  The image number just 
+specifies which image it is within a particular group number.  You 
+have to get your own X and Y axis from your sprite.  For standing 
+frames, it is usually at the very bottom in the middle of the sprite.
+For jumping sprites, the axis is usually in the where the character's 
+feet would be if they were standing.  That usually is in the center 
+below the sprite.  You can check KFM's sprites by running M.U.G.E.N and 
+pressing Ctrl-C while playing.  This will bring up the characters'
+bounding boxes and axes. Here are some examples of axis positions.</p>
+
+<table cellspacing="0" cellpadding="5" border="0">
+<tr><td valign="bottom">
+  <img src="tutorial/axis0.gif" width="47" height="117">
+</td><td valign="bottom">
+  <img src="tutorial/axis1.gif" width="93" height="116">
+</td><td valign="bottom">
+  <img src="tutorial/axis2.gif" width="48" height="84">
+</td><td valign="bottom">
+  <img src="tutorial/axis3.gif" width="44" height="114">
+</td><td valign="bottom">
+  <img src="tutorial/axis4.gif" width="97" height="109">
+</td></tr>
+</table>
+
+<p>The positioning of your axes is very important. If they are slightly
+off between sprites, you will notice your sprites "jittering" around.
+If you make bigger errors, your sprites can end up appearing in completely
+wrong places.
+
+<p>Once you have player.txt ready, go to the directory where you have 
+mugen.exe and sprmake2.exe, etc and make player.sff by typing at
+the command prompt:
+<pre><code>
+  sprmake2 work\player\player-sff.def
+</code></pre>
+If you get errors or player.sff wasn't made, check your player-sff.def file for 
+mistakes.</p>
+
+<br><h3>6. I made the SFF. What's next?</h3>
+
+<p>Okay, now that you have the standing sprites in player.sff,
+it's time to animate your character. To make the standing animation,
+you have to create an <i>action</i> for it (an <i>action</i> is a
+block of text that describes one sequence of sprites to display).
+Open up player.air in a text editor, and let's get ready to add a standing
+animation action. If your player.air is a copy of kfm.air, you can simply
+edit the appropriate action group (action 0 for standing animation).</p>
+
+<p>It's time to make player.air.  If you've read the AIR docs, you'll know
+the format for .air is:
+<pre><code>
+Group number, image number, X offset, Y offset, game-ticks, [options]
+</code></pre>
+Don't worry about the lines that start with Clsn2 and Clsn2Default 
+for now.</p>
+
+<table border="0" cellspacing="0" cellpadding="4" bgcolor="#DDDDDD" width="640">
+<tr><td>
+<pre><code>
+; Standing Animation
+[Begin Action 0]   ;Action 0 is the standing animation
+Clsn2Default: 2
+ Clsn2[0] = -10,  0, 10,-79
+ Clsn2[1] =  -4,-92,  6,-79
+0,3, 0,0, 7  
+;The above line means to use sprite (0,3) (ie. group 0, image number 3) and 
+;display it for 7 game-ticks.  1 game-tick is 1/60 of a sec, so 60 
+;ticks is 1 second.  Group 0 Image 3 is stand03.pcx.
+0,2, 0,0, 7
+0,1, 0,0, 7
+0,0, 0,0, 7
+0,1, 0,0, 7
+0,2, 0,0, 7
+;end of file
+</code></pre></td></tr></table><br>
+
+<p>Now, save this file and you're ready to see how your character looks!</p>
+
+<br><h3>7. Checking out your actions</h3>
+<p>If all the files are in the right place, you can directly load your 
+character with M.U.G.E.N by typing at the command prompt:</p>
+<pre><code>
+mugen player player
+</code></pre>
+
+<p>This is a shortcut for versus mode. For now, don't worry if you
+see warnings at the top of the screen. Warnings are a sign that
+there's something wrong or missing in your character. In this
+case, your character might be missing required sprites or 
+animation actions.</p>
+
+<p>If you find a sprite too high up, as if it is floating above the
+ground, you'll have to move the axis higher up. Just remember that
+the axis is on ground-level when the character is on the ground.
+Likewise, if your character is too far forwards, move the axis
+right. Once you've adjusted the axes for all the sprites correctly,
+your character shouldn't be sliding or fidgeting around during the
+animation.</p>
+
+<p>If you accidentally entered a sprite group+image number that 
+doesn't exist, then nothing will be drawn. So if you see your
+character blinking out, you should go back and check your .air
+file to see if the numbers correspond to the ones in used for
+building your .sff.<p>
+
+<br><h3>8. Continuing with Actions and Sprites</h3>
+
+<p>After making the standing frames, you can proceed to walking, then
+jumping.
+Now that you know the basics of making sprites and actions, you 
+should continue by making the required sprites from <a href="spr.html">spr.html</a> and
+required actions from the Reserved Action Numbers in the
+<a href="air.html">AIR docs</a>. When you're done, all the
+warnings at the top of the screen should go away.</p>
+
+<p>In part 2 of the tutorial, you'll be able to define your character's 
+bounding boxes so they can get hit and hit other characters.  
+Finally, we'll show you how to define some attacks in the .cns.</p>
+
+<!---------------------------------------------------------------->
+<br><hr>
+
+Tutorial <b>1</b> | <a href="tutorial2.html">2</a> |
+         <a href="tutorial3.html">3</a> | <a href="tutorial4.html">4</a>
+<p>Next is <b><a href="tutorial2.html">Tutorial Part 2</a></b>
+</p>
+</BODY></HTML>

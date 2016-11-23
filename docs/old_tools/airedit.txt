@@ -1,0 +1,178 @@
+M.U.G.E.N Tools - AirEditor 2001/08/02
+(c) 1999-2001 Elecbyte
+www.elecbyte.com
+
+
+
+=========
+AirEditor
+=========
+
+This is a GUI based program and should work if MUGEN works on your
+system. AirEditor needs to be in your MUGEN directory to work
+properly.
+
+Probably the best way to get started with AirEditor is to load up
+an existing character.  Choose File->Open and you'll have to load
+the character's .sff file and then its .air file.
+
+After that is done, you'll be able to browse through the sprites
+and view the collision boxes and sprite axes.  
+
+*** Important ***
+AirEditor is a beta program. There may be bugs, so be sure to back
+up your files before using AirEditor.
+
+
+Note to old users
+-----------------
+
+This version of AirEditor has some GUI and usage changes. Unlike
+the older versions, this version does not require you to save the
+file for every set of collision boxes you make. Please read this
+document carefully before using.
+
+
+Changing video settings
+------------------------
+
+Open the file data/airedit.cfg in a text editor. You can change
+video settings here. You can set a higher resolution if you need
+more work space.
+
+
+Command-line options
+--------------------
+
+Type airedit at the command-line to start normally. You can open
+a .sff and a .air at the command-line by the format:
+
+  ./airedit <SFF filename> <AIR filename>
+
+For example:
+
+  ./airedit chars/kfm/kfm.sff chars/kfm/kfm.air
+
+
+AirEditor Menus
+---------------
+
+The File menu
+  Open - choose a .sff and a .air file to open for editing
+  Save - saves the .air file
+  Revert - reverts to the previously-saved .air file, discarding
+           any changes you have made
+  Exit - quits AirEditor
+
+The View menu
+  Info (DOS only) - displays saved box information in a table
+  Zoom In - increases magnification
+  Zoom Out - decreases magnification
+  Screenshot - takes a screenshot and saves it to aired*.pcx
+               (this may be slow)
+
+
+Navigating in AirEditor
+-----------------------
+
+Click on the left and right arrows next to the action and element
+buttons in the Navigation window to view your desired frames. To jump
+to a particular action and element, click on the action or element
+buttons and type in the number of the action/element you wish to see.
+
+
+To move the sprite around in its window, right-click on the window, 
+and drag your mouse around.
+
+You can zoom in and out by clicking on the View menu, and choosing
+the appropriate items.
+
+Click on the "Play Anim" button to play back the animation. Click on
+that button again to stop playback. You cannot do any editing while
+the animation is playing.
+
+
+Defining collision boxes
+------------------------
+
+There are two kinds of collision boxes used in M.U.G.E.N:  Clsn1
+and Clsn2. Clsn2 boxes are blue and Clsn1 boxes show up as red.
+Blue boxes define the character's dimensions and the red boxes 
+indicate parts of the sprite that "attack." Note that just defining
+red boxes in AirEditor does make a complete attack. You need to
+define a HitDef for that attack in the CNS file.
+
+There is a 2-step process to adding a set of boxes to your
+existing AIR file:
+
+Step 1: Define a set of boxes
+Step 2: Set the boxes as either Clsn1 or Clsn2.
+
+To define a single box, simply left-drag your mouse over the desired
+area on the sprite window. This box is called the "working box". To
+undefine the working box, click on the sprite window again without
+dragging.
+
+Once you have the working box ready, you can add it to the set by
+clicking on one of the Save buttons at the bottom of the screen.
+Click on the Clear button to clear the entire set. This set of
+boxes is known as the "save" set.
+
+AirEditor lets you define up to 10 collision boxes per set, which
+should be more than adequate. If you need more collision boxes for
+any reason, you will have to manually add it to the AIR files using a
+text editor.
+
+In the Collision Boxes window on the right side of the screen, click
+on the appropriate "Set" button to set the boxes, overwriting any
+boxes that may have been previously set. If you have no boxes
+defined, clicking on Set will remove the existing boxes.
+
+If there are existing collision boxes, you can click on the Option
+button. To set the current element's boxes to default, check the
+"Set as Default" option. Default boxes are what all later elements
+in that animation action get if they have no boxes defined
+themselves. Clicking on "Get Boxes" will get the existing set of
+boxes into the "save" set, which gives you a way to copy boxes
+from one element to another.
+
+When you are done editing, remember to save your file.
+
+
+HotKeys
+-------
+
+A   - Jump to action
+X   - Toggle Show axes
+1   - Toggle Show Clsn1
+2   - Toggle Show Clsn2
++   - Zoom in
+-   - Zoom out
+F12 - Screenshot
+Esc - Quit
+
+
+Refreshing the screen
+---------------------
+
+If for some reason the graphics get corrupted, press Ctrl-R to refresh
+the screen.
+
+
+Known Issues
+------------
+
+- Saving before making any changes may cause the AIR file to be deleted.
+  Back up your files before using this tool.
+
+- The Cancel buttons in the Navigation menu don't cancel.
+
+
+
+====================
+Disclaimer
+====================
+
+Elecbyte will not be held liable for any damages to either the user
+or the system it is run on, that may occur as a direct or indirect
+result of the use of this program.

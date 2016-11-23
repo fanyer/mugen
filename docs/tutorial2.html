@@ -1,0 +1,306 @@
+<HTML>
+<HEAD>
+<title>M.U.G.E.N Tutorial 2</title>
+<style type="text/css">
+
+/*
+M.U.G.E.N documentation stylesheet.
+
+
+Modified from voidspace.css.
+
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+em, i {
+  font-family: Times New Roman, Times, serif;
+}
+
+a {
+  color: #5577EE;
+  text-decoration: none;
+}
+
+a.reference.internal {
+  font-size: 80%;
+}
+
+a.toc-backref {
+  color: black;
+  text-decoration: none;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #445BAA;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #667788;
+  color: #ffffff;
+  border: thin solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #445BAA;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+  font-size: 120%;
+}
+
+</style>
+</HEAD>
+
+<BODY>
+
+<h1>
+How Do I...?  A  M.U.G.E.N primer</h1>
+<h2>Tutorial Part 2 - Collision boxes</h2>
+
+<p>M.U.G.E.N, Elecbyte (c)1999-2009<br>
+Updated 17 September 2009
+</p><br>
+
+Tutorial <a href="tutorial1.html">1</a> | <b>2</b> | 
+         <a href="tutorial3.html">3</a> | <a href="tutorial4.html">4</a>
+<hr>
+
+<br><h3>Introduction</h3>
+<p>In this part, we will talk about how to define collision boxes for the
+animations in your character's .air file. The documentation for .air files
+is in <a href="air.html">air.html</a>. It's a good idea to read it before
+proceeding with this tutorial.</p>
+
+<br><h3>1. About Collision Boxes</h3>
+<p>Once you have put together an animation for the character, you can
+use AirEditor to define collision boxes. There are two kinds of collision
+boxes:
+<ul>
+<li>Clsn1 - Attack box (red in color)
+<li>Clsn2 - Hit box (blue in color)
+</ul>
+Simply put, if one of Player 1's attack boxes overlaps any one of Player 2's hit boxes,
+then it means Player 1 has hit Player 2.</p>
+
+<br><h3>2. Using AirEditor</h3>
+<p>AirEditor is a developer tool, and can be found in the old_tools/ directory
+of your M.U.G.E.N installation.
+The instructions for using AirEditor
+are in airedit.txt. When you are ready, run the airedit executable.</p>
+
+<p>Go to File -&gt Open and choose the sff file you want to load, followed by the
+accompanying air file. You will now see your character on the screen: </p>
+
+<img src="tutorial/airvw0.gif" width="320" height="240" alt="AirEditor screen">
+
+<p>Let's explain what you see on the screen.
+<ul>
+<li>The big window that you see your character displayed in is called the
+    <b>Display window</b>. The title area shows the current animation action
+    you are looking at, as well as the sprite number of the sprite shown.
+<li>The <b>Info window</b> at the upper-left shows:
+  <ul>
+  <li>X,Y coordinates of the cursor, which is displayed as a crosshair in the
+      display window
+  <li>X,Y position of the axis of the sprite, relative to the upper-left corner
+      of the sprite. This is the number you entered in the player-sff.def file used to
+	  generate the SFF
+  <li>Coordinates of the two opposing corners of the box you create when you
+      drag the cursor on the display window
+  </ul>
+<li>The <b>Navigation window</b>:
+  <ul>
+  <li>Current action being displayed. You can scroll through the animation
+      actions in your .air file by pressing the arrow buttons on either side,
+	  or you can enter it manually by clicking on the middle button
+  <li>Current element of the action that is being shown. You can scroll through
+      the available elements, or manually enter it, just like the action
+  <li>Click "Play Anim" to preview the animation
+  </ul>
+<li>The <b>Collision boxes window</b>:
+  <ul>
+  <li>There are buttons here to let you set the bounding boxes for the current
+      animation element
+  </ul>
+<li>The <b>Options window</b>:
+  <ul>
+  <li>A toggle button to enable/disable display of the Clsn1 (attack) box
+  <li>A toggle button to enable/disable display of the Clsn2 (hit) box
+  <li>A toggle button to enable/disable display of the sprite's axis
+  </ul>
+<li>The wide grey box at the very top of the screen beside the menu is the
+    <b>Status bar</b>, which shows you some information, such as your last
+    menu action.
+<li>At the bottom of the screen you see a row of Save boxes. Each of these
+    represents a slot that you can save a box into. The clear button
+	erases them all.
+</ul>
+</p>
+
+<p>To define a collision box, simply drag the mouse cursor over the region
+you want to create a box at. This will be displayed as a bright green box.
+Click without dragging to make the green box go away. Let's start by defining
+boxes for KFM's standing frame. First, we'll drag a box to represent his
+body.
+</p>
+<img src="tutorial/airvw1.gif" width="320" height="240" alt="Boxes1">
+<img src="tutorial/airvw2.gif" width="320" height="240" alt="Boxes2">
+<p>Click on the Save1 button at the bottom of the screen to save that box
+to memory. Now drag a second box for the head and click on Save2 to save that.
+Notice how the saved boxes appear in a darker color.
+If you want to go back and correct one of the saved boxes, simply drag a
+new green box.</p>
+
+<p>Next, you assign the set of boxes to the current animation element.
+Click on the corresponding "Set" box in the <b>Collision boxes</b> menu.
+Repeat the procedure for all the elements in the animation action.</p>
+
+<p>When you are done with your changes, remember to save your .air file.
+Click on the File menu and choose Save.</p>
+
+<br>
+<h3>3. General Tips</h3>
+<p>
+<ul>
+<li>You can quickly load your character by specifying the .sff and the
+    .air filenames at the prompt. For example,<br>
+	<tt>airedit chars/kfm/kfm.sff chars/kfm/kfm.air</tt>
+<li>If you have a lot of frames using the same set of boxes, you can
+    scroll through each element, saving the boxes to the .air file 
+	without clearing the boxes each time.
+	Alternatively, you can set the collision box as "Default" to define
+	a default set of boxes for each frame within an action. Click on
+	the "Options"
+	Read air.html for more information on default collision boxes.
+<li>In common cases, try to keep Clsn2 boxes within your Clsn1 boxes.
+    The reason for this is so that it becomes possible to trade hits
+	between players. If you have a Clsn1 box without a Clsn2 box in
+	it, then setting priorities on attacks becomes meaningless, as the
+	attacks would have infinite priority that way.
+<li>Don't be too detailed with your collision boxes. The point is not to
+    make a pixel-accurate representation of the character, but to make
+	one that is game-friendly. For example, boxes for your character
+	on the ground should have Clsn2 boxes that span the space between
+	both legs. In this case, too much detail is actually undesirable.<br>
+<br>Here is a picture of a one that is too detailed. You want to avoid this.<br>
+<img src="tutorial/airvw3.gif" width="320" height="240" alt="Too much detail" border="0"><br>
+<br>This next one has a better set. Not only does it take less effort to create,
+    but it better approximates the movement of the character over time. Also,
+	there is less chance that a Clsn1 box from an attack would slip through
+	a gap.<br>
+<img src="tutorial/airvw4.gif" width="320" height="240" alt="Just right" border="0">
+</ul>
+</p>
+
+<!---------------------------------------------------------------->
+<br><hr>
+
+Tutorial <a href="tutorial1.html">1</a> | <b>2</b> | 
+         <a href="tutorial3.html">3</a> | <a href="tutorial4.html">4</a>
+<p>Next is <b><a href="tutorial3.html">Tutorial Part 3</a></b>
+</p>
+</BODY></HTML>

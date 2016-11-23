@@ -1,0 +1,371 @@
+<html>
+<head>
+	<title>M.U.G.E.N - Make Your Own 2D Fighting Game</title>
+<style type="text/css">
+
+/*
+M.U.G.E.N documentation stylesheet.
+
+
+Modified from voidspace.css.
+
+:Authors: Ian Bicking, Michael Foord
+:Contact: fuzzyman@voidspace.org.uk
+:Date: 2005/08/26 
+:Version: 0.1.0
+:Copyright: This stylesheet has been placed in the public domain.
+
+Stylesheet for Docutils.
+Based on ``blue_box.css`` by Ian Bicking
+and ``html4css1.css`` revision 1.46.
+*/
+
+@import url(html4css1.css);
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+em, i {
+  font-family: Times New Roman, Times, serif;
+}
+
+a {
+  color: #5577EE;
+  text-decoration: none;
+}
+
+a.reference.internal {
+  font-size: 80%;
+}
+
+a.toc-backref {
+  color: black;
+  text-decoration: none;
+}
+
+a.toc-backref:hover {
+  background-color: inherit;
+}
+
+a:hover {
+  background-color: #cccccc;
+  text-decoration: none;
+}
+
+a img {
+  border: none;
+}
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  background-color: #cccccc;
+  padding: 3px;
+  width: 80%;
+}
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title  {
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: #cc0000;
+  font-family: sans-serif;
+  text-align: center;
+  background-color: #999999;
+  display: block;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  border: thin solid black;
+  /* This makes the borders rounded on Mozilla, which pleases me */
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+h1 {
+  background-color: #445BAA;
+  color: #ffffff;
+  border: medium solid black;
+}
+
+h1 a.toc-backref, h2 a.toc-backref { 
+  color: #ffffff;
+}
+
+h2 {
+  background-color: #667788;
+  color: #ffffff;
+  border: thin solid black;
+}
+
+h3, h4, h5, h6 {
+  background-color: #cccccc;
+  color: #000000;
+}
+
+h3 a.toc-backref, h4 a.toc-backref, h5 a.toc-backref, 
+h6 a.toc-backref { 
+  color: #000000;
+}
+
+h1.title {
+  text-align: center;
+  background-color: #445BAA;
+  color: #eeeeee;
+  border: thick solid black;
+  -moz-border-radius: 20px;
+}
+
+table.footnote {
+  padding-left: 0.5ex;
+}
+
+table.citation {
+  padding-left: 0.5ex
+}
+
+pre.literal-block, pre.doctest-block {
+  border: thin black solid;
+  padding: 5px;
+}
+
+.image img { border-style : solid;
+            border-width : 2px;
+}
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100%;
+}
+
+code, tt {
+  color: #000066;
+  font-size: 120%;
+}
+
+</style>
+</head>
+
+<body>
+
+<center><font size=+3>M.U.G.E.N&trade;<br>1.0</font><br>
+<br>
+(c) Elecbyte 1999-2011<br><br>
+<a href="http://elecbyte.com">elecbyte.com</a>
+</center>
+
+<hr size="1" width="300">
+
+<ul>
+<li><a href="readme.txt"><b>README and License</b></a></li>
+<li><a href="history.html"><b>Update History</b></a></li>
+</ul>
+
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#overview" id="id1">Overview</a></li>
+<li><a class="reference internal" href="#contents-and-files" id="id2">Contents and Files</a></li>
+<li><a class="reference internal" href="#documentation" id="id3">Documentation</a></li>
+</ul>
+</div>
+
+<br>
+<div class="section" id="overview">
+<h2>Overview</h2>
+
+<p>If you are upgrading from an older version of M.U.G.E.N, please read the <a href="upgrading.html">Upgrade Notes</a>.</p>
+
+<p>M.U.G.E.N is a 2D fighting game engine that is enables you to create commercial-quality fighting games. Almost everything can be customized, from individual characters to stages, as well as the look and feel of the game.</p>
+
+<p>After downloading M.U.G.E.N, unzip it into a new folder and double-click mugen.exe to run.</p>
+
+<p>The majority of content created for M.U.G.E.N tend to be distributed as individual characters, stages or motifs.  Assembling a game is as simple as downloading the content of your choice, and configuring M.U.G.E.N to know about it.</p>
+
+<p>M.U.G.E.N is designed to be used by people with little or no programming experience, but with some artistic talent and patience to learn.  Of course, having some programming background does give you a bit of a headstart.  However, if you are just looking to play with downloaded content, all you need to know is how to unzip files and edit a text file.</p>
+
+<p>Here's a sampling of features you can find in M.U.G.E.N:</p>
+<ul>
+<li>Customizable title screen, character select screen, life and bars, game sound effects, fonts and more.</li>
+<li>Characters can have any number of sounds and sprites of any size limited by your computer's memory.</li>
+<li>Choose from multiple resolutions, ranging from 320x240 up to full HD at 1920x1080.</li>
+<li>Cutscenes.</li>
+</ul>
+
+<p>Game Engine</p>
+<ul>
+<li>Use up to 7 buttons for a character.</li>
+<li>Regular moves, special moves, super moves, etc.</li>
+<li>Projectiles and special effects.</li>
+<li>Move cancels and combos, multi-part moves and throws.</li>
+<li>What your character can do is defined by a scripting language (and your imagination).</li>
+</ul>
+
+<p>M.U.G.E.N is free for non-commercial use. If you have other needs, just ask us. You can read the full license text in the README file.</p>
+
+</div>
+
+<div class="section" id="contents-and-files">
+<h2>Contents and Files</h2>
+
+<h3>File List</h3>
+<table>
+<thead>
+<tr>
+  <td>File or directory</td><td>Purpose</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>mugen.exe</td>
+  <td>The main M.U.G.E.N executable</td>
+</tr>
+<tr>
+  <td>chars/</td>
+  <td>Directory containing character files</td>
+</tr>
+<tr>
+  <td>data/mugen.cfg</td>
+  <td>Preferences and settings (text file)</td>
+</tr>
+<tr>
+  <td>data/select.def</td>
+  <td>Character and stage config (text file)</td>
+</tr>
+<tr>
+  <td>data/ other files </td>
+  <td>Motif files</td>
+</tr>
+<tr>
+  <td>docs/</td>
+  <td>Documentation</td>
+</tr>
+<tr>
+  <td>font/</td>
+  <td>Directory containing font files</td>
+</tr>
+<tr>
+  <td>old_tools/</td>
+  <td>Tools from older versions of M.U.G.E.N</td>
+</tr>
+<tr>
+  <td>sound/</td>
+  <td>Directory containing music files</td>
+</tr>
+<tr>
+  <td>stages/</td>
+  <td>Directory containing stage files</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Global File Types</h3>
+Files with these extensions can be found in various subdirectories in the M.U.G.E.N directory.
+<table>
+<thead>
+<tr>
+  <td>File extension</td><td>Type</td>
+</tr>
+</thead>
+<tbody>
+<tr><td>air</td><td>Animations (text)</td></tr>
+<tr><td>def</td><td>Definition file -- has various uses depending on the filename (text)</td></tr>
+<tr><td>fnt</td><td>Font file -- old version; new font files are a pair of .fnt and .sff</td></tr>
+<tr><td>sff</td><td>Sprite file</td></tr>
+<tr><td>snd</td><td>Sound file</td></tr>
+</tbody>
+</table>
+
+<h3>Character Files</h3>
+Character files are located as subdirectories in the chars/ directory.
+The files may be named differently for different characters.
+<table>
+<thead>
+<tr>
+  <td>Example file</td><td>Type</td>
+</tr>
+</thead>
+<tbody>
+<tr><td>player.air</td><td>Animations (text)</td></tr>
+<tr><td>player.cmd</td><td>Character commands and move definitions (text)</td></tr>
+<tr><td>player.cns</td><td>Character states and behavior (text) </td></tr>
+<tr><td>player.def</td><td>Basic info and filenames of files used by the character (text)</td></tr>
+<tr><td>player.sff</td><td>Character sprites</td></tr>
+<tr><td>player.snd</td><td>Character sounds</td></tr>
+</tbody>
+</table>
+
+<h3>Motif Files</h3>
+Motifs are located as subdirectories in the data/ directory.
+<table>
+<thead>
+<tr>
+  <td>File</td><td>Type</td>
+</tr>
+</thead>
+<tbody>
+<tr><td>common1.cns</td><td>Behavior information common to all characters (text)</td></tr>
+<tr><td>common1.snd</td><td>Sound effects that all characters can access</td></tr>
+<tr><td>fight.def</td><td>Defines the look and feel of the fight screen, i.e. lifebars, etc (text)</td></tr>
+<tr><td>fight.sff</td><td>Sprites used in the fight screen</td></tr>
+<tr><td>fight.snd</td><td>Sounds used in the fight screen</td></tr>
+<tr><td>fightfx.air</td><td>Animation data for in-fight effects, such as hit sparks</td></tr>
+<tr><td>fightfx.sff</td><td>Sprite data for in-fight effects</td></tr>
+<tr><td>select.def</td><td>Defines what characters and stages are included in the game</td></tr>
+<tr><td>system.def</td><td>Defines the look of the system screens, such as title and character select screen</td></tr>
+<tr><td>system.sff</td><td>Sprites used for the system screens</td></tr>
+<tr><td>system.snd</td><td>Sounds used for the system screens</td></tr>
+</tbody>
+</table>
+
+</div>
+
+<div class="section" id="documentation">
+<h2>Documentation</h2>
+
+<h3>Reference</h3>
+Technical reference for M.U.G.E.N.
+<ul>
+<li><a href="air.html"><b>AIR format</b></a></li>
+<li><a href="bgs.html"><b>Background / stage documentation</b></a></li>
+<li><a href="cns.html"><b>CNS format</b></a></li>
+<li><a href="coordspace.html"><b>Coordinate space notes</b></a></li>
+<li><a href="fonts.html"><b>Fonts</b></a></li>
+<li><a href="localization.html"><b>Languages and localization</b></a></li>
+<li><a href="loopguide.html"><b>Looping BGM guide</b></a></li>
+<li><a href="sprmake2.html"><b>SpriteMaker tool</b></a></li>
+<li><a href="spr.html"><b>Sprite standard</b></a></li>
+<li><a href="sctrls.html"><b>State controller reference</b></a></li>
+<li><a href="storyboard.html"><b>Storyboard documentation</b></a></li>
+<li><a href="trigger.html"><b>Trigger list</b></a></li>
+</ul>
+
+<h3>Tutorials</h3>
+New to M.U.G.E.N? Get started with our tutorials.
+<ul>
+<li><a href="tutorial1.html"><b>Character Tutorial 1</b></a></li>
+<li><a href="tutorial2.html"><b>Character Tutorial 2</b></a></li>
+<li><a href="tutorial3.html"><b>Character Tutorial 3</b></a></li>
+<li><a href="tutorial4.html"><b>Character Tutorial 4</b></a></li>
+<li><a href="bg-tut.html"><b>Stage/backgrounds Tutorial</b></a></li>
+</ul>
+
+<h3>Upgrade Notes</h3>
+
+<ul>
+<li><a href="upgrading.html"><b>Upgrade Notes</b></a> - upgrading from M.U.G.E.N 2002.04.14 to 1.0</li>
+</ul>
+
+</div>
+
+</body>
+</html>
